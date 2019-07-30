@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     backgroundSize: 'cover',
     backgroundPosition: 'center 40%',
+    
   },
   imageTitle: {
     position: 'relative',
