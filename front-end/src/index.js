@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from './Home';
 import CustomerRequest from './CustomerRequest/CustomerRequest';
 import * as serviceWorker from './serviceWorker';
 
