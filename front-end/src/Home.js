@@ -5,13 +5,10 @@ import Typography from '@material-ui/core/Typography';
 
 const images = [
   {
-    url: 'https://farm3.staticflickr.com/2896/33650426736_7a5088b717_z.jpg',
     title: 'I am a Visitor',
     width: '30%',
   },
-  
   {
-    url: 'https://farm3.staticflickr.com/2896/33650426736_7a5088b717_z.jpg',
     title: 'I am an Employee',
     width: '30%',
   },
@@ -22,17 +19,9 @@ const useStyles = makeStyles(theme => ({
     top: 250,
     border: '4px solid white',
     position: 'relative',
-    height: 300,
-    [theme.breakpoints.down('xs')]: {
-      width: '100% !important', // Overrides inline-style
-      height: 100,
-    },
+    height: 300
   },
   imageButton: {
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     color: theme.palette.common.white,
   },
   imageSrc: {
@@ -76,9 +65,6 @@ export default function ButtonBases() {
         >
           <span className={classes.imageButton}>
             <Typography
-              component="span"
-              variant="subtitle1"
-              color="inherit"
               className={classes.imageTitle}
             >
               {image.title}
