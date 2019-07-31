@@ -1,35 +1,27 @@
 package com.credera.nationalparksproj.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Visitor Request")
+@Table(name = "Visitor_Request")
 @NoArgsConstructor
-
+@AllArgsConstructor
+@Getter
+@Setter
 public class VisitorRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "visitor_request_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "status")
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Song.class)
-    private List<Song> songs;
-
-
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
