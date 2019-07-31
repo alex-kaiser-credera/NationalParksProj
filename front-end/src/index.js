@@ -4,8 +4,9 @@ import App from "./App";
 import * as serviceWorker from './serviceWorker';
 import CustomerRequest from './pages/CustomerRequest';
 import SignIn from './SignIn';
+import EmployeeQueue from './pages/EmployeeQueue';
 
-ReactDOM.render(<CustomerRequest />, document.getElementById('root'));
+ReactDOM.render(<EmployeeQueue />, document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change
