@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {useInput} from './UseInput';
 import Typography from '@material-ui/core/Typography';
@@ -75,7 +75,8 @@ export default function LogIn() {
         backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
         }}
       />
-    <Container id="signIn-form" component="main" maxWidth="xs" onSubmit={handleSubmit}>
+    <Container id="signIn-form" component="main" maxWidth="xs"> 
+    {/* onSubmit={handleSubmit}> */}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}/>
         <Typography component="h1" variant="h5">
@@ -111,7 +112,7 @@ export default function LogIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          {/* <Link to="/Home/UserHome"> */}
+          <Link to="/employee_queue"> 
             <Button
               type="submit"
               fullWidth
@@ -121,7 +122,7 @@ export default function LogIn() {
             >
               Sign In
             </Button>
-          {/* </Link> */}
+          </Link>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
