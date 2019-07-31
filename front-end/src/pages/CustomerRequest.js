@@ -73,6 +73,10 @@ const useStyles = makeStyles(theme => ({
         setEmail(event.target.value);
     }
 
+
+    const items = ["yellowstone", "big bend", "park3"];
+
+
     return(
     <div>
         <Container id="signIn-form" component="main" >
@@ -112,15 +116,18 @@ const useStyles = makeStyles(theme => ({
             className={classes.labels}
             value={park}
             onChange={handleParkChange}
+            // onOpen={handleParkClick}
             inputProps={{
             name: 'park',
             id: 'park',
             }}
 
-        >
-            <MenuItem value={1}>Yosemite</MenuItem>
-            <MenuItem value={2}>YellowStone</MenuItem>
-            <MenuItem value={3}>Lol</MenuItem>
+        > 
+            {items.map((e) => (
+                <MenuItem>{e}</MenuItem>
+            ))}
+            {/* <MenuItem value={2}>YellowStone</MenuItem>
+            <MenuItem value={3}>Lol</MenuItem> */}
         </Select>
         <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
         </FormControl>
