@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "National Park")
+@Table(name = "National_Park")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class NationalPark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "national_park_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "park_name")
