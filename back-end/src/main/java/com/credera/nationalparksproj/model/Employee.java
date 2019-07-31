@@ -20,4 +20,24 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @ManyToOne(targetEntity = NationalPark.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "park")
+    private NationalPark park;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", park=" + park +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
