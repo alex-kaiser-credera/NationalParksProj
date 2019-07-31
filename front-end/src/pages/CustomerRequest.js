@@ -77,12 +77,12 @@ const useStyles = makeStyles(theme => ({
     <div>
         <Container id="signIn-form" component="main" >
       <div className={classes.paper}>
-        <span
+        {/* <span
             className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-            }}
-          />
+            // style={{
+            //   backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
+            // }}
+          /> */}
         <Avatar className={classes.avatar}/>
         <Typography
             noWrap
