@@ -1,19 +1,57 @@
 import React from 'react';
-//import {withStyles} from 'material-ui/styles';
-
-//import {List} from 'material-ui/List';
-//import Typography from 'material-ui/styles/typography';
+import { makeStyles } from '@material-ui/core/styles';
 import {Typography, Select, FormControl, InputLabel, MenuItem, FormHelperText, Input, Button} from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar';
 
-// const Styles = theme => ({
-//     root: {
-//         width: 100%
-//     }
+const useStyles = makeStyles(theme => ({
+    imageSrc: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundPosition: 'center 40%',
+        zIndex: -1
+      },
+    header: {
+        color: 'inherit',
+        paddingBottom: 30,
+    },
+    paper: {
+        marginTop: theme.spacing(8),
+        marginLeft: 250,
+        padding: 50,
+        width: 600,
+        border: '4px solid grey',
+        height: 650,
+      },
+    labels: {
+        display: 'block',
+        width: 200,
+    },
+    button: {
+        margin: 30,
+        marginLeft: 55,
+    },
+    spacing: {
+        marginBottom: 20,
+    },
+    avatar: {
+        height: 100,
+        width: 100,
+        marginBottom: 25,
+        backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: 'inherit',
+        left: 250,
+      },
+}));
 
-
-// });
-
-const CustomerRequest = () => {
+ export default function CustomerRequest() {
+    const classes = useStyles();
     const [park, setPark] = React.useState('');
     const [request, setRequest] = React.useState('');
     const [description, setDescription] = React.useState('');
@@ -37,29 +75,41 @@ const CustomerRequest = () => {
 
     return(
     <div>
+        <Container id="signIn-form" component="main" >
+      <div className={classes.paper}>
+        <span
+            className={classes.imageSrc}
+            style={{
+              backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
+            }}
+          />
+        <Avatar className={classes.avatar}/>
         <Typography
             noWrap
+            className={classes.header}
             align='center'
-            variant='h1'
-            color='inherit'
+            component='h1'
+            variant='h5'
         >
-            Customer Demand
+            Visitor Request Form
         </Typography>
         <div align='center'>
         <FormControl>
-        <InputLabel htmlfor='email'>Email</InputLabel>
+        <InputLabel className={classes.labels} htmlfor='email'>Email</InputLabel>
         <Input 
+            className={classes.labels}
             id='description'
             onChange={handleEmailChange}
             value={email}
         />
-        <FormHelperText>Type in your email</FormHelperText>
+        <FormHelperText className={classes.spacing}>Type in your email</FormHelperText>
         </FormControl>
         </div>
         <div align='center'>
         <FormControl>
-        <InputLabel htmlfor='park'>Park</InputLabel>
+        <InputLabel className={classes.labels} htmlfor='park'>Park</InputLabel>
         <Select 
+            className={classes.labels}
             value={park}
             onChange={handleParkChange}
             inputProps={{
@@ -72,13 +122,14 @@ const CustomerRequest = () => {
             <MenuItem value={2}>YellowStone</MenuItem>
             <MenuItem value={3}>Lol</MenuItem>
         </Select>
-        <FormHelperText>Select your national park!</FormHelperText>
+        <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
         </FormControl>
         </div>
         <div align='center'>
         <FormControl>
-        <InputLabel htmlfor='request'>Request</InputLabel>
+        <InputLabel className={classes.labels} htmlfor='request'>Request</InputLabel>
         <Select 
+            className={classes.labels}
             value={request}
             onChange={handleRequestChange}
             inputProps={{
@@ -95,27 +146,33 @@ const CustomerRequest = () => {
             <MenuItem value={6}>Campsite Needs Cleanup</MenuItem>
             <MenuItem value={7}>Other</MenuItem>
         </Select>
-        <FormHelperText>Select your Request!</FormHelperText>
+        <FormHelperText className={classes.spacing}>Select request type</FormHelperText>
         </FormControl>
         </div>
         <div align='center'>
         <FormControl>
-        <InputLabel htmlfor='description'>Request Description</InputLabel>
+        <InputLabel className={classes.labels} htmlfor='description'>Request Description</InputLabel>
         <Input 
+            className={classes.labels}
             id='description'
             onChange={handleDescriptionChange}
             value={description}
             multiline
             rowsMax="4"
         />
-        <FormHelperText>Describe your Request!</FormHelperText>
+        <FormHelperText className={classes.spacing}>Describe request details</FormHelperText>
+        <div className={classes.button}>
+            <Button 
+            variant='contained'
+            color="primary"
+            >Submit</Button>
+        </div>
         </FormControl>
         </div>
-        <div align='center'>
-            <Button variant='contained'>Submit</Button>
         </div>
+    </Container>
     </div>
     );
 };
 
-export default (CustomerRequest);
+//export default (CustomerRequest);
