@@ -28,7 +28,15 @@ export default function DenseAppBar() {
             <Typography variant="h6" color="inherit">
               Employee Name?
             </Typography>
-          </Toolbar>
+            <IconButton 
+            edge="end" 
+            aria-label="account of current user" 
+            aria-controls="{mobileMenuId}" 
+            aria-haspopup="true" 
+            onClick="{handleMobileMenuOpen"
+            color="inherit"
+            />
+            </Toolbar>
         </AppBar>
       </div>
     );
