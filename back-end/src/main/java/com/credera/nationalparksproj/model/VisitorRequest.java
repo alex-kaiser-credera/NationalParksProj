@@ -18,10 +18,31 @@ public class VisitorRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "request_id")
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "status")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "parkLocation")
+    private Long parkId;
 
+    @Column(name = "requestType")
+    private String requestType;
+
+    @Column(name = "problemDescription")
+    private String problemDesc;
+
+    @Column(name = "email")
+    private String email;
+
+    @Override
+    public String toString() {
+        return "VisitorRequest{" +
+                "id=" + id +
+                ", parkId=" + parkId +
+                ", requestType='" + requestType + '\'' +
+                ", problemDesc='" + problemDesc + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
