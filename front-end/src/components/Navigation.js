@@ -5,7 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,  createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
 
 const useStyles = makeStyles(theme => ({
@@ -17,6 +18,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const theme = createMuiTheme({
+  overrides: {
+    MuiPaper: {
+      root: {
+        background: 'transparent!important',
+        color: '#000!important',
+        boxShadow: 'none!important',
+      }
+    }
+  }
+});
+
 // export default function DenseAppBar() {
 //     const classes = useStyles(theme => ({
 //         root: {
@@ -26,22 +39,28 @@ const useStyles = makeStyles(theme => ({
 //           marginRight: theme.spacing(2),
 //         },
 //       }));
-    
+
+// background: transparent;
+// color: #000;
+// box-shadow: none;
+
 export default function DenseAppBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            Photos
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar variant="dense">
+            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton> */}
+            <Typography variant="h6" text-color="black">
+              Home
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div>
+    </ThemeProvider>
   );
 }
