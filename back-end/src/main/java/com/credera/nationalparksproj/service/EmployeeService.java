@@ -10,4 +10,13 @@ public class EmployeeService {
     @Autowired
     EmployeeRepo employeeRepo;
 
+
+    public Boolean isPasswordCorrect(String password){
+        if(employeeRepo.findPasswordForEmployee(password).equals(password)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
