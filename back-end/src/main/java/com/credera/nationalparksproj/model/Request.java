@@ -8,12 +8,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Submitted_Request")
+@Table(name = "Requests")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class SubmittedRequest {
+public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,20 +28,35 @@ public class SubmittedRequest {
 
     @Column(name = "dateCompleted")
     private String date_completed;
-    
-    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "id")
-    private VisitorRequest visitorRequest;
+
+    @ManyToOne(targetEntity = NationalPark.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "name")
+    private NationalPark nationalPark;
+
+    @Column(name = "requestType")
+    private String requestType;
+
+    @Column(name = "problemDescription")
+    private String problemDesc;
+
+    @Column(name = "email")
+    private String email;
 
     @Override
     public String toString() {
-        return "SubmittedRequest{" +
+        return "Requests{" +
                 "id=" + id +
                 ", status='" + status + '\'' +
                 ", date_created='" + date_created + '\'' +
                 ", date_completed='" + date_completed + '\'' +
-                ", visitorRequest=" + visitorRequest +
+                ", nationalPark=" + nationalPark +
+                ", requestType='" + requestType + '\'' +
+                ", problemDesc='" + problemDesc + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
+
+
 
 
 }

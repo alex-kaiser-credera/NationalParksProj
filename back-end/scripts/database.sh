@@ -31,7 +31,7 @@ if [ $psql_exit_status != 0 ]; then
 fi
 
 echo "sql script successful"
-exit 0
+//exit 0
 
 
 create database "NationalParks";
