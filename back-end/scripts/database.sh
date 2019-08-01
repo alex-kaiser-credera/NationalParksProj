@@ -108,48 +108,33 @@ insert into "National_Parks" values
 
 create table "Employee" (
 id SERIAL PRIMARY KEY, 
-park int, username text, 
+park int not null, 
+username text, 
 password text, 
-FOREIGN KEY (park) REFERENCES "National_Parks" (id));
+foreign key (park) references "National_Parks" (id));
 
 insert into "Employee" values 
-(1,	'Yellowstone', 'MeganMoore', 'password', 'Megan Moore'),
-(2,	'Yosemite',	'AlexKaiser', 'password123', 'Alex Kaiser');
+(1,	5, 'MeganMoore', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
+(2,	52,	'AlexKaiser', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f');
 
-
-
-
-
-
-create table "Visitor_Request" (
+create table "Requests" (
 id SERIAL PRIMARY KEY, 
-parkLocation int, 
-requestType text, 
-problemDescription text, 
+status text, 
+dateCreated text, 
+dateCompleted text, 
+parkLocation int not null, 
+requestType text,
+problemDescription text,
 email text, 
-employee_id int, 
-foreign key (employee_id) references "Employee" (id), 
 foreign key (parkLocation) references "National_Parks" (id));
 
-insert into "Visitor_Request" values
-(1,	54, 'Bathroom needs service', 'Bathroom is dirty', 'JohnSmith@gmail.com', 42),
-(2,	32,	'Potable water is empty', 'There is no drinking water',	'JaneSmith@msn.com', 15);
+insert into "Requests" values 
+(1, 'Completed', '01/01/2019', '01/02/2019', 27, 'Bathroom needs service', 'Bathroom is very dirty!', 'Johnsmith@gmail.com'),
+(2, 'In Progress', '08/01/2019', '08/01/2019', 44, 'Trail is blocked by obstruction', 'There is a tree in the middle of the road!', 'Janesmith@gmail.com');
 
 
 
 
-
-create table "Submitted_Requests" (
-    id SERIAL PRIMARY KEY,
-    status text, 
-    dateCreated text,
-    dateCompleted text, 
-    FOREIGN KEY (VRID) references VisitorRequest (id)
-);
-
-insert into "Submitted_Requests" values
-(10, 'In progress', '1-Jan', '3-Jan', 42),
-(11, 'Completed', '4-Feb', '5-Feb', 15);
 
 
 
