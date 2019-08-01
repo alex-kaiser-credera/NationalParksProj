@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "National_Park")
+@Table(name = "National_Parks")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,14 +21,14 @@ public class NationalPark {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "park_name")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "park", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Employee.class)
-    private List<Employee> employees;
+    private Set<Employee> employees;
 
-    @OneToMany(mappedBy = "parkLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = VisitorRequest.class)
-    private List<VisitorRequest> visitorRequests;
+    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Request.class)
+    private Set<Request> visitorRequests;
 
     @Override
     public String toString() {
