@@ -34,7 +34,7 @@ echo "sql script successful"
 //exit 0
 
 
-create database "NationalParks";
+create database NationalParks;
 \c "NationalParks";
 
 
@@ -42,6 +42,7 @@ create table National_Parks (
     id SERIAL PRIMARY KEY,
     name text
 );
+
 
 insert into National_Parks values 
 (1,	'Acadia'),
@@ -111,7 +112,7 @@ id SERIAL PRIMARY KEY,
 park int not null, 
 username text, 
 password text, 
-foreign key (park) references "National_Parks" (id));
+foreign key (park) references National_Parks (id));
 
 insert into Employee values 
 (1,	5, 'MeganMoore', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
@@ -127,6 +128,7 @@ requestType text,
 problemDescription text,
 email text, 
 foreign key (parkLocation) references National_Parks (id));
+
 
 insert into Requests values 
 (1, 'Completed', '01/01/2019', '01/02/2019', 27, 'Bathroom needs service', 'Bathroom is very dirty!', 'Johnsmith@gmail.com'),

@@ -15,13 +15,12 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @PostMapping(value = "/password")
-    public ResponseEntity getPassword (@RequestBody Employee employee) {
-
-         return new ResponseEntity(employeeService.isPasswordCorrect(employee.getPassword()), HttpStatus.OK);
+    @PostMapping(value = "/password/")
+    public ResponseEntity getPassword (@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+        return new ResponseEntity( employeeService.isPasswordCorrect(password, username) , HttpStatus.OK);
     }
 
 
-    }
 
 
+}

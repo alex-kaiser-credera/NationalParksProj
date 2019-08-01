@@ -12,8 +12,8 @@ public class EmployeeService {
     EmployeeRepo employeeRepo;
 
 
-    public Boolean isPasswordCorrect(String password){
-        if(employeeRepo.findPasswordForEmployee(password).equals(password)){
+    public Boolean isPasswordCorrect(String password, String username){
+        if(employeeRepo.findPasswordForEmployee(username).equals(password)){
             return true;
         }
         else{

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RequestRepo extends JpaRepository<Request, Long> {
+public interface RequestRepo extends JpaRepository<Request, Integer> {
 
 
     @Query("select sr.id from Request sr where sr.status = :filter_select")

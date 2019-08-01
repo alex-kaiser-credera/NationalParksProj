@@ -1,7 +1,6 @@
 package com.credera.nationalparksproj.controller;
 
 import com.credera.nationalparksproj.model.Request;
-//import com.credera.nationalparksproj.service.SubmittedRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,15 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import com.credera.nationalparksproj.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/status")
 public class RequestController {
 
     @Autowired
     RequestService requestService;
-
 
 
     @GetMapping(value = "/filter")
@@ -63,3 +59,9 @@ public class RequestController {
         }
 
     }
+
+    @PostMapping(value = "/visitor")
+    public ResponseEntity saveRequest (@RequestBody Request request) {
+        return new ResponseEntity(requestService.saveVisitorRequest(request), HttpStatus.OK);
+    }
+}

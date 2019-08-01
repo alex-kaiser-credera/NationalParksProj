@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "Employee", schema="public")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +19,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne(targetEntity = NationalPark.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "park")

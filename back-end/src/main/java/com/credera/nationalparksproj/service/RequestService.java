@@ -20,7 +20,6 @@ public class RequestService {
 
         Request temp = request;
         temp.setStatus(status);
-        //temp.setDate_created();
         return requestRepo.save(temp).getStatus();
 
     }
