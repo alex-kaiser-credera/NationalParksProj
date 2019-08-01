@@ -34,16 +34,16 @@ echo "sql script successful"
 //exit 0
 
 
-create database "NationalParks";
+create database NationalParks;
 \c "NationalParks";
 
 
-create table "National_Parks" (
+create table National_Parks (
     id SERIAL PRIMARY KEY,
     name text
 );
 
-insert into "National_Parks" values 
+insert into National_Parks values
 (1,	'Acadia'),
 (2,	'American Samoa'),
 (3,	'Arches'),
@@ -106,18 +106,18 @@ insert into "National_Parks" values
 (60, 'Yosemite'),
 (61, 'Zion');
 
-create table "Employee" (
+create table Employee (
 id SERIAL PRIMARY KEY, 
 park int not null, 
 username text, 
 password text, 
-foreign key (park) references "National_Parks" (id));
+foreign key (park) references National_Parks (id));
 
-insert into "Employee" values 
+insert into Employee values
 (1,	5, 'MeganMoore', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
 (2,	52,	'AlexKaiser', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f');
 
-create table "Requests" (
+create table Requests (
 id SERIAL PRIMARY KEY, 
 status text, 
 dateCreated text, 
@@ -126,9 +126,9 @@ parkLocation int not null,
 requestType text,
 problemDescription text,
 email text, 
-foreign key (parkLocation) references "National_Parks" (id));
+foreign key (parkLocation) references National_Parks (id));
 
-insert into "Requests" values 
+insert into Requests values
 (1, 'Completed', '01/01/2019', '01/02/2019', 27, 'Bathroom needs service', 'Bathroom is very dirty!', 'Johnsmith@gmail.com'),
 (2, 'In Progress', '08/01/2019', '08/01/2019', 44, 'Trail is blocked by obstruction', 'There is a tree in the middle of the road!', 'Janesmith@gmail.com');
 

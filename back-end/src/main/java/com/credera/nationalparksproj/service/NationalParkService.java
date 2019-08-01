@@ -16,6 +16,6 @@ public class NationalParkService {
 
     public List<NationalPark> getAllParks() {return nationalParkRepo.findAll(); }
 
-    public String getParkNameByID(Long id) {return nationalParkRepo.getParkByID(id); }
+    public String getParkNameByID(Integer id) {return nationalParkRepo.getParkByID(id); }
 
 }
