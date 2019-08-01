@@ -1,5 +1,6 @@
 package com.credera.nationalparksproj.controller;
 
+import com.credera.nationalparksproj.model.Employee;
 import com.credera.nationalparksproj.service.EmployeeService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,12 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping(value = "/password")
-    public ResponseEntity getPassword (@RequestMapping(name = "")) {
-        return new ResponseEntity(    , HttpStatus.OK);
+    @PostMapping(value = "/password/")
+    public ResponseEntity getPassword (@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+        return new ResponseEntity( employeeService.isPasswordCorrect(password, username) , HttpStatus.OK);
     }
 
 
-    }
-
-
-
-
-    @PostMapping(value = "/")
-    public ResponseEntity
 
 
 }

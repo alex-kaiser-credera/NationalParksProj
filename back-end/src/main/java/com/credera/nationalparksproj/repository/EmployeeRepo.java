@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepo extends JpaRepository<Employee, Long> {
+public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT e.password FROM Employee e WHERE e.username = :employee_username")
     String findPasswordForEmployee(@Param("employee_username") String username);

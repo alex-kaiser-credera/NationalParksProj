@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "National_Parks")
+@Table(name = "National_Parks", schema="public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class NationalPark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
