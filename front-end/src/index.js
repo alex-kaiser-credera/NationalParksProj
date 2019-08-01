@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import CustomerRequest from './pages/CustomerRequest';
 import SignIn from './SignIn';
 
-ReactDOM.render(<CustomerRequest />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change

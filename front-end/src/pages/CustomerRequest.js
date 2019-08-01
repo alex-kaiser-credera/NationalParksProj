@@ -72,6 +72,7 @@ const useStyles = makeStyles(theme => ({
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
+    
 
     return(
     <div>

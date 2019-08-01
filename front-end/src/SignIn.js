@@ -10,7 +10,25 @@ import {useInput} from './UseInput';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Component} from 'react';
+import {Route, Redirect} from 'react';
 
+// class ProtectedRoute extends Component {
+//   render() {
+//     const { component: Component, ...props } = this.props
+
+//     return (
+//       <Route 
+//         {...props} 
+//         render={props => (
+//           this.state.authenticated ?
+//             <Component {...props} /> :
+//             <Redirect to='/login' />
+//         )} 
+//       />
+//     )
+//   }
+// }
 
 const useStyles = makeStyles(theme => ({
     imageSrc: {
@@ -47,14 +65,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function LogIn() {
+
+ const LogIn = props => {
+
   const classes = useStyles();
   const userPassword = 'hello';
   const userName = 'MeganMoore'
+
   const {value: username, bind:bindUsername, reset:resetUsername} = useInput('');
   const {value: password, bind:bindPassword, reset:resetPassword} = useInput('');
 
-  const handleSubmit = (event) => {
+
+   function handleSubmit(event) {
     event.preventDefault();
     if (username !== userName){
         alert("Error: Username does not exist");
@@ -62,10 +84,13 @@ export default function LogIn() {
         alert("Error: Incorrect Password");
     } else {
     alert("Login successful");
+    props.history.push("/employee_queue");
+
     }
     resetUsername();
     resetPassword();
   }
+
 
   return (
     <div>     
@@ -112,8 +137,9 @@ export default function LogIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Link to="/employee_queue"> 
+          {/* <Link to="/employee_queue">  */}
             <Button
+              onClick = { (e) => handleSubmit(e)}
               type="submit"
               fullWidth
               variant="contained"
@@ -122,7 +148,7 @@ export default function LogIn() {
             >
               Sign In
             </Button>
-          </Link>
+          {/* </Link> */}
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -136,3 +162,5 @@ export default function LogIn() {
     </div>
   );
 }
+
+export default LogIn;
