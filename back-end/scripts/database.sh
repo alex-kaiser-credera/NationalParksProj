@@ -31,67 +31,20 @@ if [ $psql_exit_status != 0 ]; then
 fi
 
 echo "sql script successful"
-exit 0
+//exit 0
 
 
-
-
-
-create database "NationalParks";
+create database NationalParks;
 \c "NationalParks";
 
 
-create table "VisitorRequest" (
-    id SERIAL PRIMARY KEY, 
-    parkLocation text,
-    requestType text, 
-    problemDescription text, 
-    email text, 
-    FOREIGN KEY (eid) references Employee (id)
-);
-
-insert into "VisitorRequest" values
-(1,	'YellowStone', 'Bathroom needs service', 'Bathroom is dirty', 'JohnSmith@gmail.com', 42),
-(2,	'Big Bend',	'Potable water is empty', 'There is no drinking water',	'JaneSmith@msn.com', 15);
-
-
-
-
-
-create table "SubmittedRequests" (
-    id SERIAL PRIMARY KEY,
-    status text, 
-    dateCreated text,
-    dateCompleted text, 
-    FOREIGN KEY (VRID) references VisitorRequest (id)
-);
-
-insert into "Submitted Requests" values
-(10, 'In progress', '1-Jan', '3-Jan', 42),
-(11, 'Completed', '4-Feb', '5-Feb', 15);
-
-
-
-create table "Employees" (
-    id SERIAL PRIMARY KEY,
-    FOREIGN KEY (park) references NationalPark (id),
-    username text,
-    password text, 
-    name text
-);
-
-insert into "Employees" values 
-(1,	'Yellowstone', 'MeganMoore', 'password', 'Megan Moore'),
-(2,	'Yosemite',	'AlexKaiser', 'password123',	'Alex Kaiser');
-
-
-
-create table "NationalPark" (
+create table National_Parks (
     id SERIAL PRIMARY KEY,
     name text
 );
 
-insert into "NationalPark" values 
+
+insert into National_Parks values 
 (1,	'Acadia'),
 (2,	'American Samoa'),
 (3,	'Arches'),
@@ -153,3 +106,40 @@ insert into "NationalPark" values
 (59, 'Yellowstone'),
 (60, 'Yosemite'),
 (61, 'Zion');
+
+create table Employee (
+id SERIAL PRIMARY KEY, 
+park int not null, 
+username text, 
+password text, 
+foreign key (park) references National_Parks (id));
+
+insert into Employee values 
+(1,	5, 'MeganMoore', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
+(2,	52,	'AlexKaiser', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f');
+
+create table Requests (
+id SERIAL PRIMARY KEY, 
+status text, 
+dateCreated text, 
+dateCompleted text, 
+parkLocation int not null, 
+requestType text,
+problemDescription text,
+email text, 
+foreign key (parkLocation) references National_Parks (id));
+
+
+insert into Requests values 
+(1, 'Completed', '01/01/2019', '01/02/2019', 27, 'Bathroom needs service', 'Bathroom is very dirty!', 'Johnsmith@gmail.com'),
+(2, 'In Progress', '08/01/2019', '08/01/2019', 44, 'Trail is blocked by obstruction', 'There is a tree in the middle of the road!', 'Janesmith@gmail.com');
+
+
+
+
+
+
+
+
+
+
