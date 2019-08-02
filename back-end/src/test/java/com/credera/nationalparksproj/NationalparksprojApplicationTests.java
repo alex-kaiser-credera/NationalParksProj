@@ -11,6 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -48,13 +52,18 @@ public class NationalparksprojApplicationTests {
 				.andExpect(jsonPath("$.[0].status").value("Completed"));
 	}
 
-//	@Test
-//	public void getAll() throws Exception{
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		mockMvc.perform(get("/status/filter?filter=All"))
-//				.andExpect(status().isOk())
-//				.andExpect(jsonPath("$.[0].status").value("All"));
-//	}
+// 	@Test
+// 	public void getAll() throws Exception{
+// 		ObjectMapper objectMapper = new ObjectMapper();
+// 		mockMvc.perform(get("/status/filter?filter=All"))
+// 				.andExpect(status().isOk())
+// 				.andExpect(jsonPath("$.[0].status").value("Completed"));
+
+// 		mockMvc.perform(get("/status/filter?filter=Completed"))
+// 				.andExpect(status().isOk())
+// 				.andExpect(jsonPath("$.[1].status").value("In Progress"));
+// 	}
+
 	@Test
 	public void sendRequest() throws Exception{
 		UnconnectedRequest unconnectedRequest = new UnconnectedRequest("In Progress", "01/01/10", "01/02/10", 43, "Bathrooms Dirty", "Bathrooms Bad", "lol@yahoo.com");
