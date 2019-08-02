@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
-// import Avatar from '@material-ui/core/Avatar';
-// import Button from '@material-ui/core/Button';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -40,17 +33,43 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
 export default function TaskCard(props) {
     const classes = useStyles();
-    const [state, setState] = useState({
-        requestId: "",
-        requestStatus: "", 
-        employeeName: "", 
-        description:"",
-        dateRequested:"",
-        dateCompleted:"",
-        visitorEmail:"",
-    });
+    const [state, setState] = useState();
+
+    const [data, setData] = useState({});
+
+    /*fields
+        id
+        status
+        dateCreated
+        dateCompleted
+        parkLocation
+        requestType
+        problemDesc
+        email
+    */
+  // React Hooks https://reactjs.org/docs/hooks-intro.html
+//   useEffect(() => {
+//     // ES8 Async/Await https://alligator.io/js/async-functions/
+//     async function getRequest(id) {
+//       const result = await axios.get(`https://localhost:8080/filter/?id=${id}`);
+
+//       // You know why this is important ;)
+//       result.data.data.children = result.data.data.children.filter(
+//         ele => !ele.data.over_18
+//       );
+
+//       setData(d => ({
+//         ...d,
+//         all: result.data.data
+//       }));
+
+//     //   -(false);
+//     }
+//     fetchAll();
+//   }, []);//["https://www.reddit.com/r/all.json"]);
     
 
     // useEffect
