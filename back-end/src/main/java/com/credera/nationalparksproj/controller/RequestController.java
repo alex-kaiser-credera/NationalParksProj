@@ -58,10 +58,9 @@ public class RequestController {
 
         }
 
-    }
 
     @PostMapping(value = "/visitor")
     public ResponseEntity saveRequest (@RequestBody Request request) {
-        return new ResponseEntity(requestService.saveVisitorRequest(request), HttpStatus.OK);
+        return new ResponseEntity(requestService.saveRequest(request), HttpStatus.OK);
     }
 }
