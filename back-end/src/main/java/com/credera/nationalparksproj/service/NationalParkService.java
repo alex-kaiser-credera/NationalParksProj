@@ -18,4 +18,6 @@ public class NationalParkService {
 
     public String getParkNameByID(Integer id) {return nationalParkRepo.getParkNameByID(id); }
 
+    public NationalPark getParkByID(Integer id){ return nationalParkRepo.getParkByID(id); }
+
 }
