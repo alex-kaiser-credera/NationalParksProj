@@ -7,7 +7,6 @@ import RequestInformation from "./pages/RequestInformation";
 import { BrowserRouter, Route } from 'react-router-dom'; 
 import Login from "./SignIn";
 import './App.css';
-import ProtectedRoute from './SignIn';
 
 //const StateContext = createContext();
 
@@ -20,8 +19,6 @@ const App = () => (
   }}
   >
     {/* <StateContext>  */}
-
-    
       <BrowserRouter>
         <Navigation />
         <Route exact path="/" component={Home} />
