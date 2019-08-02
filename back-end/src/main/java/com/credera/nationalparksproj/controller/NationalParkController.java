@@ -16,6 +16,11 @@ public class NationalParkController {
 
     @GetMapping("/getPark/")
     public ResponseEntity getParkFromID(@RequestParam(name = "id") Integer id){
-        return new ResponseEntity(nationalParkService.getParkNameByID(id), HttpStatus.OK);
+        return new ResponseEntity(nationalParkService.getParkByID(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllParks/")
+    public ResponseEntity getAllParks(){
+        return new ResponseEntity(nationalParkService.getAllParks(), HttpStatus.OK);
     }
 }

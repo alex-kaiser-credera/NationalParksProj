@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface NationalParkRepo extends JpaRepository<NationalPark, Integer> {
 
     @Query("SELECT np.name FROM NationalPark np WHERE np.id = :park_id")
-    String getParkByID(@Param("park_id") Integer id);
+    String getParkNameByID(@Param("park_id") Integer id);
+
+    @Query("SELECT np FROM NationalPark np WHERE np.id = :park_id")
+    NationalPark getParkByID(@Param("park_id") Integer id);
 
 }
