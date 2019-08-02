@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
-import {useStateValue} from '../components/Context'
+import Avatar from '@material-ui/core/Avatar';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -17,6 +17,16 @@ const StyledTableCell = withStyles(theme => ({
   },
   body: {
     fontSize: 14,
+  },
+  avatar: {
+    height: 100,
+    width: 100,
+    backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: 'inherit',
+    margin: 45,
   },
 }))(TableCell);
 
@@ -27,6 +37,8 @@ const StyledTableRow = withStyles(theme => ({
     },
   },
 }))(TableRow);
+
+//
 
 function createData(id, status, employee, description, daterequested, datecompleted) {
   return { id, status, employee, description, daterequested, datecompleted};
@@ -50,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 
 const FilterList = () => {
     const [dropdown, setDropdown] = React.useState('');
-
+    const classes = useStyles();
     const handleChange = (event) => {
         setDropdown(event.target.value);
     }
