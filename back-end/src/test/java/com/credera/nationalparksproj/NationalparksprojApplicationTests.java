@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -56,6 +55,7 @@ public class NationalparksprojApplicationTests {
 //				.andExpect(status().isOk())
 //				.andExpect(jsonPath("$.[0].status").value("All"));
 //	}
+	@Test
 	public void sendRequest() throws Exception{
 		UnconnectedRequest unconnectedRequest = new UnconnectedRequest("In Progress", "01/01/10", "01/02/10", 43, "Bathrooms Dirty", "Bathrooms Bad", "lol@yahoo.com");
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -64,5 +64,13 @@ public class NationalparksprojApplicationTests {
 				.content(objectMapper.writeValueAsString(unconnectedRequest)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.parkLocation.name").value("Mesa Verde"));
+	}
+
+	@Test
+	public void checkPassword() throws Exception{
+
+		mockMvc.perform(post("/password/?username=AlexKaiser&password=password123"))
+				.andExpect(status().isOk())
+				.andExpect(content().string("true"));
 	}
 }
