@@ -1,5 +1,6 @@
 package com.credera.nationalparksproj.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,11 @@ public class NationalPark {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "park", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Employee.class)
     private Set<Employee> employees;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Request.class)
     private Set<Request> visitorRequests;
 

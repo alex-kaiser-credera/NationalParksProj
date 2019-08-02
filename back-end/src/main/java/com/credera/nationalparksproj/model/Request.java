@@ -29,7 +29,7 @@ public class Request {
 
     @Column(name = "dateCompleted")
     private String dateCompleted;
-    
+
     @ManyToOne(targetEntity = NationalPark.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "parkLocation")
     private NationalPark parkLocation;
