@@ -52,10 +52,12 @@ export default function TaskCard(props) {
         visitorEmail:"",
     });
     
+
     // useEffect
 
     const handleChange = (event) => {
         event.preventDefault();
+        setState({...state, requestStatus: event.target.value});
         //Call API, set value, rerender page
     }
 
@@ -68,13 +70,19 @@ export default function TaskCard(props) {
                     }}>Request ID: {state.requestId}</div>
             </Typography>
             <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend">Request Status: </FormLabel>
+                <FormLabel 
+                    component="legend"
+                    style={{
+                        color: 'black',
+                    }}>Request Status: </FormLabel>
                 <RadioGroup
                     aria-label="status"
                     name="status"
-                    className={classes.group}
+                    className={classes.group}   
                     // value={value}
-                    onChange={handleChange}
+                    onChange={e => handleChange(e)}  
+                    // setState({ ...state, search: e.target.value })}
+                    // onChange={handleChange}
                 >
                     <FormControlLabel value="notassigned" control={<Radio />} label="Not Assigned" />
                     <FormControlLabel value="inprogress" control={<Radio />} label="In Progress" />
