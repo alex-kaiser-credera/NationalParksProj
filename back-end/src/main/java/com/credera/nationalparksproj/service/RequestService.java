@@ -1,6 +1,7 @@
 package com.credera.nationalparksproj.service;
 
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
+import com.credera.nationalparksproj.mail.Mail;
 import com.credera.nationalparksproj.model.NationalPark;
 import com.credera.nationalparksproj.model.Request;
 import com.credera.nationalparksproj.repository.NationalParkRepo;
@@ -38,10 +39,21 @@ public class RequestService {
         request.setProblemDescription(unconnectedRequest.getProblemDescription());
         request.setParkLocation(nationalPark);
 
+        Mail m = new Mail();
+
+        m.sendConfirmation(unconnectedRequest.getEmail());
+
+
         return requestRepo.save(request);
     }
 
     public String saveStatusToRequest(Request request, String status){
+
+        if (status.equals("Completed")) {
+            Mail m = new Mail();
+            m.sendComplete(request.getEmail());
+
+        }
 
         Request temp = request;
         temp.setStatus(status);
