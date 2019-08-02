@@ -74,9 +74,9 @@ const useStyles = makeStyles(theme => ({
     <div>     
     <span
         className={classes.imageSrc}
-        style={{
-        backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-        }}
+        // style={{
+        // backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
+        // }}
       />
     <Container id="signIn-form" component="main" maxWidth="xs"> 
       <div className={classes.paper}>

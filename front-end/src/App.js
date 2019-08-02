@@ -7,18 +7,20 @@ import RequestInformation from "./pages/RequestInformation";
 import { BrowserRouter, Route } from 'react-router-dom'; 
 import Login from "./SignIn";
 import './App.css';
-
+import ProtectedRoute from './SignIn';
+import { StateProvider } from './components/Context';
 //const StateContext = createContext();
 
 const App = () => (
-  <div style={{
-    backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-    minHeight: '70rem',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center 40%',
-  }}
-  >
-    {/* <StateContext>  */}
+ 
+    <div style={{
+      backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
+      minHeight: '70rem',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
+    }}
+    >
+      <StateProvider>  
       <BrowserRouter>
         <Navigation />
         <Route exact path="/" component={Home} />
@@ -26,9 +28,12 @@ const App = () => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/employee_queue" component={EmployeeQueue} />
         <Route exact path="/request_information" component={RequestInformation} />
+        
       </BrowserRouter>
-    {/* </StateContext> */}
-  </div>
+      </StateProvider> 
+    </div>
+
+
 );
 
 export default App;
