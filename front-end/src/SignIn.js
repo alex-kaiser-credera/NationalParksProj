@@ -4,31 +4,12 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {useInput} from './UseInput';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Component} from 'react';
-import {Route, Redirect} from 'react';
-
-// class ProtectedRoute extends Component {
-//   render() {
-//     const { component: Component, ...props } = this.props
-
-//     return (
-//       <Route 
-//         {...props} 
-//         render={props => (
-//           this.state.authenticated ?
-//             <Component {...props} /> :
-//             <Redirect to='/login' />
-//         )} 
-//       />
-//     )
-//   }
-// }
 
 const useStyles = makeStyles(theme => ({
     imageSrc: {
@@ -75,7 +56,6 @@ const useStyles = makeStyles(theme => ({
   const {value: username, bind:bindUsername, reset:resetUsername} = useInput('');
   const {value: password, bind:bindPassword, reset:resetPassword} = useInput('');
 
-
    function handleSubmit(event) {
     event.preventDefault();
     if (username !== userName){
@@ -83,25 +63,22 @@ const useStyles = makeStyles(theme => ({
     } else if(password !== userPassword){
         alert("Error: Incorrect Password");
     } else {
-    alert("Login successful");
-    props.history.push("/employee_queue");
-
+        alert("Login successful");
+        props.history.push("/employee_queue");
     }
     resetUsername();
     resetPassword();
   }
 
-
   return (
     <div>     
     <span
         className={classes.imageSrc}
-        style={{
-        backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-        }}
+        // style={{
+        // backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
+        // }}
       />
     <Container id="signIn-form" component="main" maxWidth="xs"> 
-    {/* onSubmit={handleSubmit}> */}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}/>
         <Typography component="h1" variant="h5">
@@ -137,7 +114,6 @@ const useStyles = makeStyles(theme => ({
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          {/* <Link to="/employee_queue">  */}
             <Button
               onClick = { (e) => handleSubmit(e)}
               type="submit"
@@ -148,13 +124,7 @@ const useStyles = makeStyles(theme => ({
             >
               Sign In
             </Button>
-          {/* </Link> */}
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
           </Grid>
         </form>
       </div>

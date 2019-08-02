@@ -12,9 +12,10 @@ import { ThemeProvider } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    width: "100%",
   },
   menuButton: {
-    // marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -24,7 +25,7 @@ const theme = createMuiTheme({
       root: {
         background: 'transparent!important',
         color: '#000!important',
-        boxShadow: 'none!important',
+        // boxShadow: 'none!important',
       }
     }
   }
@@ -46,15 +47,23 @@ const theme = createMuiTheme({
 
 export default function DenseAppBar() {
   const classes = useStyles();
+  // const classes = useStyles(theme => ({
+  //       root: {
+  //         flexGrow: 1,
+  //       },
+  //       menuButton: {
+  //         marginRight: theme.spacing(2),
+  //       },
+  //     }));
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar variant="dense">
-            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <MenuIcon />
-            </IconButton> */}
+            </IconButton>
             <Typography variant="h6" text-color="black">
               Home
             </Typography>

@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-//import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { sizing } from '@material-ui/system';
 
@@ -12,11 +13,12 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     width: '100%'
   },
+
   image: {
     // left: 300,
     // top: 250,
     border: '4px solid black',
-    width: '30%',
+    // width: '30%',
     textAlign: 'center',
     textDecoration: 'none',
     margin: 20,
@@ -53,15 +55,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// const theme = createMuiTheme({
-//   overrides: {
-//     MuiButtonBase: {
-//       root: {
-//         left: '0px!important',
-//       }
-//     }
-//   }
-// });
+const theme = createMuiTheme({
+  overrides: {
+    MuiButtonBase: {
+      root: {
+        // left: '0px!important',
+        // border: '3px solid black',
+        width: '50%',
+        margin: '0 1rem',
+      }
+    }
+  }
+});
 
 export default function ButtonBases() {
   const classes = useStyles();
@@ -75,7 +80,7 @@ export default function ButtonBases() {
       {
         title: 'I am an Employee',
         // width: '30%',
-        url: '/employee_queue'
+        url: '/login'
       },
     ];
   
@@ -84,8 +89,8 @@ export default function ButtonBases() {
   // }
 
   return (
-    //<ThemeProvider theme={theme}>
-      <div className={classes.root}>
+    <ThemeProvider theme={theme}>
+      <div>
         <span
           className={classes.imageSrc}
           alignItems={60}
@@ -98,51 +103,58 @@ export default function ButtonBases() {
           style={{
           display: 'flex',
         }}> */}
-        <Grid container className={classes.root} spacing={2}
+        {/* <Grid container className={classes.root} spacing={2}
           direction="row"
           justify="center"
           alignItems="center"
-        >
-          {images.map(value => (
-            <Grid key={value} 
-              item 
-              className={classes.image}
-              component={props => <Link to={value.url} {...props} />}
-
-            >
-              <ButtonBase
-                focusRipple
-                key={value.title}
-                focusVisibleClassName={classes.image}
-                style={{
-                  // width,
-                  //width: '50%',
-                  textJustify: 'center',
-                  padding: '1rem'
-                }}
-
-                // onClick={() => handleClick(i)}
-              >
-                {/* <Grid item xs={5} sm={4}
+        > */}
+        <Container
+          maxWidth="sm"
+          style={{ marginTop: '4rem' }}>
+          <div style={{ display: 'flex' }}>
+            {images.map(value => (
+              // <Grid key={value} 
+              //   item 
+              //   className={classes.image}
+              //   component={props => <Link to={value.url} {...props} />}
+              // >
+                <ButtonBase
                   className={classes.image} 
-                  spacing={3}
-                > */}
-                <span className={classes.imageButton}>
-                  
-                  <Typography
-                    className={classes.imageTitle}
-                  >
-                    {value.title}
-                  </Typography>
-                </span>
-                {/* </Grid> */}
-              </ButtonBase>
-            </Grid>
-          ))}
-        </Grid>
+                  focusRipple
+                  key={value.title}
+                  focusVisibleClassName={classes.image}
+                  style={{
+                    // width,
+                    //width: '50%',
+                    // border: '3px solid black',
+                    textJustify: 'center',
+                    padding: '1rem'
+                  }}
+
+                  // onClick={() => handleClick(i)}
+                >
+                  {/* <Grid item xs={5} sm={4}
+                    className={classes.image} 
+                    spacing={3}
+                  > */}
+                  <span className={classes.imageButton}>
+                    
+                    <Typography
+                      className={classes.imageTitle}
+                    >
+                      {value.title}
+                    </Typography>
+                  </span>
+                  {/* </Grid> */}
+                </ButtonBase>
+              // </Grid>
+            ))}
+          </div>
+        </Container>
+        {/* </Grid> */}
       </div>
     
-      // </div>
-    //</ThemeProvider>
+      {/* // </div> */}
+    </ThemeProvider>
   );
 }
