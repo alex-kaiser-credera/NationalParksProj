@@ -31,4 +31,28 @@ public class NationalparksprojApplicationTests {
 
 	}
 
+	@Test
+	public void getInProgress() throws Exception{
+		ObjectMapper objectMapper = new ObjectMapper();
+		mockMvc.perform(get("/status/filter?filter=In Progress"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.[0].status").value("In Progress"));
+	}
+
+	@Test
+	public void getCompleted() throws Exception{
+		ObjectMapper objectMapper = new ObjectMapper();
+		mockMvc.perform(get("/status/filter?filter=Completed"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.[0].status").value("Completed"));
+	}
+
+//	@Test
+//	public void getAll() throws Exception{
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		mockMvc.perform(get("/status/filter?filter=All"))
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.[0].status").value("All"));
+//	}
+
 }
