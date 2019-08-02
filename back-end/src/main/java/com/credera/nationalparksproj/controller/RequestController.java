@@ -1,5 +1,6 @@
 package com.credera.nationalparksproj.controller;
 
+import com.credera.nationalparksproj.dto.UnconnectedRequest;
 import com.credera.nationalparksproj.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,9 @@ public class RequestController {
 
     @GetMapping(value = "/filter")
     public ResponseEntity getAll (@RequestParam (name = "filter") String filter) {
-        if (filter.equals("all")) {
+        if (filter.equals("All")) {
             return new ResponseEntity(requestService.getAllRequest(), HttpStatus.OK);
-        } else if (filter.equals("inprogress")) {
+        } else if (filter.equals("In Progress")) {
             return new ResponseEntity(requestService.getInProgress(), HttpStatus.OK);
         } else {
             return new ResponseEntity(requestService.getCompleted(), HttpStatus.OK);
@@ -49,19 +50,24 @@ public class RequestController {
 //        return new ResponseEntity(  , HttpStatus.OK);
 //    }
 //
-        @PutMapping("/{id}")
-        public String updateStatus (
-                @PathVariable Long id,
-                @RequestParam(value = "status") String status){
-            Request _request = requestService.getRequestByID(id);
-            return requestService.saveStatusToRequest(_request, status);
-
-        }
+    @PutMapping("/{id}")
+    public String updateStatus (
+            @PathVariable Integer id,
+            @RequestParam(value = "status") String status){
+        Request _request = requestService.getRequestByID(id);
+        return requestService.saveStatusToRequest(_request, status);
 
     }
 
+    @GetMapping("/{id}")
+    public Request getStatus (@PathVariable Integer id){
+        return requestService.getRequestByID(id);
+
+    }
+
+
     @PostMapping(value = "/visitor")
-    public ResponseEntity saveRequest (@RequestBody Request request) {
-        return new ResponseEntity(requestService.saveVisitorRequest(request), HttpStatus.OK);
+    public ResponseEntity saveRequest (@RequestBody UnconnectedRequest unconnectedRequest) {
+        return new ResponseEntity(requestService.saveRequest(unconnectedRequest), HttpStatus.OK);
     }
 }
