@@ -19,6 +19,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/password/")
     public ResponseEntity getPassword (@RequestBody UserLogin userLogin) throws InvalidKeySpecException, NoSuchAlgorithmException {
         return new ResponseEntity( employeeService.isPasswordCorrect(userLogin) , HttpStatus.OK);
