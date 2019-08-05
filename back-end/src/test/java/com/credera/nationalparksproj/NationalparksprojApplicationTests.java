@@ -82,4 +82,12 @@ public class NationalparksprojApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string("true"));
 	}
+
+	@Test
+	public void checkWrongPassword() throws Exception{
+
+		mockMvc.perform(post("/password/?username=AlexKaiser&password=password1234"))
+				.andExpect(status().isOk())
+				.andExpect(content().string("false"));
+	}
 }

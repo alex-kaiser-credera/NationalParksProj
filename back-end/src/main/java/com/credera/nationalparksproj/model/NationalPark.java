@@ -33,15 +33,6 @@ public class NationalPark {
     @OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Request.class)
     private Set<Request> visitorRequests;
 
-    @Override
-    public String toString() {
-        return "NationalPark{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", employees=" + employees +
-                ", visitorRequests=" + visitorRequests +
-                '}';
-    }
 
 
 }

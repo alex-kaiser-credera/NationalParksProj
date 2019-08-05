@@ -43,21 +43,18 @@ public class Request {
     @Column(name = "email")
     private String email;
 
-//    @Override
-//    public String toString() {
-//        return "Requests{" +
-//                "id=" + id +
-//                ", status='" + status + '\'' +
-//                ", date_created='" + date_created + '\'' +
-//                ", date_completed='" + date_completed + '\'' +
-//                ", nationalPark=" + nationalPark +
-//                ", requestType='" + requestType + '\'' +
-//                ", problemDesc='" + problemDesc + '\'' +
-//                ", email='" + email + '\'' +
-//                '}';
-//    }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", dateCompleted='" + dateCompleted + '\'' +
+//                ", parkLocation=" + parkLocation +
+                ", requestType='" + requestType + '\'' +
+                ", problemDescription='" + problemDescription + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
