@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -40,6 +41,17 @@ const StyledTableRow = withStyles(theme => ({
 
 //
 
+    async function getRequests(parkId) {
+        await axios.get(`http://localhost:8080/getAllParks/`)
+        //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
+            .then(response => {
+                 //setResult(response.data)
+                setResult(response.data.map(ele => {
+                    return (ele.name)
+                }))
+            }
+        );
+    }
 function createData(id, status, employee, description, daterequested, datecompleted) {
   return { id, status, employee, description, daterequested, datecompleted};
 }

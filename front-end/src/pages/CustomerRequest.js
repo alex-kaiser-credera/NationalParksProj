@@ -69,7 +69,7 @@ export default function CustomerRequest() {
                     return (ele.name)
                 }))
             }
-            );
+        );
     }
     // console.log(typeof result)
     // var parkNames = [];
