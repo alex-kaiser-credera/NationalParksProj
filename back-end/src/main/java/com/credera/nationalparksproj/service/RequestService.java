@@ -71,7 +71,6 @@ public class RequestService {
 
     public List<Request> getRequestByPark(Integer parkId, String progress) {
         NationalPark nationalPark = nationalParkRepo.getParkByID(parkId);
-        System.out.println(nationalPark.getVisitorRequests().toString());
         if(progress.equals("In Progress")){
             return requestRepo.getInProgress().stream().filter(r -> r.getParkLocation() == nationalPark).collect(Collectors.toList());
         }

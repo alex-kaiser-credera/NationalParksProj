@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
+import axios from "axios";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -38,7 +39,6 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-//
 
 function createData(id, status, employee, description, daterequested, datecompleted) {
   return { id, status, employee, description, daterequested, datecompleted};
@@ -117,6 +117,17 @@ const Confirmation = () => {
 
 function CustomizedTables() {
   const classes = useStyles();
+  const [result, setResult] = React.useState([]);
+
+    async function getPark(id) {
+      await axios.get(`http://localhost:8080/status/filter?filter=All`)
+        .then(response => {
+          setResult(response.data)
+            return (result)
+            })
+        } getPark();
+  
+  console.log(result);
 
   return (
     <div>
