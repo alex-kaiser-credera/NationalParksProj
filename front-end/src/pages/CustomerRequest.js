@@ -60,25 +60,23 @@ export default function CustomerRequest() {
     const [email, setEmail] = React.useState('');
     const [result, setResult] = React.useState([]);
 
+
     async function getPark(id) {
         await axios.get(`http://localhost:8080/getAllParks/`)
         //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
             .then(response => {
-                 //setResult(response.data)
                 setResult(response.data.map(ele => {
-                    return (ele.name)
-                }))
+                    return (ele)
+                    }))
             }
         );
     }
-    // console.log(typeof result)
-    // var parkNames = [];
-    // result.forEach(function(element){
-    //     parkNames.push(element.name)
-    // })
+    var parkNames = [];
+    result.forEach(function(element){
+        parkNames.push(element.name)
+    })
 
     const handleParkChange = (event) => {
-        event.preventDefault();
         setPark(event.target.value);
     }
 
@@ -94,24 +92,11 @@ export default function CustomerRequest() {
         setEmail(event.target.value);
     }
 
-
-
-    const items = ["yellowstone", "big bend", "park3"];
-
     getPark(5);
     return (
         <div>
-            {/* <div>{JSON.stringify(result)}</div> */}
-            {result.map(ele => (<div>{ele}</div>))}
-            {/* <div>{JSON.stringify(parkNames)}</div> */}
             <Container id="signIn-form" component="main" >
                 <div className={classes.paper}>
-                    {/* <span
-            className={classes.imageSrc}
-            // style={{
-            //   backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-            // }}
-          /> */}
                     <Avatar className={classes.avatar} />
                     <Typography
                         noWrap
@@ -141,18 +126,15 @@ export default function CustomerRequest() {
                                 className={classes.labels}
                                 value={park}
                                 onChange={handleParkChange}
-                                // onOpen={handleParkClick}
                                 inputProps={{
-                                    name: 'park',
-                                    id: 'park',
+                                    name: 'park.name',
+                                    id: 'park.id',
                                 }}
-
                             >
-                                {result.map((e) => (
-                                    <MenuItem>{e}</MenuItem>
-                                ))}
-                                {/* <MenuItem value={2}>YellowStone</MenuItem>
-            <MenuItem value={3}>Lol</MenuItem> */}
+                                {result.map((e) => {
+                                    //console.log(park);
+                                    return (<MenuItem value={e.id}>{e.name}</MenuItem>)
+                                })}
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
@@ -206,5 +188,3 @@ export default function CustomerRequest() {
         </div>
     );
 };
-
-//export default (CustomerRequest);
