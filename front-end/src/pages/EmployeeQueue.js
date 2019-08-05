@@ -10,6 +10,7 @@ import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
+import { Login } from "../SignIn"
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -116,14 +117,27 @@ const Confirmation = () => {
 
 function CustomizedTables() {
   const classes = useStyles();
+  // const [{ parkLocation }] = Login([]);
+  const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
 
   const temp = 43;
   // getRequests(temp);
 
+  
+  
   useEffect(() => {
     setRequest(r =>({...r, loading: true}));
+    setRequest(r =>({...r}));
+    async function fetchAll() {
+      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      setRequest(s => ({
+        ...s,
+        data: {...s.data}
+      }))
+    }
+    fetchAll();
   },[]);
   // async function getRequests(parkId) {
   //   await axios.get(`http://localhost:8080/status/view/${parkId}?status=In%20Progress`)
@@ -154,7 +168,7 @@ function CustomizedTables() {
       <Table className={classes.table}>
         <InputLabel className={classes.labels} htmlfor='park'>Park</InputLabel>
 
-        <Select
+        {/* <Select
             className={classes.labels}
             value={request}
             onClick={selectRequest}
@@ -168,7 +182,7 @@ function CustomizedTables() {
               problemDescription: 'request.problemdescription',
               email: 'request.email',
             }}
-          >
+          > */}
           <TableHead>
             <TableRow>
               <StyledTableCell align="right">Confirmation Number</StyledTableCell>
@@ -187,7 +201,7 @@ function CustomizedTables() {
           //     return (<MenuItem value={e.id}>{e.name}</MenuItem>)
           //   })} */}
 
-          {/* <TableBody 
+          <TableBody 
             className={classes.labels}
             value={request}
             onClick={selectRequest}
@@ -203,19 +217,20 @@ function CustomizedTables() {
             }}
           >
             {result.map((e) => (
-              <StyledTableRow key={e.id}>
-                <StyledTableCell align="right">{e.id}</StyledTableCell>
+              <StyledTableRow key={rows.id}>
+                {/* <StyledTableCell align="right">{e.id}</StyledTableCell>
                 <StyledTableCell align="right">{e.status}</StyledTableCell>
                 <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
                 <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
                 <StyledTableCell align="right">{e.parkLocation}</StyledTableCell>
                 <StyledTableCell align="right">{e.requestType}</StyledTableCell>
                 <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-                <StyledTableCell align="right">{e.email}</StyledTableCell>
+                <StyledTableCell align="right">{e.email}</StyledTableCell> */}
+                <StyledTableCell align="right">{rows.id}</StyledTableCell>
               </StyledTableRow>
             ))}
-          </TableBody> */}
-        </Select>
+          </TableBody>
+        {/* </Select> */}
       </Table>
     </Paper>
 
