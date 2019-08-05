@@ -12,4 +12,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
     @Query("SELECT e.password FROM Employee e WHERE e.username = :employee_username")
     String findPasswordForEmployee(@Param("employee_username") String username);
 
+    @Query("SELECT e.salt FROM Employee e WHERE e.username = :employee_username")
+    String findSaltForEmployee(@Param("employee_username") String username);
+
 }
