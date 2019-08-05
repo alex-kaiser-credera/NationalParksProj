@@ -49,6 +49,12 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: 'inherit',
         left: 250,
     },
+    dropdown: {
+        backgroundColor: '#FFFFFF',
+        position: 'relative',
+        display: 'block',
+        
+    },
 }));
 
 
@@ -92,7 +98,7 @@ export default function CustomerRequest() {
         setEmail(event.target.value);
     }
 
-    getPark(5);
+    getPark();
     return (
         <div>
             <Container id="signIn-form" component="main" >
@@ -131,10 +137,12 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
+                                <div className={classes.dropdown.dropdown_content}>
                                 {result.map((e) => {
                                     //console.log(park);
-                                    return (<MenuItem value={e.id}>{e.name}</MenuItem>)
+                                    return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
                                 })}
+                                </div>
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
@@ -152,13 +160,15 @@ export default function CustomerRequest() {
                                 }}
 
                             >
-                                <MenuItem value={1}>Bathroom Needs Service</MenuItem>
-                                <MenuItem value={2}>Potable Water Is Empty</MenuItem>
-                                <MenuItem value={3}>Trail Is Blocked By Obstruction</MenuItem>
-                                <MenuItem value={4}>Road Sign Needs Service</MenuItem>
-                                <MenuItem value={5}>Trail Sign is Broken/Unreadable</MenuItem>
-                                <MenuItem value={6}>Campsite Needs Cleanup</MenuItem>
-                                <MenuItem value={7}>Other</MenuItem>
+                                <div className={classes.dropdown}>
+                                    <MenuItem value={1}>Bathroom Needs Service</MenuItem>
+                                    <MenuItem value={2}>Potable Water Is Empty</MenuItem>
+                                    <MenuItem value={3}>Trail Is Blocked By Obstruction</MenuItem>
+                                    <MenuItem value={4}>Road Sign Needs Service</MenuItem>
+                                    <MenuItem value={5}>Trail Sign is Broken/Unreadable</MenuItem>
+                                    <MenuItem value={6}>Campsite Needs Cleanup</MenuItem>
+                                    <MenuItem value={7}>Other</MenuItem>
+                                </div>
                             </Select>
                             <FormHelperText className={classes.spacing}>Select request type</FormHelperText>
                         </FormControl>
