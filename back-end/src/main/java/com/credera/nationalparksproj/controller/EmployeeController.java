@@ -1,5 +1,6 @@
 package com.credera.nationalparksproj.controller;
 
+import com.credera.nationalparksproj.dto.UserLogin;
 import com.credera.nationalparksproj.model.Employee;
 import com.credera.nationalparksproj.model.Request;
 import com.credera.nationalparksproj.service.EmployeeService;
@@ -19,8 +20,8 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping(value = "/password/")
-    public ResponseEntity getPassword (@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        return new ResponseEntity( employeeService.isPasswordCorrect(password, username) , HttpStatus.OK);
+    public ResponseEntity getPassword (@RequestBody UserLogin userLogin) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        return new ResponseEntity( employeeService.isPasswordCorrect(userLogin) , HttpStatus.OK);
     }
 
 
