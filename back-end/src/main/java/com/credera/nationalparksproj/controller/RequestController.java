@@ -66,7 +66,6 @@ public class RequestController {
 
     }
 
-
     @PostMapping(value = "/visitor")
     public ResponseEntity saveRequest (@RequestBody UnconnectedRequest unconnectedRequest) {
         return new ResponseEntity(requestService.saveRequest(unconnectedRequest), HttpStatus.OK);

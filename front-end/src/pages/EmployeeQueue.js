@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -119,17 +119,23 @@ function CustomizedTables() {
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
 
-  async function getRequests(parkId) {
-    await axios.get(`http://localhost:8080/getAllParks/`)
-    //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
-      .then(response => {
-        //setResult(response.data)
-        setResult(response.data.map(ele => {
-          return (ele.name)
-        }))
-      }
-    );  
-  }
+  const temp = 43;
+  // getRequests(temp);
+
+  useEffect(() => {
+    setRequest(r =>({...r, loading: true}));
+  },[]);
+  // async function getRequests(parkId) {
+  //   await axios.get(`http://localhost:8080/status/view/${parkId}?status=In%20Progress`)
+  //   //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
+  //     .then(response => {
+  //       //setResult(response.data)
+  //       setResult(response.data.map(ele => {
+  //         return (ele.name)
+  //       }))
+  //     }
+  //   );  
+  // }
 
   const selectRequest = (event) => {
     setRequest(event.target.value);
@@ -146,48 +152,70 @@ function CustomizedTables() {
 
     <Paper className={classes.root}>
       <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="right">Confirmation id</StyledTableCell>
-            <StyledTableCell align="right">status</StyledTableCell>
-            <StyledTableCell align="right">employee</StyledTableCell>
-            <StyledTableCell align="right">description</StyledTableCell>
-            <StyledTableCell align="right">date requested</StyledTableCell>
-            <StyledTableCell align="right">date completed</StyledTableCell>
-          </TableRow>
-        </TableHead>
+        <InputLabel className={classes.labels} htmlfor='park'>Park</InputLabel>
 
         <Select
-          className={classes.labels}
-          value={request}
-          onClick={selectRequest}
-          inputProps={{
-            id: 'request.id',
-            status: 'request.status',
-            employee: 'request.employee',
-            description: 'request.description',
-            dateRequested: 'request.dateRequested',
-            dateCompleted: 'request.dateCompleted',
-          }}
-        >
-          {result.map((e) => {
-            //console.log(park);
-            return (<MenuItem value={e.id}>{e.name}</MenuItem>)
-          })}
-        </Select>
+            className={classes.labels}
+            value={request}
+            onClick={selectRequest}
+            inputProps={{
+              id: 'request.id',
+              status: 'request.status',
+              dateCreated: 'request.datecreated',
+              dateCompleted: 'request.datecompleted',
+              parkLocation: 'request.parklocation',
+              requestType: 'request.requesttype',
+              problemDescription: 'request.problemdescription',
+              email: 'request.email',
+            }}
+          >
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="right">Confirmation Number</StyledTableCell>
+              <StyledTableCell align="right">Status</StyledTableCell>
+              <StyledTableCell align="right">Date Created</StyledTableCell>
+              <StyledTableCell align="right">Date Completed</StyledTableCell>
+              <StyledTableCell align="right">Park</StyledTableCell>
+              <StyledTableCell align="right">Description</StyledTableCell>
+              <StyledTableCell align="right">Visitor Email</StyledTableCell>
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {rows.map((e) => (
-            <StyledTableRow key={e.id}>
-              <StyledTableCell align="right">{e.id}</StyledTableCell>
-              <StyledTableCell align="right">{e.status}</StyledTableCell>
-              <StyledTableCell align="right">{e.employee}</StyledTableCell>
-              <StyledTableCell align="right">{e.description}</StyledTableCell>
-              <StyledTableCell align="right">{e.daterequested}</StyledTableCell>
-              <StyledTableCell align="right">{e.datecompleted}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
+          
+          {/* //   {result.map((e) => {
+          //     //console.log(park);
+          //     return (<MenuItem value={e.id}>{e.name}</MenuItem>)
+          //   })} */}
+
+          {/* <TableBody 
+            className={classes.labels}
+            value={request}
+            onClick={selectRequest}
+            inputProps={{
+              id: 'request.id',
+              status: 'request.status',
+              dateCreated: 'request.datecreated',
+              dateCompleted: 'request.datecompleted',
+              parkLocation: 'request.parklocation',
+              requestType: 'request.requesttype',
+              problemDescription: 'request.problemdescription',
+              email: 'request.email',
+            }}
+          >
+            {result.map((e) => (
+              <StyledTableRow key={e.id}>
+                <StyledTableCell align="right">{e.id}</StyledTableCell>
+                <StyledTableCell align="right">{e.status}</StyledTableCell>
+                <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+                <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+                <StyledTableCell align="right">{e.parkLocation}</StyledTableCell>
+                <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+                <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                <StyledTableCell align="right">{e.email}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody> */}
+        </Select>
       </Table>
     </Paper>
 
