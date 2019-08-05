@@ -1,9 +1,9 @@
 package com.credera.nationalparksproj.service;
 
+import com.credera.nationalparksproj.dto.UserLogin;
 import com.credera.nationalparksproj.model.Employee;
 import com.credera.nationalparksproj.repository.EmployeeRepo;
 import com.fasterxml.jackson.databind.ser.Serializers;
-import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +23,11 @@ public class EmployeeService {
     EmployeeRepo employeeRepo;
 
 
-    public Boolean isPasswordCorrect(String password, String username) throws NoSuchAlgorithmException, InvalidKeySpecException{
+    public Boolean isPasswordCorrect(UserLogin userLogin) throws NoSuchAlgorithmException, InvalidKeySpecException{
 
-        System.out.println(getSalts(password, username));
+        System.out.println(getSalts(userLogin.getPw(), userLogin.getUn()));
 
-        if(employeeRepo.findPasswordForEmployee(username).equals(getSalts(password, username))){
+        if(employeeRepo.findPasswordForEmployee(userLogin.getUn()).equals(getSalts(userLogin.getPw(), userLogin.getUn()))){
             return true;
         }
         else{
