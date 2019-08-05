@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 @RestController
 public class EmployeeController {
 
@@ -16,7 +19,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping(value = "/password/")
-    public ResponseEntity getPassword (@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+    public ResponseEntity getPassword (@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         return new ResponseEntity( employeeService.isPasswordCorrect(password, username) , HttpStatus.OK);
     }
 

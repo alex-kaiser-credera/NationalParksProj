@@ -25,4 +25,7 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "salt")
+    private String salt;
+
 }
