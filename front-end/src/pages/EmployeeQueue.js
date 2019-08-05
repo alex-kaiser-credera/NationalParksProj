@@ -41,17 +41,6 @@ const StyledTableRow = withStyles(theme => ({
 
 //
 
-    async function getRequests(parkId) {
-        await axios.get(`http://localhost:8080/getAllParks/`)
-        //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
-            .then(response => {
-                 //setResult(response.data)
-                setResult(response.data.map(ele => {
-                    return (ele.name)
-                }))
-            }
-        );
-    }
 function createData(id, status, employee, description, daterequested, datecompleted) {
   return { id, status, employee, description, daterequested, datecompleted};
 }
@@ -94,8 +83,6 @@ const FilterList = () => {
                     <MenuItem value={1}>All</MenuItem>
                     <MenuItem value={2}>In progress</MenuItem>
                     <MenuItem value={3}>Completed</MenuItem>
-                    <MenuItem value={4}>Date low-high</MenuItem>
-                    <MenuItem value={5}>Date high-low</MenuItem>
                 </Select>
 
                 <FormHelperText>Please select a filter</FormHelperText>
@@ -129,6 +116,24 @@ const Confirmation = () => {
 
 function CustomizedTables() {
   const classes = useStyles();
+  const [result, setResult] = React.useState([]);
+  const [request, setRequest] = React.useState([]);
+
+  async function getRequests(parkId) {
+    await axios.get(`http://localhost:8080/getAllParks/`)
+    //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
+      .then(response => {
+        //setResult(response.data)
+        setResult(response.data.map(ele => {
+          return (ele.name)
+        }))
+      }
+    );  
+  }
+
+  const selectRequest = (event) => {
+    setRequest(event.target.value);
+}
 
   return (
     <div>
@@ -151,15 +156,35 @@ function CustomizedTables() {
             <StyledTableCell align="right">date completed</StyledTableCell>
           </TableRow>
         </TableHead>
+
+        <Select
+          className={classes.labels}
+          value={request}
+          onClick={selectRequest}
+          inputProps={{
+            id: 'request.id',
+            status: 'request.status',
+            employee: 'request.employee',
+            description: 'request.description',
+            dateRequested: 'request.dateRequested',
+            dateCompleted: 'request.dateCompleted',
+          }}
+        >
+          {result.map((e) => {
+            //console.log(park);
+            return (<MenuItem value={e.id}>{e.name}</MenuItem>)
+          })}
+        </Select>
+
         <TableBody>
-          {rows.map(row => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell align="right">{row.id}</StyledTableCell>
-              <StyledTableCell align="right">{row.status}</StyledTableCell>
-              <StyledTableCell align="right">{row.employee}</StyledTableCell>
-              <StyledTableCell align="right">{row.description}</StyledTableCell>
-              <StyledTableCell align="right">{row.daterequested}</StyledTableCell>
-              <StyledTableCell align="right">{row.datecompleted}</StyledTableCell>
+          {rows.map((e) => (
+            <StyledTableRow key={e.id}>
+              <StyledTableCell align="right">{e.id}</StyledTableCell>
+              <StyledTableCell align="right">{e.status}</StyledTableCell>
+              <StyledTableCell align="right">{e.employee}</StyledTableCell>
+              <StyledTableCell align="right">{e.description}</StyledTableCell>
+              <StyledTableCell align="right">{e.daterequested}</StyledTableCell>
+              <StyledTableCell align="right">{e.datecompleted}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
