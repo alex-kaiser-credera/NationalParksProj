@@ -6,9 +6,12 @@ public class LoginResponse {
 
     private Integer parkId;
 
-    public LoginResponse(Boolean successful, Integer parkId) {
+    private String token;
+
+    public LoginResponse(Boolean successful, Integer parkId, String token) {
         this.successful = successful;
         this.parkId = parkId;
+        this.token = token;
     }
 
     public Boolean getSuccessful() {
@@ -25,5 +28,13 @@ public class LoginResponse {
 
     public void setParkId(Integer parkId) {
         this.parkId = parkId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
