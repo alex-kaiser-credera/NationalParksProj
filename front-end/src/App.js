@@ -18,7 +18,7 @@ const App = () => (
     }}
     >
       <BrowserRouter>
-        <Navigation />
+        {/* <Navigation /> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/visit_request" component={CustomerRequest} />
         <Route exact path="/login" component={Login} />

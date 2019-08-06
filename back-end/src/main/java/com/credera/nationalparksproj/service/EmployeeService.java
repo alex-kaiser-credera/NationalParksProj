@@ -1,15 +1,23 @@
 package com.credera.nationalparksproj.service;
 
+import antlr.StringUtils;
+import com.credera.nationalparksproj.model.Employee;
+import com.credera.nationalparksproj.repository.EmployeeRepo;
+import com.google.common.hash.Hashing;
+import org.apache.catalina.User;
 import com.credera.nationalparksproj.dto.UserLogin;
 import com.credera.nationalparksproj.model.Employee;
 import com.credera.nationalparksproj.repository.EmployeeRepo;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
+import java.util.UUID;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -35,7 +43,6 @@ public class EmployeeService {
             return false;
         }
     }
-
 
     public String getSalts(String password, String username)throws NoSuchAlgorithmException, InvalidKeySpecException {
 //        SecureRandom random = new SecureRandom();

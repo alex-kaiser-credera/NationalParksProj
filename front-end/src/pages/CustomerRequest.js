@@ -73,7 +73,7 @@ export default function CustomerRequest() {
                     return (ele)
                     }))
             }
-            );
+        );
     }
     // var parkNames = [];
     // result.forEach(function(element){
@@ -172,10 +172,12 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
-                                {result.map((e) => {
-                                    //console.log(park);
-                                    return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
-                                })}
+                            
+                            {result.map((e) => {
+                                //console.log(park);
+                                return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
+                            })}
+                    
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
@@ -193,6 +195,7 @@ export default function CustomerRequest() {
                                 }}
 
                             >
+
                                     <MenuItem className={classes.dropdown} value={1}>Bathroom Needs Service</MenuItem>
                                     <MenuItem className={classes.dropdown} value={2}>Potable Water Is Empty</MenuItem>
                                     <MenuItem className={classes.dropdown} value={3}>Trail Is Blocked By Obstruction</MenuItem>
@@ -200,6 +203,7 @@ export default function CustomerRequest() {
                                     <MenuItem className={classes.dropdown} value={5}>Trail Sign is Broken/Unreadable</MenuItem>
                                     <MenuItem className={classes.dropdown} value={6}>Campsite Needs Cleanup</MenuItem>
                                     <MenuItem className={classes.dropdown} value={7}>Other</MenuItem>
+
                             </Select>
                             <FormHelperText className={classes.spacing}>Select request type</FormHelperText>
                         </FormControl>
