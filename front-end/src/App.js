@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import CustomerRequest from "./pages/CustomerRequest";
@@ -7,9 +7,6 @@ import RequestInformation from "./pages/RequestInformation";
 import { BrowserRouter, Route } from 'react-router-dom'; 
 import Login from "./SignIn";
 import './App.css';
-import ProtectedRoute from './SignIn';
-import { StateProvider } from './components/Context';
-//const StateContext = createContext();
 
 const App = () => (
  
@@ -20,9 +17,8 @@ const App = () => (
       backgroundPosition: 'center 40%',
     }}
     >
-      <StateProvider>  
       <BrowserRouter>
-        <Navigation />
+        {/* <Navigation /> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/visit_request" component={CustomerRequest} />
         <Route exact path="/login" component={Login} />
@@ -30,7 +26,6 @@ const App = () => (
         <Route exact path="/request_information" component={RequestInformation} />
         
       </BrowserRouter>
-      </StateProvider> 
     </div>
 
 

@@ -2,6 +2,7 @@ package com.credera.nationalparksproj.controller;
 
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
 import com.credera.nationalparksproj.model.Request;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,9 +66,13 @@ public class RequestController {
 
     }
 
-
     @PostMapping(value = "/visitor")
     public ResponseEntity saveRequest (@RequestBody UnconnectedRequest unconnectedRequest) {
         return new ResponseEntity(requestService.saveRequest(unconnectedRequest), HttpStatus.OK);
+    }
+
+    @GetMapping("/view/{id}")
+    public ResponseEntity getRequestsPerPark (@PathVariable Integer id, @RequestParam(value="status") String status){
+        return new ResponseEntity(requestService.getRequestByPark(id, status), HttpStatus.OK);
     }
 }

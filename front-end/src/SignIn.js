@@ -5,23 +5,24 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import {useInput} from './UseInput';
+import { useInput } from './UseInput';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Component} from 'react';
+import axios from "axios";
+
 
 const useStyles = makeStyles(theme => ({
-    imageSrc: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center 40%',
-        zIndex: -1
-      },
+  imageSrc: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center 40%',
+    zIndex: -1
+  },
 
   paper: {
     marginTop: theme.spacing(8),
@@ -47,75 +48,105 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
- const LogIn = props => {
+const LogIn = props => {
+
+  const [values, setValues] = React.useState({});
 
   const classes = useStyles();
-  const userPassword = 'hello';
-  const userName = 'MeganMoore'
+  //const userPassword = 'hello';
+  //const userName = 'MeganMoore'
 
-  const {value: username, bind:bindUsername, reset:resetUsername} = useInput('');
-  const {value: password, bind:bindPassword, reset:resetPassword} = useInput('');
+  const { value: username, bind: bindUsername, reset: resetUsername } = useInput('');
+  const { value: password, bind: bindPassword, reset: resetPassword } = useInput('');
 
-   function handleSubmit(event) {
+  const handleUsernameChange = username => event => {
+    setValues({ ...values, [username]: event.target.value });
+  };
+
+  const handlePasswordChange = password => event => {
+    setValues({ ...values, [password]: event.target.value });
+  };
+
+  async function verifyLogin() {
+    console.log(`Verify Login called\nUsername: ${username}\nPassword: ${password}`)
+    axios({
+      method: 'post',
+      url: 'http://localhost:8080/password/',
+      data: {
+        un: username,
+        pw: password
+      }
+    }).then((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });;
+  }
+  function handleSubmit(event) {
     event.preventDefault();
-    if (username !== userName){
-        alert("Error: Username does not exist");
-    } else if(password !== userPassword){
-        alert("Error: Incorrect Password");
-    } else {
-        alert("Login successful");
-        props.history.push("/employee_queue");
-    }
-    resetUsername();
-    resetPassword();
+    verifyLogin()
+    //mysql.query("select * from Employee where username = ${username}", function(error, result, field) 
+    // if (username !== userName){
+    //     alert("Error: Username does not exist");
+    // } else if(password !== userPassword){
+    //     alert("Error: Incorrect Password");
+    // } else {
+    //     alert("Login successful");
+    //     props.history.push("/employee_queue");
+    // }
+    //resetUsername();
+    //resetPassword();
   }
 
   return (
-    <div>     
-    <span
+    <div>
+      <span
         className={classes.imageSrc}
-        // style={{
-        // backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-        // }}
+      // style={{
+      // backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
+      // }}
       />
-    <Container id="signIn-form" component="main" maxWidth="xs"> 
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}/>
-        <Typography component="h1" variant="h5">
-          Sign in
+      <Container id="signIn-form" component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar} />
+          <Typography component="h1" variant="h5">
+            Sign in
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="current-username"
-            autoFocus
-            value={username}
-            type= "username" {...bindUsername}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password" {...bindPassword}
-            id="password"
-            autoComplete="current-password"
-            value={password}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="current-username"
+              autoFocus
+              onChange={handleUsernameChange('username')}
+              value={username}
+              type="username" {...bindUsername}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              label="Password"
+              name="password"
+              autoComplete="current-password"
+              autoFocus
+              onChange={handlePasswordChange('password')}
+              value={password}
+              type="password" {...bindPassword}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
             <Button
-              onClick = { (e) => handleSubmit(e)}
+              onClick={(e) => handleSubmit(e)}
               type="submit"
               fullWidth
               variant="contained"
@@ -124,11 +155,11 @@ const useStyles = makeStyles(theme => ({
             >
               Sign In
             </Button>
-          <Grid container>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+            <Grid container>
+            </Grid>
+          </form>
+        </div>
+      </Container>
     </div>
   );
 }

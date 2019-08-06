@@ -1,18 +1,12 @@
 package com.credera.nationalparksproj.model;
-
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Employee", schema="public")
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
 
@@ -31,13 +25,7 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", park=" + park +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    @Column(name = "salt")
+    private String salt;
+
 }

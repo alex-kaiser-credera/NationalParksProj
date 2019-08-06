@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
   imageText: {
     // width: '50%',
-    textAlign: 'center'
+    //textAlign: 'center'
     // margin: '0 -5rem',
   },
   buttonWrapper: {
@@ -113,11 +113,11 @@ export default function ButtonBases() {
           style={{ marginTop: '4rem' }}>
           <div style={{ display: 'flex' }}>
             {images.map(value => (
-              // <Grid key={value} 
-              //   item 
-              //   className={classes.image}
-              //   component={props => <Link to={value.url} {...props} />}
-              // >
+              <Grid key={value} 
+                item 
+                className={classes.image}
+                component={props => <Link to={value.url} {...props} />}
+              >
                 <ButtonBase
                   className={classes.image} 
                   focusRipple
@@ -147,7 +147,7 @@ export default function ButtonBases() {
                   </span>
                   {/* </Grid> */}
                 </ButtonBase>
-              // </Grid>
+               </Grid>
             ))}
           </div>
         </Container>
