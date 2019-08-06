@@ -65,6 +65,7 @@ public class RequestController {
         return requestService.getRequestByID(id);
 
     }
+    @CrossOrigin(origins = "http://localhost:3000")
 
     @PostMapping(value = "/visitor")
     public ResponseEntity saveRequest (@RequestBody UnconnectedRequest unconnectedRequest) {

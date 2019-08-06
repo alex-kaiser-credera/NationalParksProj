@@ -1,17 +1,13 @@
 package com.credera.nationalparksproj.service;
 
-import com.credera.nationalparksproj.dto.UserLogin;
-import com.credera.nationalparksproj.model.Employee;
+import com.credera.nationalparksproj.dto.LoginResponse;
 import com.credera.nationalparksproj.repository.EmployeeRepo;
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.credera.nationalparksproj.dto.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
@@ -23,18 +19,20 @@ public class EmployeeService {
     EmployeeRepo employeeRepo;
 
 
-    public Boolean isPasswordCorrect(UserLogin userLogin) throws NoSuchAlgorithmException, InvalidKeySpecException{
+    public LoginResponse isPasswordCorrect(UserLogin userLogin) throws NoSuchAlgorithmException, InvalidKeySpecException{
 
         System.out.println(getSalts(userLogin.getPw(), userLogin.getUn()));
 
         if(employeeRepo.findPasswordForEmployee(userLogin.getUn()).equals(getSalts(userLogin.getPw(), userLogin.getUn()))){
-            return true;
+            LoginResponse loginResponse = new LoginResponse(true, employeeRepo.findParkForEmployee(userLogin.getUn()).getId());
+            return loginResponse;
+
         }
         else{
-            return false;
+            LoginResponse loginResponse = new LoginResponse(false, employeeRepo.findParkForEmployee(userLogin.getUn()).getId());
+            return loginResponse;
         }
     }
-
 
     public String getSalts(String password, String username)throws NoSuchAlgorithmException, InvalidKeySpecException {
 //        SecureRandom random = new SecureRandom();

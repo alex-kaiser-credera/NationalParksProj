@@ -75,10 +75,10 @@ export default function CustomerRequest() {
             }
         );
     }
-    var parkNames = [];
-    result.forEach(function(element){
-        parkNames.push(element.name)
-    })
+    // var parkNames = [];
+    // result.forEach(function(element){
+    //     parkNames.push(element.name)
+    // })
 
     const handleParkChange = (event) => {
         setPark(event.target.value);
@@ -88,6 +88,9 @@ export default function CustomerRequest() {
         setRequest(event.target.value);
     }
 
+    // const handleDescriptionChange = username => event => {
+    //     setValues({ ...values, [username]: event.target.value });
+    //   };
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
     }
@@ -101,18 +104,18 @@ export default function CustomerRequest() {
     // const {value: requestType, reset: resetRequestType} = useInput();
     // const {value: desc, reset: resetDesc} = useInput('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
         var date = new Date();
 
         // axios.post('http://localhost:8080/status/visitor', { 
         //     email, park, request, description
         // })
+    async function submitRequest() {
+        console.log(`Verify Request\ndateCreated: ${date}\nparkLocation: ${park}\nrequestType: ${request}
+                \nproblemDescription: ${description}\nemail: ${email}`)
         axios({
             method: 'post',
             url: 'http://localhost:8080/status/visitor',
             data: {
-            
                 "status":"Not Started",
                 "dateCreated": date,
                 "dateCompleted": null,
@@ -121,11 +124,18 @@ export default function CustomerRequest() {
                 "problemDescription":description,
                 "email":email
             }
-        })
+        }).then(response => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });;
+      }
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        submitRequest();
     }
 
-    getPark();
-
+    getPark(5);
     return (
         <div>
             <Container id="signIn-form" component="main" >
@@ -142,7 +152,7 @@ export default function CustomerRequest() {
         </Typography>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='email'>Email</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='email'>Email</InputLabel>
                             <Input
                                 className={classes.labels}
                                 id='description'
@@ -155,7 +165,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='park'>Park</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='park'>Park</InputLabel>
                             <Select
                                 className={classes.labels}
                                 value={park}
@@ -165,6 +175,7 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
+<<<<<<< HEAD
        
                                 {result.map((e) => {
                                     //console.log(park);
@@ -172,13 +183,21 @@ export default function CustomerRequest() {
                                     return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
 
                                 })}
+=======
+                            
+                            {result.map((e) => {
+                                //console.log(park);
+                                return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
+                            })}
+                    
+>>>>>>> 4add265b36d6d144265d1c8b3b667db7b57598d5
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='request'>Request</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='request'>Request</InputLabel>
                             <Select
                                 className={classes.labels}
                                 value={request}
@@ -204,7 +223,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='description'>Request Description</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='description'>Request Description</InputLabel>
                             <Input
                                 className={classes.labels}
                                 id='description'
@@ -216,7 +235,7 @@ export default function CustomerRequest() {
                             <FormHelperText className={classes.spacing}>Describe request details</FormHelperText>
                             <div className={classes.button}>
                                 <Button
-                                    onSubmit= {handleSubmit}
+                                    onClick={(e) => handleSubmit(e)}
                                     variant='contained'
                                     color="primary"
                                 >Submit</Button>
