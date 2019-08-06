@@ -165,14 +165,6 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
-<<<<<<< HEAD
-                            
-                            {result.map((e) => {
-                                //console.log(park);
-                                return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
-                            })}
-                            
-=======
        
                                 {result.map((e) => {
                                     //console.log(park);
@@ -180,7 +172,6 @@ export default function CustomerRequest() {
                                     return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
 
                                 })}
->>>>>>> 55241ca3f9d61af148308282a57fd35d309d9fa7
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
@@ -198,16 +189,6 @@ export default function CustomerRequest() {
                                 }}
 
                             >
-<<<<<<< HEAD
-                                <MenuItem value={1}>Bathroom Needs Service</MenuItem>
-                                <MenuItem value={2}>Potable Water Is Empty</MenuItem>
-                                <MenuItem value={3}>Trail Is Blocked By Obstruction</MenuItem>
-                                <MenuItem value={4}>Road Sign Needs Service</MenuItem>
-                                <MenuItem value={5}>Trail Sign is Broken/Unreadable</MenuItem>
-                                <MenuItem value={6}>Campsite Needs Cleanup</MenuItem>
-                                <MenuItem value={7}>Other</MenuItem>
-                    
-=======
 
                                     <MenuItem className={classes.dropdown} value={1}>Bathroom Needs Service</MenuItem>
                                     <MenuItem className={classes.dropdown} value={2}>Potable Water Is Empty</MenuItem>
@@ -217,7 +198,6 @@ export default function CustomerRequest() {
                                     <MenuItem className={classes.dropdown} value={6}>Campsite Needs Cleanup</MenuItem>
                                     <MenuItem className={classes.dropdown} value={7}>Other</MenuItem>
 
->>>>>>> 55241ca3f9d61af148308282a57fd35d309d9fa7
                             </Select>
                             <FormHelperText className={classes.spacing}>Select request type</FormHelperText>
                         </FormControl>
