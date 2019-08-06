@@ -6,10 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT e.password FROM Employee e WHERE e.username = :employee_username")
     String findPasswordForEmployee(@Param("employee_username") String username);
+
+//    @Query(value = "SELECT e FROM Employee e WHERE e.username = ?1nd e.password = ?")
+//    Optional login(String username, String password);
+//    Optional findByToken(String token);
 
 }
