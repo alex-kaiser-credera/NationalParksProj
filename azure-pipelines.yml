@@ -19,6 +19,13 @@ steps:
     cd front-end/
     npm install
     npm run build
+    cd ..
   displayName: 'npm install and build'
   
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'front-end'
+    Contents: '**'
+    TargetFolder: '/home/vsts/work/1/a'
+
 - task: PublishBuildArtifacts@1
