@@ -88,6 +88,9 @@ export default function CustomerRequest() {
         setRequest(event.target.value);
     }
 
+    // const handleDescriptionChange = username => event => {
+    //     setValues({ ...values, [username]: event.target.value });
+    //   };
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
     }
@@ -149,7 +152,7 @@ export default function CustomerRequest() {
         </Typography>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='email'>Email</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='email'>Email</InputLabel>
                             <Input
                                 className={classes.labels}
                                 id='description'
@@ -162,7 +165,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='park'>Park</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='park'>Park</InputLabel>
                             <Select
                                 className={classes.labels}
                                 value={park}
@@ -184,7 +187,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='request'>Request</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='request'>Request</InputLabel>
                             <Select
                                 className={classes.labels}
                                 value={request}
@@ -210,7 +213,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlfor='description'>Request Description</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='description'>Request Description</InputLabel>
                             <Input
                                 className={classes.labels}
                                 id='description'
@@ -222,7 +225,7 @@ export default function CustomerRequest() {
                             <FormHelperText className={classes.spacing}>Describe request details</FormHelperText>
                             <div className={classes.button}>
                                 <Button
-                                    onSubmit= {handleSubmit}
+                                    onClick={(e) => handleSubmit(e)}
                                     variant='contained'
                                     color="primary"
                                 >Submit</Button>
