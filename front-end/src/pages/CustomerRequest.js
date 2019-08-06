@@ -175,7 +175,6 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
-<<<<<<< HEAD
        
                                 {result.map((e) => {
                                     //console.log(park);
@@ -183,14 +182,12 @@ export default function CustomerRequest() {
                                     return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
 
                                 })}
-=======
                             
                             {result.map((e) => {
                                 //console.log(park);
                                 return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
                             })}
                     
->>>>>>> 4add265b36d6d144265d1c8b3b667db7b57598d5
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>

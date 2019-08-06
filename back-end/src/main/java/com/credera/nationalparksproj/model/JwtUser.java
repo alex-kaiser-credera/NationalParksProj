@@ -3,28 +3,28 @@ package com.credera.nationalparksproj.model;
 public class JwtUser {
 
     private String userName;
-    private long id;
+    private String passWord;
 
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;
     }
 
-    public long getId() {
-        return id;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public JwtUser(String userName, long id) {
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public JwtUser(String userName, String passWord) {
         this.userName = userName;
-        this.id = id;
+        this.passWord = passWord;
     }
 
     public JwtUser() {
