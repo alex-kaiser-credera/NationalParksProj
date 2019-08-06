@@ -10,6 +10,7 @@ import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
 import axios from 'axios';
 import LogIn from "../SignIn";
+import Avatar from '@material-ui/core/Avatar';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -38,6 +39,19 @@ const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 700,
   },
+  avatar: {
+    height: 100,
+    width: 100,
+    backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: 'inherit',
+    float: "right",
+    marginRight: 780,
+    marginTop: 5
+  },
+
 }));
 
 function CustomizedTables() {
@@ -131,6 +145,7 @@ function CustomizedTables() {
     <div>
     {/* <FilterList> 
     </FilterList> */}
+      <Avatar className={classes.avatar} />
       <div>
         <FormControl>
           <InputLabel htmlfor='filter'>Filter</InputLabel>

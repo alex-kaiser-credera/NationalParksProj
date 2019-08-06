@@ -13,24 +13,15 @@ import axios from "axios";
 
 
 const useStyles = makeStyles(theme => ({
-  imageSrc: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center 40%',
-    zIndex: -1
-  },
-
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(15),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: 50,
+    width: 585,
     border: '4px solid grey',
+    marginLeft: 263
   },
   avatar: {
     height: 100,
@@ -91,10 +82,10 @@ const LogIn = props => {
 
   return (
     <div>
-      <span
+      {/* <span
         className={classes.imageSrc}
-      />
-      <Container id="signIn-form" component="main" maxWidth="xs">
+      /> */}
+      <Container id="signIn-form" component="main">
         <div className={classes.paper}>
           <Avatar className={classes.avatar} />
           <Typography component="h1" variant="h5">
