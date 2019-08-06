@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 import { Login } from "../SignIn"
 
@@ -20,16 +19,6 @@ const StyledTableCell = withStyles(theme => ({
   body: {
     fontSize: 14,
   },
-  avatar: {
-    height: 100,
-    width: 100,
-    backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
-    backgroundSize: 'contain',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: 'inherit',
-    margin: 45,
-  },
 }))(TableCell);
 
 const StyledTableRow = withStyles(theme => ({
@@ -39,17 +28,6 @@ const StyledTableRow = withStyles(theme => ({
     },
   },
 }))(TableRow);
-
-//
-
-function createData(id, status, employee, description, daterequested, datecompleted) {
-  return { id, status, employee, description, daterequested, datecompleted};
-}
-
-const rows = [
-  createData(8, "In progress", "John", "hello", "Jan 28", "Jan 29"),
-  createData(4, "Completed", "Amanda", "hi", "Jan 28", "Feb 1"),
-];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,58 +40,53 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FilterList = () => {
-    const [dropdown, setDropdown] = React.useState('');
-    const classes = useStyles();
-    const handleChange = (event) => {
-        setDropdown(event.target.value);
-    }
-      
-    return(
-        
-        <div>
-            <FormControl>
-                <InputLabel htmlfor='filter'>Filter</InputLabel>
-                <Select 
-                value= {dropdown}
-                onChange= {handleChange}
-                inputProps={{
-                    name: 'filter',
-                    id: 'filter',
-                }}>
-                    <MenuItem value={1}>All</MenuItem>
-                    <MenuItem value={2}>In progress</MenuItem>
-                    <MenuItem value={3}>Completed</MenuItem>
-                </Select>
-
-                <FormHelperText>Please select a filter</FormHelperText>
-            </FormControl>
-            </div>
-    )
-}
+// const FilterList = () => {
+//   const [dropdown, setDropdown] = React.useState('');
+//   const handleChange = (event) => {
+//     setDropdown(event.target.value);
+//   }
+    
+//   return (
+//     <div>
+//       <FormControl>
+//         <InputLabel htmlfor='filter'>Filter</InputLabel>
+//         <Select 
+//           value= {dropdown}
+//           onChange= {handleChange}
+//           inputProps={{
+//               name: 'filter',
+//               id: 'filter',
+//           }}>
+//             <MenuItem value={1}>All</MenuItem>
+//             <MenuItem value={2}>In progress</MenuItem>
+//             <MenuItem value={3}>Completed</MenuItem>
+//         </Select>
+//         <FormHelperText>Please select a filter</FormHelperText>
+//       </FormControl>
+//     </div>
+//   )
+// }
 
 const Confirmation = () => {
-    const [textField, setTextField] = React.useState('');
+  const [textField, setTextField] = React.useState('');
 
-    const handleChange = (event) => {
-        setTextField(event.target.value);
-    }
+  const handleChange = (event) => {
+      setTextField(event.target.value);
+  }
     return(
         <div>
         <FormControl>
-               <InputLabel htmlfor='confirmation'>Confirmation Number</InputLabel>
-                 <Input 
-                 id='description'
-                value= {textField}
-                onChange= {handleChange}
-                 />
-                <FormHelperText>Please input Confirmation Number</FormHelperText>
+          <InputLabel htmlfor='confirmation'>Confirmation Number</InputLabel>
+          <Input 
+            id='description'
+            value= {textField}
+            onChange= {handleChange}
+          />
+          <FormHelperText>Please input Confirmation Number</FormHelperText>
         </FormControl>
         </div>
     )
 }
-
-        
 
 function CustomizedTables() {
   const classes = useStyles();
@@ -121,120 +94,169 @@ function CustomizedTables() {
   const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
+  const [dropdown, setDropdown] = React.useState('');
+  const [textField, setTextField] = React.useState('');
 
-  const temp = 43;
-  // getRequests(temp);
+  const handleConfChange = (event) => {
+      setTextField(event.target.value);
+  }
+  const handleFilterChange = (event) => {
+    setDropdown(event.target.value);
+  }
 
-  
-  
   useEffect(() => {
-    setRequest(r =>({...r, loading: true}));
-    setRequest(r =>({...r}));
     async function fetchAll() {
-      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
-      setRequest(s => ({
-        ...s,
-        data: {...s.data}
-      }))
+      // const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+
+      // Mock response
+      const result = {
+        data: [
+          {
+            id: `123`,
+            status: `In Progress`,
+            dateCreated: `b`,
+            dateCompleted: `c`,
+            parkLocation: {
+              name: `d`,
+            },
+            requestType: `e`,
+            problemDescription: `f`,
+            email: `g`,
+          },
+          {
+            id: `124`,           
+            status: `Completed`,
+            dateCreated: `ba`,
+            dateCompleted: `ca`,
+            parkLocation: {
+              name: `da`,
+            },
+            requestType: `ea`,
+            problemDescription: `fa`,
+            email: `ga`,
+          },
+          {
+            id: `125`,
+            status: `In Progress`,
+            dateCreated: `bb`,
+            dateCompleted: `cb`,
+            parkLocation: {
+              name: `db`,
+            },
+            requestType: `eb`,
+            problemDescription: `fb`,
+            email: `gb`,
+          },
+        ]
+      }
+
+      setResult(result.data);
     }
     fetchAll();
   },[]);
-  // async function getRequests(parkId) {
-  //   await axios.get(`http://localhost:8080/status/view/${parkId}?status=In%20Progress`)
-  //   //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
-  //     .then(response => {
-  //       //setResult(response.data)
-  //       setResult(response.data.map(ele => {
-  //         return (ele.name)
-  //       }))
-  //     }
-  //   );  
-  // }
 
   const selectRequest = (event) => {
     setRequest(event.target.value);
-}
+  }
+
+  // Filter by status
+  let filteredData = result;
+  if (dropdown === 2) {
+    // Filter down to in progress status items only
+    filteredData = result.filter(item => item.status === `In Progress`);
+  } else if (dropdown === 3) {
+    // Filter down to completed status items only
+    filteredData = result.filter(item => item.status === `Completed`);
+  }
+  
+  // Filter by confirmation number
+  if (textField !== ``) {
+    console.warn(`###`, textField);
+    filteredData = result.filter(item => item.id === textField);
+  }
 
   return (
     <div>
-    <FilterList> 
-    </FilterList>
+    {/* <FilterList> 
+    </FilterList> */}
+      <div>
+        <FormControl>
+          <InputLabel htmlfor='filter'>Filter</InputLabel>
+          <Select 
+            value= {dropdown}
+            onChange= {handleFilterChange}
+            inputProps={{
+                name: 'filter',
+                id: 'filter',
+            }}>
+              <MenuItem value={1}>All</MenuItem>
+              <MenuItem value={2}>In progress</MenuItem>
+              <MenuItem value={3}>Completed</MenuItem>
+          </Select>
+          <FormHelperText>Please select a filter</FormHelperText>
+        </FormControl>
+      </div>
 
-    <Confirmation>
-    </Confirmation>
-
+    {/* <Confirmation>
+    </Confirmation> */}
+      <div>
+        <FormControl>
+          <InputLabel htmlfor='confirmation'>Confirmation Number</InputLabel>
+          <Input 
+            id='description'
+            value= {textField}
+            onChange= {handleConfChange}
+          />
+          <FormHelperText>Please input Confirmation Number</FormHelperText>
+        </FormControl>
+      </div>
 
     <Paper className={classes.root}>
       <Table className={classes.table}>
-        <InputLabel className={classes.labels} htmlfor='park'>Park</InputLabel>
+        <TableHead>
+          <TableRow>
+            <StyledTableCell align="right">Confirmation Number</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
+            <StyledTableCell align="right">Date Created</StyledTableCell>
+            <StyledTableCell align="right">Date Completed</StyledTableCell>
+            <StyledTableCell align="right">Park</StyledTableCell>
+            <StyledTableCell align="right">Request Type</StyledTableCell>
+            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell align="right">Visitor Email</StyledTableCell>
+          </TableRow>
+        </TableHead>
 
-        {/* <Select
-            className={classes.labels}
-            value={request}
-            onClick={selectRequest}
-            inputProps={{
-              id: 'request.id',
-              status: 'request.status',
-              dateCreated: 'request.datecreated',
-              dateCompleted: 'request.datecompleted',
-              parkLocation: 'request.parklocation',
-              requestType: 'request.requesttype',
-              problemDescription: 'request.problemdescription',
-              email: 'request.email',
-            }}
-          > */}
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="right">Confirmation Number</StyledTableCell>
-              <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Date Created</StyledTableCell>
-              <StyledTableCell align="right">Date Completed</StyledTableCell>
-              <StyledTableCell align="right">Park</StyledTableCell>
-              <StyledTableCell align="right">Description</StyledTableCell>
-              <StyledTableCell align="right">Visitor Email</StyledTableCell>
-            </TableRow>
-          </TableHead>
-
-          
-          {/* //   {result.map((e) => {
-          //     //console.log(park);
-          //     return (<MenuItem value={e.id}>{e.name}</MenuItem>)
-          //   })} */}
-
-          <TableBody 
-            className={classes.labels}
-            value={request}
-            onClick={selectRequest}
-            inputProps={{
-              id: 'request.id',
-              status: 'request.status',
-              dateCreated: 'request.datecreated',
-              dateCompleted: 'request.datecompleted',
-              parkLocation: 'request.parklocation',
-              requestType: 'request.requesttype',
-              problemDescription: 'request.problemdescription',
-              email: 'request.email',
-            }}
-          >
-            {result.map((e) => (
-              <StyledTableRow key={rows.id}>
-                {/* <StyledTableCell align="right">{e.id}</StyledTableCell>
-                <StyledTableCell align="right">{e.status}</StyledTableCell>
-                <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
-                <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
-                <StyledTableCell align="right">{e.parkLocation}</StyledTableCell>
-                <StyledTableCell align="right">{e.requestType}</StyledTableCell>
-                <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-                <StyledTableCell align="right">{e.email}</StyledTableCell> */}
-                <StyledTableCell align="right">{rows.id}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        {/* </Select> */}
+        <TableBody 
+          className={classes.labels}
+          value={request}
+          onClick={selectRequest}
+          inputProps={{
+            id: 'request.id',
+            status: 'request.status',
+            dateCreated: 'request.datecreated',
+            dateCompleted: 'request.datecompleted',
+            parkLocation: 'request.parklocation',
+            requestType: 'request.requesttype',
+            problemDescription: 'request.problemdescription',
+            email: 'request.email',
+          }}
+        >
+        {filteredData.map((e) => (
+          <StyledTableRow key={e.id}>
+            <StyledTableCell align="right">{e.id}</StyledTableCell>
+            <StyledTableCell align="right">{e.status}</StyledTableCell>
+            <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+            <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+            <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
+            <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+            <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+            <StyledTableCell align="right">{e.email}</StyledTableCell>
+          </StyledTableRow>
+        ))}
+        </TableBody>
       </Table>
     </Paper>
-
-    </div>
+  </div>
   );
 }
 
