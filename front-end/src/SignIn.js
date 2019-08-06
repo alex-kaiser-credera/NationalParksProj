@@ -77,7 +77,11 @@ const LogIn = props => {
         pw: password
       }
     }).then((response) => {
-      console.log(response);
+      if(response.data == false){
+        alert("Error: Invalid Username or Password")
+      } else {
+        props.history.push("/employee_queue");
+      }
     }, (error) => {
       console.log(error);
     });;

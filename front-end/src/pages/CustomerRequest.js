@@ -75,10 +75,10 @@ export default function CustomerRequest() {
             }
         );
     }
-    var parkNames = [];
-    result.forEach(function(element){
-        parkNames.push(element.name)
-    })
+    // var parkNames = [];
+    // result.forEach(function(element){
+    //     parkNames.push(element.name)
+    // })
 
     const handleParkChange = (event) => {
         setPark(event.target.value);
@@ -101,18 +101,18 @@ export default function CustomerRequest() {
     // const {value: requestType, reset: resetRequestType} = useInput();
     // const {value: desc, reset: resetDesc} = useInput('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
         var date = new Date();
 
         // axios.post('http://localhost:8080/status/visitor', { 
         //     email, park, request, description
         // })
+    async function submitRequest() {
+        console.log(`Verify Request\ndateCreated: ${date}\nparkLocation: ${park}\nrequestType: ${request}
+                \nproblemDescription: ${description}\nemail: ${email}`)
         axios({
             method: 'post',
             url: 'http://localhost:8080/status/visitor',
             data: {
-            
                 "status":"Not Started",
                 "dateCreated": date,
                 "dateCompleted": null,
@@ -121,11 +121,18 @@ export default function CustomerRequest() {
                 "problemDescription":description,
                 "email":email
             }
-        })
+        }).then(response => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });;
+      }
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        submitRequest();
     }
 
-    getPark();
-
+    getPark(5);
     return (
         <div>
             <Container id="signIn-form" component="main" >
@@ -165,22 +172,12 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
-<<<<<<< HEAD
                             
                             {result.map((e) => {
                                 //console.log(park);
                                 return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
                             })}
-                            
-=======
-       
-                                {result.map((e) => {
-                                    //console.log(park);
-
-                                    return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
-
-                                })}
->>>>>>> 55241ca3f9d61af148308282a57fd35d309d9fa7
+                    
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
@@ -198,16 +195,6 @@ export default function CustomerRequest() {
                                 }}
 
                             >
-<<<<<<< HEAD
-                                <MenuItem value={1}>Bathroom Needs Service</MenuItem>
-                                <MenuItem value={2}>Potable Water Is Empty</MenuItem>
-                                <MenuItem value={3}>Trail Is Blocked By Obstruction</MenuItem>
-                                <MenuItem value={4}>Road Sign Needs Service</MenuItem>
-                                <MenuItem value={5}>Trail Sign is Broken/Unreadable</MenuItem>
-                                <MenuItem value={6}>Campsite Needs Cleanup</MenuItem>
-                                <MenuItem value={7}>Other</MenuItem>
-                    
-=======
 
                                     <MenuItem className={classes.dropdown} value={1}>Bathroom Needs Service</MenuItem>
                                     <MenuItem className={classes.dropdown} value={2}>Potable Water Is Empty</MenuItem>
@@ -217,7 +204,6 @@ export default function CustomerRequest() {
                                     <MenuItem className={classes.dropdown} value={6}>Campsite Needs Cleanup</MenuItem>
                                     <MenuItem className={classes.dropdown} value={7}>Other</MenuItem>
 
->>>>>>> 55241ca3f9d61af148308282a57fd35d309d9fa7
                             </Select>
                             <FormHelperText className={classes.spacing}>Select request type</FormHelperText>
                         </FormControl>
