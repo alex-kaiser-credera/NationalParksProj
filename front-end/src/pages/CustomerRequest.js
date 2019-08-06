@@ -4,6 +4,7 @@ import { Typography, Select, FormControl, InputLabel, MenuItem, FormHelperText, 
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import axios from "axios";
+import { useInput } from '../UseInput';
 
 const useStyles = makeStyles(theme => ({
     imageSrc: {
@@ -50,11 +51,8 @@ const useStyles = makeStyles(theme => ({
         left: 250,
     },
     dropdown: {
-        backgroundColor: '#FFFFFF',
-        position: 'relative',
-        display: 'block',
-        
-    },
+        backgroundColor: '#FFFFFF'
+    }
 }));
 
 
@@ -98,7 +96,36 @@ export default function CustomerRequest() {
         setEmail(event.target.value);
     }
 
+    // const {value: userEmail, reset: resetUserEmail} = useInput('');
+    // const {value: userPark, reset: resetPark} = useInput();
+    // const {value: requestType, reset: resetRequestType} = useInput();
+    // const {value: desc, reset: resetDesc} = useInput('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        var date = new Date();
+
+        // axios.post('http://localhost:8080/status/visitor', { 
+        //     email, park, request, description
+        // })
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/status/visitor',
+            data: {
+            
+                "status":"Not Started",
+                "dateCreated": date,
+                "dateCompleted": null,
+                "parkLocation":park,
+                "requestType":request,
+                "problemDescription":description,
+                "email":email
+            }
+        })
+    }
+
     getPark();
+
     return (
         <div>
             <Container id="signIn-form" component="main" >
@@ -121,6 +148,7 @@ export default function CustomerRequest() {
                                 id='description'
                                 onChange={handleEmailChange}
                                 value={email}
+                    
                             />
                             <FormHelperText className={classes.spacing}>Type in your email</FormHelperText>
                         </FormControl>
@@ -137,12 +165,22 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
+<<<<<<< HEAD
                             
                             {result.map((e) => {
                                 //console.log(park);
                                 return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
                             })}
                             
+=======
+       
+                                {result.map((e) => {
+                                    //console.log(park);
+
+                                    return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
+
+                                })}
+>>>>>>> 55241ca3f9d61af148308282a57fd35d309d9fa7
                             </Select>
                             <FormHelperText className={classes.spacing}>Select park location</FormHelperText>
                         </FormControl>
@@ -160,6 +198,7 @@ export default function CustomerRequest() {
                                 }}
 
                             >
+<<<<<<< HEAD
                                 <MenuItem value={1}>Bathroom Needs Service</MenuItem>
                                 <MenuItem value={2}>Potable Water Is Empty</MenuItem>
                                 <MenuItem value={3}>Trail Is Blocked By Obstruction</MenuItem>
@@ -168,6 +207,17 @@ export default function CustomerRequest() {
                                 <MenuItem value={6}>Campsite Needs Cleanup</MenuItem>
                                 <MenuItem value={7}>Other</MenuItem>
                     
+=======
+
+                                    <MenuItem className={classes.dropdown} value={1}>Bathroom Needs Service</MenuItem>
+                                    <MenuItem className={classes.dropdown} value={2}>Potable Water Is Empty</MenuItem>
+                                    <MenuItem className={classes.dropdown} value={3}>Trail Is Blocked By Obstruction</MenuItem>
+                                    <MenuItem className={classes.dropdown} value={4}>Road Sign Needs Service</MenuItem>
+                                    <MenuItem className={classes.dropdown} value={5}>Trail Sign is Broken/Unreadable</MenuItem>
+                                    <MenuItem className={classes.dropdown} value={6}>Campsite Needs Cleanup</MenuItem>
+                                    <MenuItem className={classes.dropdown} value={7}>Other</MenuItem>
+
+>>>>>>> 55241ca3f9d61af148308282a57fd35d309d9fa7
                             </Select>
                             <FormHelperText className={classes.spacing}>Select request type</FormHelperText>
                         </FormControl>
@@ -186,6 +236,7 @@ export default function CustomerRequest() {
                             <FormHelperText className={classes.spacing}>Describe request details</FormHelperText>
                             <div className={classes.button}>
                                 <Button
+                                    onSubmit= {handleSubmit}
                                     variant='contained'
                                     color="primary"
                                 >Submit</Button>

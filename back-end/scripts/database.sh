@@ -115,8 +115,8 @@ password text,
 foreign key (park) references National_Parks (id));
 
 insert into Employee values 
-(1,	5, 'MeganMoore', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
-(2,	52,	'AlexKaiser', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f');
+(1,	5, 'MeganMoore', 'D4pA8GawgcLrmjwmiWAWlFNB3H2/0ymIv8bysUoiqYWG178AwsFG6uTEesapFy/vgynOe0l3QySbLq04xOo5IA==', 'EQwhyvGgNSQQE9Awna+OmA=='),
+(2,	52,	'AlexKaiser', 'uR2Jnd+5IKhxYk5k9H8Spmu9MxINOn+tCv5a5FkasLGPdvibG03449ul1J5VEdLE/N5OgwoIZJYJWdSfYcNOJw==', '9QG7niczgPgFDG7G6oThFg==');
 
 create table Requests (
 id SERIAL PRIMARY KEY, 
