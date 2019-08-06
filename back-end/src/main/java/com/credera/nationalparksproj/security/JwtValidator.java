@@ -19,10 +19,12 @@ public class JwtValidator {
                     .parseClaimsJws(token)
                     .getBody();
 
+            System.out.println(body);
+
             jwtUser = new JwtUser();
 
             jwtUser.setUserName(body.getSubject());
-            jwtUser.setId(Long.parseLong((String) body.get("userId")));
+            jwtUser.setPassWord(((String) body.get("pw")));
 
         }
         catch (Exception e) {
