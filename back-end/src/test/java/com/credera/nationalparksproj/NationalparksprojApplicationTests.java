@@ -1,6 +1,7 @@
 package com.credera.nationalparksproj;
 
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
+import com.credera.nationalparksproj.dto.UserLogin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,17 +78,23 @@ public class NationalparksprojApplicationTests {
 
 	@Test
 	public void checkPassword() throws Exception{
-
-		mockMvc.perform(post("/password/?username=AlexKaiser&password=password123"))
+		UserLogin userLogin = new UserLogin("AlexKaiser", "password123");
+		ObjectMapper objectMapper = new ObjectMapper();
+		mockMvc.perform(post("/password/")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(userLogin)))
 				.andExpect(status().isOk())
-				.andExpect(content().string("true"));
+				.andExpect(jsonPath("$.successful").value("true"));
 	}
 
 	@Test
 	public void checkWrongPassword() throws Exception{
-
-		mockMvc.perform(post("/password/?username=AlexKaiser&password=password1234"))
+		UserLogin userLogin = new UserLogin("AlexKaiser", "password");
+		ObjectMapper objectMapper = new ObjectMapper();
+		mockMvc.perform(post("/password/")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(userLogin)))
 				.andExpect(status().isOk())
-				.andExpect(content().string("false"));
+				.andExpect(jsonPath("$.successful").value("false"));
 	}
 }
