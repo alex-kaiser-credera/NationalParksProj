@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { sizing } from '@material-ui/system';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles(theme => ({
   root:{
@@ -52,7 +53,27 @@ const useStyles = makeStyles(theme => ({
   },
   buttonWrapper: {
     justifyContent: 'center',
-  }
+  },
+//   paper: {
+//     marginTop: theme.spacing(8),
+//     marginLeft: 250,
+//     padding: 50,
+//     width: 600,
+//     border: '4px solid grey',
+//     height: 650,
+// },
+  avatar: {
+    height: 100,
+    width: 100,
+    backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: 'inherit',
+    marginLeft: '39em',
+    marginTop: 115
+  },
+  
 }));
 
 const theme = createMuiTheme({
@@ -91,6 +112,8 @@ export default function ButtonBases() {
   return (
     <ThemeProvider theme={theme}>
       <div>
+      {/* <div className={classes.paper}> */}
+        <Avatar className={classes.avatar}/>
         <span
           className={classes.imageSrc}
           alignItems={60}
@@ -119,7 +142,7 @@ export default function ButtonBases() {
                 component={props => <Link to={value.url} {...props} />}
               >
                 <ButtonBase
-                  className={classes.image} 
+                  // className={classes.image} 
                   focusRipple
                   key={value.title}
                   focusVisibleClassName={classes.image}
@@ -155,6 +178,7 @@ export default function ButtonBases() {
       </div>
     
       {/* // </div> */}
+      {/* </div> */}
     </ThemeProvider>
   );
 }

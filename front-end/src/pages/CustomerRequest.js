@@ -99,12 +99,24 @@ export default function CustomerRequest() {
         setEmail(event.target.value);
     }
 
+    const requestStrings = [
+        'Bathroom Needs Service',
+        'Potable Water Is Empty',
+        'Trail Is Blocked By Obstruction',
+        'Road Sign Needs Service',
+        'Trail Sign is Broken/Unreadable',
+        'Campsite Needs Cleanup',
+        'Other'
+    ];
+
+    const requestType = requestStrings[request-1];
+
     // const {value: userEmail, reset: resetUserEmail} = useInput('');
     // const {value: userPark, reset: resetPark} = useInput();
     // const {value: requestType, reset: resetRequestType} = useInput();
     // const {value: desc, reset: resetDesc} = useInput('');
 
-        var date = new Date();
+        var date = new Date().toLocaleDateString();
 
         // axios.post('http://localhost:8080/status/visitor', { 
         //     email, park, request, description
@@ -120,7 +132,7 @@ export default function CustomerRequest() {
                 "dateCreated": date,
                 "dateCompleted": null,
                 "parkLocation":park,
-                "requestType":request,
+                "requestType":requestType,
                 "problemDescription":description,
                 "email":email
             }

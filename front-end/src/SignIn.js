@@ -53,8 +53,6 @@ const LogIn = props => {
   const [values, setValues] = React.useState({});
 
   const classes = useStyles();
-  //const userPassword = 'hello';
-  //const userName = 'MeganMoore'
 
   const { value: username, bind: bindUsername, reset: resetUsername } = useInput('');
   const { value: password, bind: bindPassword, reset: resetPassword } = useInput('');
@@ -89,26 +87,12 @@ const LogIn = props => {
   function handleSubmit(event) {
     event.preventDefault();
     verifyLogin()
-    //mysql.query("select * from Employee where username = ${username}", function(error, result, field) 
-    // if (username !== userName){
-    //     alert("Error: Username does not exist");
-    // } else if(password !== userPassword){
-    //     alert("Error: Incorrect Password");
-    // } else {
-    //     alert("Login successful");
-    //     props.history.push("/employee_queue");
-    // }
-    //resetUsername();
-    //resetPassword();
   }
 
   return (
     <div>
       <span
         className={classes.imageSrc}
-      // style={{
-      // backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-      // }}
       />
       <Container id="signIn-form" component="main" maxWidth="xs">
         <div className={classes.paper}>
