@@ -36,6 +36,11 @@ stages:
       inputs:
         command: 'custom'
         customCommand: 'install react-scripts --save'
+    - task: Npm@1
+      displayName: 'Npm Build'
+      inputs:
+        command: 'custom'
+        customCommand: 'run build'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
