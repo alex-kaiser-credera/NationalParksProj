@@ -55,6 +55,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: 780,
     marginTop: 5
   },
+// tableRow: onHover {
+//   backgroundColor: }
 
 }));
 
@@ -67,6 +69,32 @@ function CustomizedTables(props) {
   const [request, setRequest] = React.useState([]);
   const [dropdown, setDropdown] = React.useState('');
   const [textField, setTextField] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
+  const [value, setValue] = React.useState();
+  const [idSelect, setIdSelect] = React.useState('');
+  const [count, setCount] = React.useState(0);
+  const [filter, setFilter] = React.useState('All')
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+
+  function handleHover() {
+    setChecked(prev => !prev);
+  }
+
+  const handleClickOpen = (id) => {
+    console.log(id);
+    setIdSelect(id);
+    setOpen(true);
+
+  }
+
+  function handleClose() {
+    setOpen(false);
+    setValue('');
+  }
 
   const handleConfChange = (event) => {
     setTextField(event.target.value);
@@ -75,9 +103,26 @@ function CustomizedTables(props) {
     setDropdown(event.target.value);
   }
 
+  const handleStatusSubmit = (event) => {
+    changeStatus();
+    handleClose();
+    setCount(count + 1);
+  }
+
+  async function changeStatus() {
+    axios({
+      method: 'put',
+      url: `http://localhost:8080/status/${idSelect}?status=${value}`,
+    })
+  }
+
   useEffect(() => {
     async function fetchAll() {
+<<<<<<< HEAD
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+=======
+      const result = await axios(`http://localhost:8080/status/view/25?status=All`);
+>>>>>>> 2aeaa9719a5bdf6827b647c91e3978fbf8053def
 
       // Mock response
       // const result = {
@@ -124,7 +169,7 @@ function CustomizedTables(props) {
       setResult(result.data);
     }
     fetchAll();
-  }, []);
+  }, [count, dropdown]);
 
   const selectRequest = (event) => {
     setRequest(event.target.value);
@@ -135,6 +180,7 @@ function CustomizedTables(props) {
   if (dropdown === 2) {
     // Filter down to in progress status items only
     filteredData = result.filter(item => item.status === `In Progress`);
+
   } else if (dropdown === 3) {
     // Filter down to completed status items only
     filteredData = result.filter(item => item.status === `Completed`);
@@ -202,7 +248,7 @@ function CustomizedTables(props) {
           <TableBody
             className={classes.labels}
             value={request}
-            onClick={selectRequest}
+            // onClick={selectRequest}
             inputProps={{
               id: 'request.id',
               status: 'request.status',
@@ -215,20 +261,59 @@ function CustomizedTables(props) {
             }}
           >
             {filteredData.map((e) => (
-              <StyledTableRow key={e.id}>
-                <StyledTableCell align="right">{e.id}</StyledTableCell>
-                <StyledTableCell align="right">{e.status}</StyledTableCell>
-                <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
-                <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
-                <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
-                <StyledTableCell align="right">{e.requestType}</StyledTableCell>
-                <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-                <StyledTableCell align="right">{e.email}</StyledTableCell>
+              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id} onHover={handleHover}>
+                  <StyledTableCell align="right">{e.id}</StyledTableCell>
+                  <StyledTableCell align="right">{e.status}</StyledTableCell>
+                  <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+                  <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+                  <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
+                  <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+                  <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                  <StyledTableCell align="right">{e.email}</StyledTableCell>
               </StyledTableRow>
+
             ))}
           </TableBody>
         </Table>
       </Paper>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Request Status</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Select the status of the visitor request
+          </DialogContentText>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <FormLabel component="legend">Status</FormLabel>
+            <RadioGroup
+              aria-label="status"
+              name="status"
+              className={classes.group}
+              value={value}
+              onChange={handleChange}
+            >
+              <FormControlLabel value="Not Started" control={<Radio />} label="Not Started" />
+              <FormControlLabel value="In Progress" control={<Radio />} label="In Progress" />
+              <FormControlLabel value="Completed" control={<Radio />} label="Completed" />
+            </RadioGroup>
+          </FormControl>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Write to the request maker!"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="black">
+            Cancel
+          </Button>
+          <Button onClick={handleStatusSubmit} color="black">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
