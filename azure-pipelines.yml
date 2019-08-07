@@ -1,8 +1,5 @@
 pool:
-  name: Hosted Ubuntu 1604
-  demands: |
-    npm
-    node.js
+  name: ubuntu-latest
 
 steps:
 
