@@ -16,6 +16,7 @@ steps:
   inputs:
     sourceFolder: '$(buildOutputFolder)'
     contents: |
+    **/*
       package.json
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
