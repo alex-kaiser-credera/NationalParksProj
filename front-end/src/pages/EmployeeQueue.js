@@ -9,8 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input } from '@material-ui/core';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, FormLabel, Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
-import Collapse from '@material-ui/core/Collapse'; 
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, FormLabel, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse';
 import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
@@ -72,6 +72,9 @@ function CustomizedTables(props) {
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
   const [value, setValue] = React.useState();
+  const [idSelect, setIdSelect] = React.useState('');
+  const [count, setCount] = React.useState(0);
+  const [filter, setFilter] = React.useState('All')
 
   function handleChange(event) {
     setValue(event.target.value);
@@ -81,8 +84,11 @@ function CustomizedTables(props) {
     setChecked(prev => !prev);
   }
 
-  function handleClickOpen() {
+  const handleClickOpen = (id) => {
+    console.log(id);
+    setIdSelect(id);
     setOpen(true);
+
   }
 
   function handleClose() {
@@ -97,24 +103,22 @@ function CustomizedTables(props) {
     setDropdown(event.target.value);
   }
 
-  // async function changeStatus() {
-  //   axios({
-  //     method: 'put',
-  //     url: 'http://localhost:8080/status/id',
-  //     data: {
-  //       un: username,
-  //       pw: password
-  //     }
-  //   })
-  // }
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   changeStatus()
-  // }
+  const handleStatusSubmit = (event) => {
+    changeStatus();
+    handleClose();
+    setCount(count + 1);
+  }
+
+  async function changeStatus() {
+    axios({
+      method: 'put',
+      url: `http://localhost:8080/status/${idSelect}?status=${value}`,
+    })
+  }
 
   useEffect(() => {
     async function fetchAll() {
-      const result = await axios(`http://localhost:8080/status/view/43?status=All`);
+      const result = await axios(`http://localhost:8080/status/view/25?status=All`);
 
       // Mock response
       // const result = {
@@ -161,7 +165,7 @@ function CustomizedTables(props) {
       setResult(result.data);
     }
     fetchAll();
-  }, []);
+  }, [count, dropdown]);
 
   const selectRequest = (event) => {
     setRequest(event.target.value);
@@ -172,6 +176,7 @@ function CustomizedTables(props) {
   if (dropdown === 2) {
     // Filter down to in progress status items only
     filteredData = result.filter(item => item.status === `In Progress`);
+
   } else if (dropdown === 3) {
     // Filter down to completed status items only
     filteredData = result.filter(item => item.status === `Completed`);
@@ -239,7 +244,7 @@ function CustomizedTables(props) {
           <TableBody
             className={classes.labels}
             value={request}
-            onClick={selectRequest}
+            // onClick={selectRequest}
             inputProps={{
               id: 'request.id',
               status: 'request.status',
@@ -252,7 +257,7 @@ function CustomizedTables(props) {
             }}
           >
             {filteredData.map((e) => (
-              <StyledTableRow hover key={e.id} onClick={handleClickOpen} onHover={handleHover}>
+              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id} onHover={handleHover}>
                   <StyledTableCell align="right">{e.id}</StyledTableCell>
                   <StyledTableCell align="right">{e.status}</StyledTableCell>
                   <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
@@ -262,7 +267,7 @@ function CustomizedTables(props) {
                   <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
                   <StyledTableCell align="right">{e.email}</StyledTableCell>
               </StyledTableRow>
-              
+
             ))}
           </TableBody>
         </Table>
@@ -300,7 +305,7 @@ function CustomizedTables(props) {
           <Button onClick={handleClose} color="black">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="black">
+          <Button onClick={handleStatusSubmit} color="black">
             Submit
           </Button>
         </DialogActions>
