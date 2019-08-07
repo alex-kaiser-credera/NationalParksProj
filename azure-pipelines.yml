@@ -1,7 +1,6 @@
 variables:
   projectFolder: 'front-end'
-  buildOutputFolder: 'front-end'
-
+  buildOutputFolder: 'front-end/build'
 pool:
   name: Hosted Ubuntu 1604
   demands: npm
@@ -16,6 +15,7 @@ steps:
 - task: CopyFiles@1
   inputs:
     sourceFolder: '$(buildOutputFolder)'
+    contents: '**/*'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
 
