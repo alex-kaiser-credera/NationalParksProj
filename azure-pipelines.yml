@@ -27,14 +27,28 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        command: 'install'
+    - task: Npm@1
+      displayName: 'npm install react-scripts'
+      inputs:
+        command: 'custom'
+        customCommand: 'install react-scripts --save'
+    - task: Npm@1
+      displayName: 'Npm Build'
+      inputs:
+        command: 'custom'
+        customCommand: 'run build'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/front-end'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/front-end/src/build'
         includeRootFolder: false
         archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/front-end-$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - upload: $(Build.ArtifactStagingDirectory)/front-end-$(Build.BuildId).zip
       artifact: drop
