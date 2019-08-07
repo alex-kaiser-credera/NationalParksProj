@@ -9,12 +9,20 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import TextField from '@material-ui/core/TextField';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+const requestStatus = [
+  'Not Started',
+  'In Progress',
+  'Completed',
+];
 const useStyles = makeStyles({
   avatar: {
     // backgroundColor: blue[100],
@@ -33,32 +41,61 @@ function SimpleDialog(props) {
   }
 
   function handleListItemClick(value) {
-    onClose(value);
+    console.warn(`###handleListItemClick`, value)
+    // Call back-end api and pass comments and status selection here
+    
+    // onClose(value);
   }
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Set Request Status</DialogTitle>
       <List>
-        {emails.map(email => (
-          <ListItem button onClick={() => handleListItemClick(email)} key={email}>
-            <ListItemAvatar>
+        {requestStatus.map(item => (
+          <ListItem
+            button
+            onClick={() => handleListItemClick(item)}
+            key={item}
+            style={{
+              textAlign: 'center'
+            }}
+          >
+            {/* <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />
               </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={email} />
+            </ListItemAvatar> */}
+            <ListItemText primary={item} />
           </ListItem>
         ))}
+        {/* <DialogTitle id="form-dialog-title">Comments</DialogTitle> */}
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Comments"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Submit
+          </Button>
+        </DialogActions>'
 
-        <ListItem button onClick={() => handleListItemClick('addAccount')}>
+        {/* <ListItem button onClick={() => handleListItemClick('addAccount')}>
           <ListItemAvatar>
             <Avatar>
               <AddIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="add account" />
-        </ListItem>
+        </ListItem> */}
       </List>
     </Dialog>
   );
@@ -72,7 +109,7 @@ SimpleDialog.propTypes = {
 
 export default function SimpleDialogDemo() {
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+  const [selectedValue, setSelectedValue] = React.useState(requestStatus[1]);
 
   function handleClickOpen() {
     setOpen(true);

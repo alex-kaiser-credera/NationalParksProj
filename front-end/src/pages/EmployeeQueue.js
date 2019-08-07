@@ -24,15 +24,11 @@ import { blue } from '@material-ui/core/colors';
 import axios from 'axios';
 
 import LogIn from "../SignIn";
-<<<<<<< HEAD
 import SimpleDialogDemo from "./StatusDialog"
 
 
 
 // const emails = ['username@gmail.com', 'user02@gmail.com'];
-=======
-import Avatar from '@material-ui/core/Avatar';
->>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -62,11 +58,6 @@ const useStyles = makeStyles(theme => ({
     minWidth: 700,
   },
   avatar: {
-<<<<<<< HEAD
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-=======
     height: 100,
     width: 100,
     backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
@@ -79,7 +70,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: 5
   },
 
->>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
 }));
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
@@ -269,16 +259,16 @@ function CustomizedTables() {
           {filteredData.map((e) => (
             <StyledTableRow key={e.id}>
               <StyledTableCell align="right">{e.id}</StyledTableCell>
-              <div>
-                {/* <Typography variant="subtitle1">Selected: {selectedValue}</Typography> */}
+              {/* <div>
+                <Typography variant="subtitle1">Selected: {selectedValue}</Typography>
                 <br />
                 <Button variant="outlined" color="primary" onClick={(e) => handleClickOpen(e)}>
                   {e.status}
                 </Button>
                 <SimpleDialog selectedValue={(s) => console.log(s.target)} open={open} onClose={handleClose} />
-              </div>
+              </div> */}
               {/* <StyledTableCell align="right">{e.status} */}
-              {/* <SimpleDialogDemo align="center" /> */}
+              <SimpleDialogDemo align="center" />
               {/* </StyledTableCell> */}
               <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
               <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>

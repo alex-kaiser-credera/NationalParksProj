@@ -89,38 +89,6 @@ export default function ButtonBases() {
       <div>
         <Container
           style={{ marginTop: '4rem' }}>
-<<<<<<< HEAD
-          <div style={{ display: 'flex' }}>
-            {images.map(value => (
-              <Grid key={value} 
-                item 
-                className={classes.image}
-                component={props => <Link to={value.url} {...props} />}
-              >
-                <ButtonBase
-                  // className={classes.image} 
-                  focusRipple
-                  key={value.title}
-                  focusVisibleClassName={classes.image}
-                  style={{
-                    // width,
-                    //width: '50%',
-                    // border: '3px solid black',
-                    textJustify: 'center',
-                    padding: '1rem'
-                  }}
-
-                  // onClick={() => handleClick(i)}
-                >
-                  {/* <Grid item xs={5} sm={4}
-                    className={classes.image} 
-                    spacing={3}
-                  > */}
-                  <span className={classes.imageButton}>
-                    
-                    <Typography
-                      className={classes.imageTitle}
-=======
             <div className={classes.paper}>
             <Avatar className={classes.avatar}/>
                 <div style={{ display: 'flex' }}>
@@ -129,7 +97,6 @@ export default function ButtonBases() {
                       item 
                       className={classes.image}
                       component={props => <Link to={value.url} {...props} />}
->>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
                     >
                       <ButtonBase
                         focusRipple

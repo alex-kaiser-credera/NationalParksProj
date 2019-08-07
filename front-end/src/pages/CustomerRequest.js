@@ -169,8 +169,6 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
-<<<<<<< HEAD
-=======
        
                                 {result.map((e) => {
                                     //console.log(park);
@@ -178,7 +176,6 @@ export default function CustomerRequest() {
                                     return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
 
                                 })}
->>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
                             
                             {result.map((e) => {
                                 return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
