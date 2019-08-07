@@ -1,6 +1,5 @@
 pool:
-  name: ubuntu-latest
-
+  vmImage: 'Ubuntu-16.04'
 steps:
 
 - task: Npm@1
