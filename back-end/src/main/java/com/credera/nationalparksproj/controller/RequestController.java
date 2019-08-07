@@ -53,6 +53,8 @@ public class RequestController {
 //        return new ResponseEntity(  , HttpStatus.OK);
 //    }
 //
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/{id}")
     public String updateStatus (
             @PathVariable Integer id,

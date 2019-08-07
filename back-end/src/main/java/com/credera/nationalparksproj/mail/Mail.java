@@ -12,7 +12,7 @@ public class Mail {
     public void sendConfirmation(String email) {
 
 
-        final String username = "NationalParksProj@gmail.com"; //change this to the sending email!!!!
+        final String username = "NationalParksProj@gmail.com";
         final String password = "drowssap1!";
 
         Properties prop = new Properties();
