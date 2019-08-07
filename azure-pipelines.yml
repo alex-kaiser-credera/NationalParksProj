@@ -1,8 +1,8 @@
 pool:
   name: Hosted Ubuntu 1604
   demands: |
-    npm - exists
-    node.js - exists
+    npm
+    node.js
 
 steps:
 
