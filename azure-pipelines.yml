@@ -38,3 +38,12 @@ stages:
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
+
+      - task: AzureWebApp@1
+        inputs:
+          azureSubscription: 'Free Trial (9f90cc42-0fb7-497f-a662-b0edb0bdca1c)'
+          appType: 'webAppLinux'
+          appName: 'NationalParks'
+          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+          runtimeStack: 'NODE|lts'
+          startUpCommand: 'npm run start'
