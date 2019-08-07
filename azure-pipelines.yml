@@ -10,8 +10,8 @@ pool:
 steps:
 
 - script: |
-    pushd $(projectFolder) && npm install && popd
-    pushd $(projectFolder) && npm run build && popd
+    pushd front-end && npm install && popd
+    pushd front-end && npm run build && popd
     
 ## Copy client files to staging directory
 - task: CopyFiles@1
