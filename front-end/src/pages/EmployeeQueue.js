@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InputLabel, FormHelperText } from '@material-ui/core';
-import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
+import { Select, FormControl, MenuItem, Input } from '@material-ui/core';
 import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
@@ -54,10 +54,10 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function CustomizedTables() {
+function CustomizedTables(props) {
   const classes = useStyles();
   // const [{ parkLocation }] = LogIn().park;
-
+  const parkId = props.parkId
   const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
@@ -65,7 +65,7 @@ function CustomizedTables() {
   const [textField, setTextField] = React.useState('');
 
   const handleConfChange = (event) => {
-      setTextField(event.target.value);
+    setTextField(event.target.value);
   }
   const handleFilterChange = (event) => {
     setDropdown(event.target.value);
@@ -73,7 +73,7 @@ function CustomizedTables() {
 
   useEffect(() => {
     async function fetchAll() {
-      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      const result = await axios(`http://localhost:8080/status/view/${parkId}?status=All`);
 
       // Mock response
       // const result = {
@@ -120,7 +120,7 @@ function CustomizedTables() {
       setResult(result.data);
     }
     fetchAll();
-  },[]);
+  }, []);
 
   const selectRequest = (event) => {
     setRequest(event.target.value);
@@ -135,44 +135,46 @@ function CustomizedTables() {
     // Filter down to completed status items only
     filteredData = result.filter(item => item.status === `Completed`);
   }
-  
+
   // Filter by confirmation number
   if (textField !== ``) {
     filteredData = result.filter(item => item.id === parseInt(textField));
   }
 
+  console.log()
+
   return (
     <div>
-    {/* <FilterList> 
+      {/* <FilterList> 
     </FilterList> */}
       <Avatar className={classes.avatar} />
       <div>
         <FormControl>
           <InputLabel htmlfor='filter'>Filter</InputLabel>
-          <Select 
-            value= {dropdown}
-            onChange= {handleFilterChange}
+          <Select
+            value={dropdown}
+            onChange={handleFilterChange}
             inputProps={{
-                name: 'filter',
-                id: 'filter',
+              name: 'filter',
+              id: 'filter',
             }}>
-              <MenuItem value={1}>All</MenuItem>
-              <MenuItem value={2}>In progress</MenuItem>
-              <MenuItem value={3}>Completed</MenuItem>
+            <MenuItem value={1}>All</MenuItem>
+            <MenuItem value={2}>In progress</MenuItem>
+            <MenuItem value={3}>Completed</MenuItem>
           </Select>
           <FormHelperText>Please select a filter</FormHelperText>
         </FormControl>
       </div>
 
-    {/* <Confirmation>
+      {/* <Confirmation>
     </Confirmation> */}
       <div>
         <FormControl>
           <InputLabel htmlfor='confirmation'>Confirmation Number</InputLabel>
-          <Input 
+          <Input
             id='description'
-            value= {textField}
-            onChange= {handleConfChange}
+            value={textField}
+            onChange={handleConfChange}
           />
           <FormHelperText>Please input Confirmation Number</FormHelperText>
         </FormControl>
@@ -193,7 +195,7 @@ function CustomizedTables() {
             </TableRow>
           </TableHead>
 
-          <TableBody 
+          <TableBody
             className={classes.labels}
             value={request}
             onClick={selectRequest}
@@ -208,18 +210,18 @@ function CustomizedTables() {
               email: 'request.email',
             }}
           >
-          {filteredData.map((e) => (
-            <StyledTableRow key={e.id}>
-              <StyledTableCell align="right">{e.id}</StyledTableCell>
-              <StyledTableCell align="right">{e.status}</StyledTableCell>
-              <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
-              <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
-              <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
-              <StyledTableCell align="right">{e.requestType}</StyledTableCell>
-              <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-              <StyledTableCell align="right">{e.email}</StyledTableCell>
-            </StyledTableRow>
-          ))}
+            {filteredData.map((e) => (
+              <StyledTableRow key={e.id}>
+                <StyledTableCell align="right">{e.id}</StyledTableCell>
+                <StyledTableCell align="right">{e.status}</StyledTableCell>
+                <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+                <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+                <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
+                <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+                <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                <StyledTableCell align="right">{e.email}</StyledTableCell>
+              </StyledTableRow>
+            ))}
           </TableBody>
         </Table>
       </Paper>
