@@ -57,8 +57,8 @@ const useStyles = makeStyles(theme => ({
 function CustomizedTables(props) {
   const classes = useStyles();
   // const [{ parkLocation }] = LogIn().park;
-  const parkId = props.parkId
-  const parkLocation = 43;
+  const parkLocation = props.parkLocation;
+  //const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
   const [dropdown, setDropdown] = React.useState('');
@@ -73,7 +73,7 @@ function CustomizedTables(props) {
 
   useEffect(() => {
     async function fetchAll() {
-      const result = await axios(`http://localhost:8080/status/view/${parkId}?status=All`);
+      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
 
       // Mock response
       // const result = {
@@ -141,7 +141,7 @@ function CustomizedTables(props) {
     filteredData = result.filter(item => item.id === parseInt(textField));
   }
 
-  console.log()
+  console.log(props.parkLocation)
 
   return (
     <div>
@@ -150,7 +150,7 @@ function CustomizedTables(props) {
       <Avatar className={classes.avatar} />
       <div>
         <FormControl>
-          <InputLabel htmlfor='filter'>Filter</InputLabel>
+          <InputLabel htmlFor='filter'>Filter</InputLabel>
           <Select
             value={dropdown}
             onChange={handleFilterChange}
@@ -170,7 +170,7 @@ function CustomizedTables(props) {
     </Confirmation> */}
       <div>
         <FormControl>
-          <InputLabel htmlfor='confirmation'>Confirmation Number</InputLabel>
+          <InputLabel htmlFor='confirmation'>Confirmation Number</InputLabel>
           <Input
             id='description'
             value={textField}

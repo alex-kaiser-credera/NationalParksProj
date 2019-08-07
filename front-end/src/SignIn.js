@@ -69,8 +69,12 @@ const LogIn = props => {
       if (response.data.successful === false) {
         alert("Error: Invalid Username or Password")
       } else {
+        const parkLocation = response.data.parkId;
+        props.callBackFromApp(parkLocation);
+
         console.log(response)
-        const temp = { successful: true, parkId: 52, token: "lol" };
+        //console.log(parkLocation)
+        //const temp = { successful: true, parkId: 52, token: "lol" };
         props.history.push("/employee_queue");
       }
     }, (error) => {
