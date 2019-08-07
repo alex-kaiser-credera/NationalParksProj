@@ -27,4 +27,4 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish build Artifact'
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
