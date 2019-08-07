@@ -15,6 +15,7 @@ import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
 import { yellow, grey } from '@material-ui/core/colors';
+import EnhancedTableHead from '@material-ui/core/TableHead'
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -75,6 +76,8 @@ function CustomizedTables(props) {
   const [idSelect, setIdSelect] = React.useState('');
   const [count, setCount] = React.useState(0);
   const [filter, setFilter] = React.useState('All')
+
+
 
   function handleChange(event) {
     setValue(event.target.value);
@@ -228,7 +231,7 @@ function CustomizedTables(props) {
 
       <Paper className={classes.root}>
         <Table className={classes.table}>
-          <TableHead>
+          <EnhancedTableHead >
             <TableRow>
               <StyledTableCell align="right">Confirmation Number</StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
@@ -239,7 +242,7 @@ function CustomizedTables(props) {
               <StyledTableCell align="right">Description</StyledTableCell>
               <StyledTableCell align="right">Visitor Email</StyledTableCell>
             </TableRow>
-          </TableHead>
+          </EnhancedTableHead>
 
           <TableBody
             className={classes.labels}
