@@ -1,34 +1,29 @@
-variables:
-  projectFolder: 'front-end'
-  buildOutputFolder: 'front-end/build'
 pool:
   name: Hosted Ubuntu 1604
-  demands: npm
+  demands: |
+    npm - exists
+    node.js - exists
 
 steps:
 
-- script: |
-    pushd $(projectFolder) && npm install && popd
-    pushd $(projectFolder) && npm run build && popd
-    
-## Copy client files to staging 
-- task: CopyFiles@1
+- task: Npm@1
+  displayName: "Npm Build"
   inputs:
-    sourceFolder: '$(buildOutputFolder)'
-    contents: |
-      **/*
-      package.json
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-    cleanTargetFolder: true
+    command: 'custom'
+    workingDir: 'front-end'
+    customCommand: 'run build'
 
 - task: ArchiveFiles@2
+  displayName: 'Archive Files'
   inputs:
-    rootFolderOrFile: $(Build.ArtifactStagingDirectory)
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
+    rootFolderOrFile: 'front-end/build'
     includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 ## Publish zip file to Azure
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish build Artifact'
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
