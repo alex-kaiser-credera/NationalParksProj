@@ -3,6 +3,11 @@ pool:
 steps:
 
 - task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'front-end'
+
+- task: Npm@1
   displayName: "Npm Build"
   inputs:
     command: 'custom'
