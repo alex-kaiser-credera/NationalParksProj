@@ -2,7 +2,6 @@ variables:
   projectFolder: 'front-end'
   buildOutputFolder: 'front-end/build'
 
-
 pool:
   name: Hosted Ubuntu 1604
   demands: npm
@@ -10,8 +9,8 @@ pool:
 steps:
 
 - script: |
-    pushd front-end && npm install && popd
-    pushd front-end && npm run build && popd
+    pushd $('projectFolder') && npm install && popd
+    pushd $('projectFolder') && npm run build && popd
     
 ## Copy client files to staging directory
 - task: CopyFiles@1
