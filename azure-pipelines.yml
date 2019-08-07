@@ -1,5 +1,5 @@
 variables:
-  projectFolder: 'front-en'
+  projectFolder: 'front-end'
   buildOutputFolder: 'front-end/build'
 
 
