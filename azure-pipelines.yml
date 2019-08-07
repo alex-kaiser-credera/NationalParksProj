@@ -1,6 +1,6 @@
 variables:
   projectFolder: 'front-end'
-  buildOutputFolder: 'front-end/build'
+  buildOutputFolder: 'front-end'
 
 pool:
   name: Hosted Ubuntu 1604
