@@ -1,6 +1,6 @@
 variables:
-  projectFolder: 'front-end'
-  buildOutputFolder: 'front-end/build'
+  projectFolder: 'front-end/src'
+  buildOutputFolder: 'front-end/src/build'
 
 
 pool:
