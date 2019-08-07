@@ -118,11 +118,8 @@ function CustomizedTables(props) {
 
   useEffect(() => {
     async function fetchAll() {
-<<<<<<< HEAD
+
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
-=======
-      const result = await axios(`http://localhost:8080/status/view/25?status=All`);
->>>>>>> 2aeaa9719a5bdf6827b647c91e3978fbf8053def
 
       // Mock response
       // const result = {
