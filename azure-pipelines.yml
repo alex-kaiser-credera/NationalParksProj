@@ -28,10 +28,6 @@ stages:
 
     steps:
     - task: Npm@1
-      displayName: 'Run npm install'
-      inputs:
-        command: 'install'
-    - task: Npm@1
       displayName: 'Run custom npm install cmd'
       inputs:
         command: 'custom'
