@@ -2,7 +2,6 @@ package com.credera.nationalparksproj.service;
 
 import com.credera.nationalparksproj.dto.LoginResponse;
 import com.credera.nationalparksproj.repository.EmployeeRepo;
-import org.apache.catalina.User;
 import com.credera.nationalparksproj.dto.UserLogin;
 import com.credera.nationalparksproj.security.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
