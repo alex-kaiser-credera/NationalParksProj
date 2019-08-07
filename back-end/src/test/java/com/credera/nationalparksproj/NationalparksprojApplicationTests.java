@@ -97,4 +97,14 @@ public class NationalparksprojApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.successful").value("false"));
 	}
+
+	@Test
+	public void SendConfirmation() throws Exception{
+
+	}
+
+	@Test
+	public void SendComplete() throws Exception {
+
+	}
 }

@@ -13,24 +13,15 @@ import axios from "axios";
 
 
 const useStyles = makeStyles(theme => ({
-  imageSrc: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center 40%',
-    zIndex: -1
-  },
-
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(15),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: 50,
+    width: 585,
     border: '4px solid grey',
+    marginLeft: 263
   },
   avatar: {
     height: 100,
@@ -53,8 +44,6 @@ const LogIn = props => {
   const [values, setValues] = React.useState({});
 
   const classes = useStyles();
-  //const userPassword = 'hello';
-  //const userName = 'MeganMoore'
 
   const { value: username, bind: bindUsername, reset: resetUsername } = useInput('');
   const { value: password, bind: bindPassword, reset: resetPassword } = useInput('');
@@ -89,28 +78,14 @@ const LogIn = props => {
   function handleSubmit(event) {
     event.preventDefault();
     verifyLogin()
-    //mysql.query("select * from Employee where username = ${username}", function(error, result, field) 
-    // if (username !== userName){
-    //     alert("Error: Username does not exist");
-    // } else if(password !== userPassword){
-    //     alert("Error: Incorrect Password");
-    // } else {
-    //     alert("Login successful");
-    //     props.history.push("/employee_queue");
-    // }
-    //resetUsername();
-    //resetPassword();
   }
 
   return (
     <div>
-      <span
+      {/* <span
         className={classes.imageSrc}
-      // style={{
-      // backgroundImage: `url(https://www.rolwheels.com/public/upload/images/page-background-images/bg-mountain.jpg)`,
-      // }}
-      />
-      <Container id="signIn-form" component="main" maxWidth="xs">
+      /> */}
+      <Container id="signIn-form" component="main">
         <div className={classes.paper}>
           <Avatar className={classes.avatar} />
           <Typography component="h1" variant="h5">

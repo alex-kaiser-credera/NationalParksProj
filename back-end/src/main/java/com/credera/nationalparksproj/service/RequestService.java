@@ -1,5 +1,6 @@
 package com.credera.nationalparksproj.service;
 
+import com.credera.nationalparksproj.dto.TextToVisitor;
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
 import com.credera.nationalparksproj.mail.Mail;
 import com.credera.nationalparksproj.model.NationalPark;
@@ -82,6 +83,11 @@ public class RequestService {
         }
     }
 
+    public String sendResponseToVisitor(TextToVisitor textToVisitor){
+        Mail m = new Mail();
+        m.sendEmailToVisitor(textToVisitor);
+        return "Thank you!";
+    }
 
 
 }
