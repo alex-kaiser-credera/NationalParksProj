@@ -11,7 +11,7 @@ steps:
     pushd $(projectFolder) && npm install && popd
     pushd $(projectFolder) && npm run build && popd
     
-## Copy client files to staging directory
+## Copy client files to staging 
 - task: CopyFiles@1
   inputs:
     sourceFolder: '$(buildOutputFolder)'
