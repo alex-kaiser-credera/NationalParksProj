@@ -109,6 +109,24 @@ function CustomizedTables(props) {
     setCount(count + 1);
   }
 
+//   const handleDateSort = (key) => {
+//     this.setState({
+//         data: data.sort((a, b) => (
+//             this.state.direction[key] === 'asc'
+//             ? 
+//              parseFloat(a[key]) - parseFloat(b[key])
+//             : parseFloat(b[key]) - parseFloat(a[key])
+//         )),
+
+//         direction: {
+//             [key]: this.state.direction[key] === 'asc'
+//             ? 'desc'
+//             : 'asc'
+//         }
+//     })
+// }
+
+
   async function changeStatus() {
     axios({
       method: 'put',
@@ -118,11 +136,8 @@ function CustomizedTables(props) {
 
   useEffect(() => {
     async function fetchAll() {
-<<<<<<< HEAD
+
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
-=======
-      const result = await axios(`http://localhost:8080/status/view/25?status=All`);
->>>>>>> 2aeaa9719a5bdf6827b647c91e3978fbf8053def
 
       // Mock response
       // const result = {
@@ -241,6 +256,7 @@ function CustomizedTables(props) {
               <StyledTableCell align="right">Park</StyledTableCell>
               <StyledTableCell align="right">Request Type</StyledTableCell>
               <StyledTableCell align="right">Description</StyledTableCell>
+              <StyledTableCell align="right">Notes</StyledTableCell>
               <StyledTableCell align="right">Visitor Email</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -257,11 +273,12 @@ function CustomizedTables(props) {
               parkLocation: 'request.parklocation',
               requestType: 'request.requesttype',
               problemDescription: 'request.problemdescription',
+              requestNotes: 'request.requestNotes',
               email: 'request.email',
             }}
           >
             {filteredData.map((e) => (
-              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id} onHover={handleHover}>
+              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id}>
                   <StyledTableCell align="right">{e.id}</StyledTableCell>
                   <StyledTableCell align="right">{e.status}</StyledTableCell>
                   <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
@@ -269,6 +286,7 @@ function CustomizedTables(props) {
                   <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
                   <StyledTableCell align="right">{e.requestType}</StyledTableCell>
                   <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                  <StyledTableCell align="right">{e.requestNotes}</StyledTableCell>
                   <StyledTableCell align="right">{e.email}</StyledTableCell>
               </StyledTableRow>
 
