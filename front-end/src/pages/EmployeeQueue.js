@@ -6,8 +6,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, FormLabel, Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse'; 
 import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
@@ -63,6 +66,26 @@ function CustomizedTables(props) {
   const [request, setRequest] = React.useState([]);
   const [dropdown, setDropdown] = React.useState('');
   const [textField, setTextField] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
+  const [value, setValue] = React.useState();
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+
+  function handleHover() {
+    setChecked(prev => !prev);
+  }
+
+  function handleClickOpen() {
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false);
+    setValue('');
+  }
 
   const handleConfChange = (event) => {
     setTextField(event.target.value);
@@ -71,9 +94,24 @@ function CustomizedTables(props) {
     setDropdown(event.target.value);
   }
 
+  // async function changeStatus() {
+  //   axios({
+  //     method: 'put',
+  //     url: 'http://localhost:8080/status/id',
+  //     data: {
+  //       un: username,
+  //       pw: password
+  //     }
+  //   })
+  // }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   changeStatus()
+  // }
+
   useEffect(() => {
     async function fetchAll() {
-      const result = await axios(`http://localhost:8080/status/view/${parkId}?status=All`);
+      const result = await axios(`http://localhost:8080/status/view/43?status=All`);
 
       // Mock response
       // const result = {
@@ -211,20 +249,59 @@ function CustomizedTables(props) {
             }}
           >
             {filteredData.map((e) => (
-              <StyledTableRow key={e.id}>
-                <StyledTableCell align="right">{e.id}</StyledTableCell>
-                <StyledTableCell align="right">{e.status}</StyledTableCell>
-                <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
-                <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
-                <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
-                <StyledTableCell align="right">{e.requestType}</StyledTableCell>
-                <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-                <StyledTableCell align="right">{e.email}</StyledTableCell>
+              <StyledTableRow key={e.id} onClick={handleClickOpen} onHover={handleHover}>
+                  <StyledTableCell align="right">{e.id}</StyledTableCell>
+                  <StyledTableCell align="right">{e.status}</StyledTableCell>
+                  <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+                  <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+                  <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
+                  <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+                  <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                  <StyledTableCell align="right">{e.email}</StyledTableCell>
               </StyledTableRow>
+              
             ))}
           </TableBody>
         </Table>
       </Paper>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Request Status</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Select the status of the visitor request
+          </DialogContentText>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <FormLabel component="legend">Status</FormLabel>
+            <RadioGroup
+              aria-label="status"
+              name="status"
+              className={classes.group}
+              value={value}
+              onChange={handleChange}
+            >
+              <FormControlLabel value="Not Started" control={<Radio />} label="Not Started" />
+              <FormControlLabel value="In Progress" control={<Radio />} label="In Progress" />
+              <FormControlLabel value="Completed" control={<Radio />} label="Completed" />
+            </RadioGroup>
+          </FormControl>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Write to the request maker!"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="black">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="black">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
