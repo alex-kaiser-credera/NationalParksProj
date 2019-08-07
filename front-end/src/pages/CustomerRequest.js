@@ -4,7 +4,6 @@ import { Typography, Select, FormControl, InputLabel, MenuItem, FormHelperText, 
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import axios from "axios";
-import { useInput } from '../UseInput';
 
 const useStyles = makeStyles(theme => ({
     imageSrc: {
@@ -22,9 +21,9 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         marginTop: theme.spacing(8),
-        marginLeft: 250,
+        marginLeft: 285,
         padding: 50,
-        width: 600,
+        width: 550,
         border: '4px solid grey',
         height: 650,
     },
@@ -42,13 +41,13 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         height: 100,
         width: 100,
-        marginBottom: 25,
+        marginBottom: 35,
         backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
         backgroundSize: 'contain',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundColor: 'inherit',
-        left: 250,
+        left: 222,
     },
     dropdown: {
         backgroundColor: '#FFFFFF'
@@ -67,7 +66,6 @@ export default function CustomerRequest() {
 
     async function getPark(id) {
         await axios.get(`http://localhost:8080/getAllParks/`)
-        //await axios.get(`http://localhost:8080/getPark/?id=${id}`)
             .then(response => {
                 setResult(response.data.map(ele => {
                     return (ele)
@@ -75,10 +73,6 @@ export default function CustomerRequest() {
             }
         );
     }
-    // var parkNames = [];
-    // result.forEach(function(element){
-    //     parkNames.push(element.name)
-    // })
 
     const handleParkChange = (event) => {
         setPark(event.target.value);
@@ -87,10 +81,6 @@ export default function CustomerRequest() {
     const handleRequestChange = (event) => {
         setRequest(event.target.value);
     }
-
-    // const handleDescriptionChange = username => event => {
-    //     setValues({ ...values, [username]: event.target.value });
-    //   };
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
     }
@@ -99,16 +89,20 @@ export default function CustomerRequest() {
         setEmail(event.target.value);
     }
 
-    // const {value: userEmail, reset: resetUserEmail} = useInput('');
-    // const {value: userPark, reset: resetPark} = useInput();
-    // const {value: requestType, reset: resetRequestType} = useInput();
-    // const {value: desc, reset: resetDesc} = useInput('');
+    const requestStrings = [
+        'Bathroom Needs Service',
+        'Potable Water Is Empty',
+        'Trail Is Blocked By Obstruction',
+        'Road Sign Needs Service',
+        'Trail Sign is Broken/Unreadable',
+        'Campsite Needs Cleanup',
+        'Other'
+    ];
 
-        var date = new Date();
+    const requestType = requestStrings[request-1];
 
-        // axios.post('http://localhost:8080/status/visitor', { 
-        //     email, park, request, description
-        // })
+        var date = new Date().toLocaleDateString();
+
     async function submitRequest() {
         console.log(`Verify Request\ndateCreated: ${date}\nparkLocation: ${park}\nrequestType: ${request}
                 \nproblemDescription: ${description}\nemail: ${email}`)
@@ -120,7 +114,7 @@ export default function CustomerRequest() {
                 "dateCreated": date,
                 "dateCompleted": null,
                 "parkLocation":park,
-                "requestType":request,
+                "requestType":requestType,
                 "problemDescription":description,
                 "email":email
             }
@@ -175,9 +169,18 @@ export default function CustomerRequest() {
                                     id: 'park.id',
                                 }}
                             >
+<<<<<<< HEAD
+=======
+       
+                                {result.map((e) => {
+                                    //console.log(park);
+
+                                    return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
+
+                                })}
+>>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
                             
                             {result.map((e) => {
-                                //console.log(park);
                                 return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
                             })}
                     

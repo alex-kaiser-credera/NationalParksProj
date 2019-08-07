@@ -1,5 +1,6 @@
 package com.credera.nationalparksproj.controller;
 
+import com.credera.nationalparksproj.dto.UserLogin;
 import com.credera.nationalparksproj.model.JwtUser;
 import com.credera.nationalparksproj.security.JwtGenerator;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,9 @@ public class TokenController {
     }
 
     @PostMapping
-    public String generate(@RequestBody final JwtUser jwtUser) {
+    public String generate(@RequestBody final UserLogin userLogin) {
 
-        return jwtGenerator.generate(jwtUser);
+        return jwtGenerator.generate(userLogin);
 
     }
 

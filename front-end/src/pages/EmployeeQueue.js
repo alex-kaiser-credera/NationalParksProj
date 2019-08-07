@@ -24,11 +24,15 @@ import { blue } from '@material-ui/core/colors';
 import axios from 'axios';
 
 import LogIn from "../SignIn";
+<<<<<<< HEAD
 import SimpleDialogDemo from "./StatusDialog"
 
 
 
 // const emails = ['username@gmail.com', 'user02@gmail.com'];
+=======
+import Avatar from '@material-ui/core/Avatar';
+>>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -58,9 +62,24 @@ const useStyles = makeStyles(theme => ({
     minWidth: 700,
   },
   avatar: {
+<<<<<<< HEAD
     backgroundColor: blue[100],
     color: blue[600],
   },
+=======
+    height: 100,
+    width: 100,
+    backgroundImage: `url(https://ncptt.nps.gov/rt66/wp-content/uploads/2014/03/nps-logo-200x262-2.png)`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: 'inherit',
+    float: "right",
+    marginRight: 780,
+    marginTop: 5
+  },
+
+>>>>>>> 9fe136eecaf7254b1723d34fed371a2fcd78faa7
 }));
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
@@ -184,6 +203,7 @@ function CustomizedTables() {
     <div>
     {/* <FilterList> 
     </FilterList> */}
+      <Avatar className={classes.avatar} />
       <div>
         <FormControl>
           <InputLabel htmlfor='filter'>Filter</InputLabel>
