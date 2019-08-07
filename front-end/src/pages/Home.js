@@ -119,7 +119,7 @@ export default function ButtonBases() {
                 component={props => <Link to={value.url} {...props} />}
               >
                 <ButtonBase
-                  className={classes.image} 
+                  // className={classes.image} 
                   focusRipple
                   key={value.title}
                   focusVisibleClassName={classes.image}

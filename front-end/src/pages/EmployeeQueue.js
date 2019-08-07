@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,8 +9,26 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input} from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Avatar from '@material-ui/core/Avatar';
+import PersonIcon from '@material-ui/icons/Person';
+import AddIcon from '@material-ui/icons/Add';
+import { blue } from '@material-ui/core/colors';
+
 import axios from 'axios';
+
 import LogIn from "../SignIn";
+import SimpleDialogDemo from "./StatusDialog"
+
+
+
+// const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -38,7 +57,60 @@ const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 700,
   },
+  avatar: {
+    backgroundColor: blue[100],
+    color: blue[600],
+  },
 }));
+const emails = ['username@gmail.com', 'user02@gmail.com'];
+
+function SimpleDialog(props) {
+  const classes = useStyles();
+  const { onClose, selectedValue, open } = props;
+
+  function handleClose() {
+    onClose(selectedValue);
+  }
+
+  function handleListItemClick(value) {
+    console.log(value)
+
+    onClose();
+  }
+
+  return (
+    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+      <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
+      <List>
+        {emails.map(email => (
+          <ListItem button onClick={() => handleListItemClick(email)} key={email}>
+            <ListItemAvatar>
+              <Avatar className={classes.avatar}>
+                <PersonIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={email} />
+          </ListItem>
+        ))}
+
+        <ListItem button onClick={() => handleListItemClick('addAccount')}>
+          <ListItemAvatar>
+            <Avatar>
+              <AddIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="add account" />
+        </ListItem>
+      </List>
+    </Dialog>
+  );
+}
+
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired,
+};
 
 function CustomizedTables() {
   const classes = useStyles();
@@ -49,68 +121,49 @@ function CustomizedTables() {
   const [request, setRequest] = React.useState([]);
   const [dropdown, setDropdown] = React.useState('');
   const [textField, setTextField] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+  // const [status, setStatus] = React.useState('');
+  // const [open, setOpen] = React.useState(false);
+  // const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
   const handleConfChange = (event) => {
-      setTextField(event.target.value);
+    setTextField(event.target.value);
   }
   const handleFilterChange = (event) => {
     setDropdown(event.target.value);
   }
 
+  // function handleClickOpen() {
+  //   setOpen(true);
+  // }
+
+  // const handleClose = value => {
+  //   setOpen(false);
+  //   setSelectedValue(value);
+  // };
+
+  const selectRequest = (event) => {
+    setRequest(event.target.value);
+  }
+
   useEffect(() => {
     async function fetchAll() {
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
-
-      // Mock response
-      // const result = {
-      //   data: [
-      //     {
-      //       id: `123`,
-      //       status: `In Progress`,
-      //       dateCreated: `b`,
-      //       dateCompleted: `c`,
-      //       parkLocation: {
-      //         name: `d`,
-      //       },
-      //       requestType: `e`,
-      //       problemDescription: `f`,
-      //       email: `g`,
-      //     },
-      //     {
-      //       id: `124`,           
-      //       status: `Completed`,
-      //       dateCreated: `ba`,
-      //       dateCompleted: `ca`,
-      //       parkLocation: {
-      //         name: `da`,
-      //       },
-      //       requestType: `ea`,
-      //       problemDescription: `fa`,
-      //       email: `ga`,
-      //     },
-      //     {
-      //       id: `125`,
-      //       status: `In Progress`,
-      //       dateCreated: `bb`,
-      //       dateCompleted: `cb`,
-      //       parkLocation: {
-      //         name: `db`,
-      //       },
-      //       requestType: `eb`,
-      //       problemDescription: `fb`,
-      //       email: `gb`,
-      //     },
-      //   ]
-      // }
-
       setResult(result.data);
     }
     fetchAll();
   },[]);
 
-  const selectRequest = (event) => {
-    setRequest(event.target.value);
+  function handleClickOpen(e) {
+    console.log(e)
+    setOpen(true);
   }
+
+  const handleClose = value => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
 
   // Filter by status
   let filteredData = result;
@@ -196,7 +249,17 @@ function CustomizedTables() {
           {filteredData.map((e) => (
             <StyledTableRow key={e.id}>
               <StyledTableCell align="right">{e.id}</StyledTableCell>
-              <StyledTableCell align="right">{e.status}</StyledTableCell>
+              <div>
+                {/* <Typography variant="subtitle1">Selected: {selectedValue}</Typography> */}
+                <br />
+                <Button variant="outlined" color="primary" onClick={(e) => handleClickOpen(e)}>
+                  {e.status}
+                </Button>
+                <SimpleDialog selectedValue={(s) => console.log(s.target)} open={open} onClose={handleClose} />
+              </div>
+              {/* <StyledTableCell align="right">{e.status} */}
+              {/* <SimpleDialogDemo align="center" /> */}
+              {/* </StyledTableCell> */}
               <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
               <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
               <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>

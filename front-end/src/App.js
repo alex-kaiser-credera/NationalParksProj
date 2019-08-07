@@ -3,7 +3,7 @@ import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import CustomerRequest from "./pages/CustomerRequest";
 import EmployeeQueue from "./pages/EmployeeQueue";
-import RequestInformation from "./pages/RequestInformation";
+import RequestInformation from "./pages/StatusDialog";
 import { BrowserRouter, Route } from 'react-router-dom'; 
 import Login from "./SignIn";
 import './App.css';
@@ -23,7 +23,7 @@ const App = () => (
         <Route exact path="/visit_request" component={CustomerRequest} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/employee_queue" component={EmployeeQueue} />
-        <Route exact path="/request_information" component={RequestInformation} />
+        {/* <Route exact path="/request_information" component={RequestInformation} /> */}
         
       </BrowserRouter>
     </div>
