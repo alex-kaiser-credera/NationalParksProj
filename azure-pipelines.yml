@@ -28,10 +28,9 @@ stages:
 
     steps:
     - task: Npm@1
-      displayName: 'Run custom npm install cmd'
+      displayName: 'npm install'
       inputs:
-        command: 'custom'
-        customCommand: 'npm run install'
+        command: 'install'
     - task: Npm@1
       displayName: 'npm install react-scripts'
       inputs:
