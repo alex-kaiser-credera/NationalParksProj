@@ -103,10 +103,13 @@ function CustomizedTables(props) {
     setDropdown(event.target.value);
   }
 
+  var date = new Date().toLocaleDateString();
+
   const handleStatusSubmit = (event) => {
     changeStatus();
     handleClose();
     setCount(count + 1);
+    
   }
 
 //   const handleDateSort = (key) => {
@@ -138,7 +141,7 @@ function CustomizedTables(props) {
     async function fetchAll() {
 
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
-
+      console.log(result);
       // Mock response
       // const result = {
       //   data: [
@@ -188,6 +191,18 @@ function CustomizedTables(props) {
 
   const selectRequest = (event) => {
     setRequest(event.target.value);
+  }
+
+  const [isSortedDesc, setIsSortedDesc]  = React.useState(false);
+
+  const sortByDateCreated = (isSortedDesc) => {
+    setIsSortedDesc(!isSortedDesc);
+    setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.dateCreated < b.dateCreated: a.dateCreated > b.dateCreated) ? 1 : -1));
+  }
+
+  const sortByDateCompleted = (isSortedDesc) => {
+    setIsSortedDesc(!isSortedDesc);
+    setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.dateCompleted < b.dateCompleted: a.dateCompleted > b.dateCompleted) ? 1 : -1));
   }
 
   // Filter by status
@@ -251,8 +266,8 @@ function CustomizedTables(props) {
             <TableRow>
               <StyledTableCell align="right">Confirmation Number</StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Date Created</StyledTableCell>
-              <StyledTableCell align="right">Date Completed</StyledTableCell>
+              <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCreated(isSortedDesc)}>Date Created</StyledTableCell>
+              <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCompleted(isSortedDesc)}>Date Completed</StyledTableCell>
               <StyledTableCell align="right">Park</StyledTableCell>
               <StyledTableCell align="right">Request Type</StyledTableCell>
               <StyledTableCell align="right">Description</StyledTableCell>
