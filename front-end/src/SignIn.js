@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
+import { useCookies } from 'react-cookie';
+
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,15 +42,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+
+
 const LogIn = props => {
 
   const [values, setValues] = React.useState({});
+
+  const [ cookies, setCookie ] = useCookies(['cookie']);
 
   const classes = useStyles();
 
   const { value: username, bind: bindUsername, reset: resetUsername } = useInput('');
   const { value: password, bind: bindPassword, reset: resetPassword } = useInput('');
 
+  
+ 
   const handleUsernameChange = username => event => {
     setValues({ ...values, [username]: event.target.value });
   };
@@ -70,6 +79,8 @@ const LogIn = props => {
         alert("Error: Invalid Username or Password")
       } else {
         const parkLocation = response.data.parkId;
+    
+        setCookie('cookie', response.data.token, ['/']);
         props.callBackFromApp(parkLocation);
 
         console.log(response)
