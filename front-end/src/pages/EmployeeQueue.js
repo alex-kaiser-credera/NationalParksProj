@@ -15,6 +15,7 @@ import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
 import { yellow, grey } from '@material-ui/core/colors';
+import Cookies from 'js-cookie';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -61,9 +62,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CustomizedTables(props) {
+  // const { cookies } = props;
   const classes = useStyles();
   // const [{ parkLocation }] = LogIn().park;
-  const parkLocation = props.parkLocation;
+  const parkLocation = Cookies.get('parkIdCookie') || null;
   //const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
@@ -121,6 +123,11 @@ function CustomizedTables(props) {
   var date = new Date().toLocaleDateString();
 
   const handleStatusSubmit = (event) => {
+
+    event.preventDefault();
+    changeStatus();
+    handleClose();
+
     if(value != ''){
       changeStatus();
     }
@@ -130,6 +137,7 @@ function CustomizedTables(props) {
     if(emailNotes != ''){
       changeEmail()
     }
+
     setCount(count + 1);
     handleClose();
   }
@@ -182,8 +190,9 @@ function CustomizedTables(props) {
 
   useEffect(() => {
     async function fetchAll() {
-
+      
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      
       console.log(result);
       // Mock response
       // const result = {
