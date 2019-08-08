@@ -2,6 +2,7 @@ package com.credera.nationalparksproj.service;
 
 import com.credera.nationalparksproj.dto.TextToVisitor;
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
+import com.credera.nationalparksproj.dto.UpdateText;
 import com.credera.nationalparksproj.mail.Mail;
 import com.credera.nationalparksproj.model.NationalPark;
 import com.credera.nationalparksproj.model.Request;
@@ -87,6 +88,12 @@ public class RequestService {
         Mail m = new Mail();
         m.sendEmailToVisitor(textToVisitor);
         return "Thank you!";
+    }
+
+    public String saveNotesToRequest(Request request, UpdateText updateText){
+        Request temp = request;
+        temp.setNotes(updateText.getNoteUpdate());
+        return requestRepo.save(temp).getNotes();
     }
 
 
