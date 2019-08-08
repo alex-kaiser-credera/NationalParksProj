@@ -108,6 +108,7 @@ function CustomizedTables(props) {
     setValue('');
     setEmailNotes('');
     setNote('');
+    setVisitorEmail('');
   }
 
   const handleConfChange = (event) => {
@@ -130,7 +131,6 @@ function CustomizedTables(props) {
       changeEmail()
     }
     setCount(count + 1);
-<<<<<<< HEAD
     handleClose();
   }
 
@@ -153,9 +153,6 @@ function CustomizedTables(props) {
         body: emailNotes
       },
     })
-=======
-    
->>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
   }
 
 //   const handleDateSort = (key) => {
@@ -334,16 +331,11 @@ function CustomizedTables(props) {
               parkLocation: 'request.parklocation',
               requestType: 'request.requesttype',
               problemDescription: 'request.problemdescription',
-<<<<<<< HEAD
               notes: 'request.notes',
-=======
-              requestNotes: 'request.requestNotes',
->>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
               email: 'request.email',
             }}
           >
             {filteredData.map((e) => (
-<<<<<<< HEAD
               <StyledTableRow key={e.id} onClick={() => handleClickOpen(e.id, e.email)} value={e.id}>
                 <StyledTableCell align="right">{e.id}</StyledTableCell>
                 <StyledTableCell align="right">{e.status}</StyledTableCell>
@@ -354,18 +346,6 @@ function CustomizedTables(props) {
                 <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
                 <StyledTableCell align="right">{e.notes}</StyledTableCell>
                 <StyledTableCell align="right">{e.email}</StyledTableCell>
-=======
-              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id}>
-                  <StyledTableCell align="right">{e.id}</StyledTableCell>
-                  <StyledTableCell align="right">{e.status}</StyledTableCell>
-                  <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
-                  <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
-                  <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
-                  <StyledTableCell align="right">{e.requestType}</StyledTableCell>
-                  <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-                  <StyledTableCell align="right">{e.requestNotes}</StyledTableCell>
-                  <StyledTableCell align="right">{e.email}</StyledTableCell>
->>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
               </StyledTableRow>
 
             ))}

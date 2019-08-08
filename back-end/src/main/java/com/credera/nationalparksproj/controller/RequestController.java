@@ -83,6 +83,8 @@ public class RequestController {
         return new ResponseEntity(requestService.getRequestByPark(id, status), HttpStatus.OK);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/send")
     public ResponseEntity sendMessageToVisitor (@RequestBody TextToVisitor textToVisitor){
         return new ResponseEntity(requestService.sendResponseToVisitor(textToVisitor), HttpStatus.OK);
