@@ -74,19 +74,31 @@ function CustomizedTables(props) {
   const [value, setValue] = React.useState();
   const [idSelect, setIdSelect] = React.useState('');
   const [count, setCount] = React.useState(0);
-  const [filter, setFilter] = React.useState('All')
+  const [filter, setFilter] = React.useState('All');
+  const [note, setNote] = React.useState('');
+  const [emailNotes, setEmailNotes] = React.useState('');
+  const [visitorEmail, setVisitorEmail] = React.useState('');
 
   function handleChange(event) {
     setValue(event.target.value);
+  }
+
+  function handleNotesChange(event) {
+    setNote(event.target.value);
+  }
+
+  function handleEmailChange(event) {
+    setEmailNotes(event.target.value);
   }
 
   function handleHover() {
     setChecked(prev => !prev);
   }
 
-  const handleClickOpen = (id) => {
+  const handleClickOpen = (id, email) => {
     console.log(id);
     setIdSelect(id);
+    setVisitorEmail(email);
     setOpen(true);
 
   }
@@ -94,6 +106,9 @@ function CustomizedTables(props) {
   function handleClose() {
     setOpen(false);
     setValue('');
+    setEmailNotes('');
+    setNote('');
+    setVisitorEmail('');
   }
 
   const handleConfChange = (event) => {
@@ -106,10 +121,38 @@ function CustomizedTables(props) {
   var date = new Date().toLocaleDateString();
 
   const handleStatusSubmit = (event) => {
-    changeStatus();
-    handleClose();
+    if(value != ''){
+      changeStatus();
+    }
+    if(note != ''){
+      changeNotes();
+    }
+    if(emailNotes != ''){
+      changeEmail()
+    }
     setCount(count + 1);
-    
+    handleClose();
+  }
+
+  async function changeNotes() {
+    axios({
+      method: 'put',
+      url: `http://localhost:8080/status/updateNotes/${idSelect}?status=${value}`,
+      data: {
+        noteUpdate: note
+      },
+    })
+  }
+
+  async function changeEmail() {
+    axios({
+      method: 'post',
+      url: `http://localhost:8080/status/send`,
+      data: {
+        email: visitorEmail,
+        body: emailNotes
+      },
+    })
   }
 
 //   const handleDateSort = (key) => {
@@ -133,7 +176,7 @@ function CustomizedTables(props) {
   async function changeStatus() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/${idSelect}?status=${value}`,
+      url: `http://localhost:8080/status/updateStatus/${idSelect}?status=${value}`,
     })
   }
 
@@ -288,21 +331,21 @@ function CustomizedTables(props) {
               parkLocation: 'request.parklocation',
               requestType: 'request.requesttype',
               problemDescription: 'request.problemdescription',
-              requestNotes: 'request.requestNotes',
+              notes: 'request.notes',
               email: 'request.email',
             }}
           >
             {filteredData.map((e) => (
-              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id}>
-                  <StyledTableCell align="right">{e.id}</StyledTableCell>
-                  <StyledTableCell align="right">{e.status}</StyledTableCell>
-                  <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
-                  <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
-                  <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
-                  <StyledTableCell align="right">{e.requestType}</StyledTableCell>
-                  <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
-                  <StyledTableCell align="right">{e.requestNotes}</StyledTableCell>
-                  <StyledTableCell align="right">{e.email}</StyledTableCell>
+              <StyledTableRow key={e.id} onClick={() => handleClickOpen(e.id, e.email)} value={e.id}>
+                <StyledTableCell align="right">{e.id}</StyledTableCell>
+                <StyledTableCell align="right">{e.status}</StyledTableCell>
+                <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+                <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+                <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
+                <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+                <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                <StyledTableCell align="right">{e.notes}</StyledTableCell>
+                <StyledTableCell align="right">{e.email}</StyledTableCell>
               </StyledTableRow>
 
             ))}
@@ -332,9 +375,17 @@ function CustomizedTables(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="notes"
+            label="Add Notes To The Request!"
+            fullWidth
+            onChange={handleNotesChange}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="email"
             label="Write to the request maker!"
-            type="email"
+            onChange={handleEmailChange}
             fullWidth
           />
         </DialogContent>

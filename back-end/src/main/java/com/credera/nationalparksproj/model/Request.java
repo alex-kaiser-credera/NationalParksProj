@@ -40,6 +40,9 @@ public class Request {
     @Column(name = "problemDescription")
     private String problemDescription;
 
+    @Column(name = "notes")
+    private String notes;
+
     @Column(name = "email")
     private String email;
 
