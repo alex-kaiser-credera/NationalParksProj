@@ -124,11 +124,6 @@ function CustomizedTables(props) {
   var date = new Date().toLocaleDateString();
 
   const handleStatusSubmit = (event) => {
-
-    event.preventDefault();
-    changeStatus();
-    handleClose();
-
     if(value != ''){
       changeStatus();
     }
