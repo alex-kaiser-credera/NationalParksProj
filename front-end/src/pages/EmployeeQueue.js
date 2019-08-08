@@ -15,6 +15,7 @@ import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
 import { yellow, grey } from '@material-ui/core/colors';
+import Cookies from 'js-cookie';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -61,9 +62,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CustomizedTables(props) {
+  // const { cookies } = props;
   const classes = useStyles();
   // const [{ parkLocation }] = LogIn().park;
-  const parkLocation = props.parkLocation;
+  const parkLocation = Cookies.get('parkIdCookie') || null;
   //const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
@@ -119,11 +121,8 @@ function CustomizedTables(props) {
 
   useEffect(() => {
     async function fetchAll() {
-<<<<<<< HEAD
+
       const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
-=======
-      const result = await axios(`http://localhost:8080/status/view/25?status=All`);
->>>>>>> 2aeaa9719a5bdf6827b647c91e3978fbf8053def
 
       // Mock response
       // const result = {

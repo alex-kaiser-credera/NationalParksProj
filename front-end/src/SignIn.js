@@ -81,6 +81,7 @@ const LogIn = props => {
         const parkLocation = response.data.parkId;
     
         setCookie('cookie', response.data.token, ['/']);
+        setCookie('parkIdCookie', response.data.parkId, ['/']);
         props.callBackFromApp(parkLocation);
 
         console.log(response)
