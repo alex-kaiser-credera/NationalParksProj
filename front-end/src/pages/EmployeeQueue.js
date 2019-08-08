@@ -268,6 +268,8 @@ function CustomizedTables(props) {
   } else if (dropdown === 3) {
     // Filter down to completed status items only
     filteredData = result.filter(item => item.status === `Completed`);
+  } else if (dropdown === 4) {
+    filteredData = result.filter(item => item.status === `Not Started`);
   }
 
   // Filter by confirmation number
