@@ -14,6 +14,7 @@ import Collapse from '@material-ui/core/Collapse';
 import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
+import { yellow, grey } from '@material-ui/core/colors';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -54,14 +55,16 @@ const useStyles = makeStyles(theme => ({
     marginRight: 780,
     marginTop: 5
   },
+// tableRow: onHover {
+//   backgroundColor: }
 
 }));
 
 function CustomizedTables(props) {
   const classes = useStyles();
   // const [{ parkLocation }] = LogIn().park;
-  const parkId = props.parkId
-  const parkLocation = 43;
+  const parkLocation = props.parkLocation;
+  //const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
   const [dropdown, setDropdown] = React.useState('');
@@ -114,6 +117,8 @@ function CustomizedTables(props) {
     setDropdown(event.target.value);
   }
 
+  var date = new Date().toLocaleDateString();
+
   const handleStatusSubmit = (event) => {
     if(value != ''){
       changeStatus();
@@ -125,6 +130,7 @@ function CustomizedTables(props) {
       changeEmail()
     }
     setCount(count + 1);
+<<<<<<< HEAD
     handleClose();
   }
 
@@ -147,7 +153,28 @@ function CustomizedTables(props) {
         body: emailNotes
       },
     })
+=======
+    
+>>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
   }
+
+//   const handleDateSort = (key) => {
+//     this.setState({
+//         data: data.sort((a, b) => (
+//             this.state.direction[key] === 'asc'
+//             ? 
+//              parseFloat(a[key]) - parseFloat(b[key])
+//             : parseFloat(b[key]) - parseFloat(a[key])
+//         )),
+
+//         direction: {
+//             [key]: this.state.direction[key] === 'asc'
+//             ? 'desc'
+//             : 'asc'
+//         }
+//     })
+// }
+
 
   async function changeStatus() {
     axios({
@@ -158,8 +185,9 @@ function CustomizedTables(props) {
 
   useEffect(() => {
     async function fetchAll() {
-      const result = await axios(`http://localhost:8080/status/view/25?status=All`);
 
+      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      console.log(result);
       // Mock response
       // const result = {
       //   data: [
@@ -211,6 +239,18 @@ function CustomizedTables(props) {
     setRequest(event.target.value);
   }
 
+  const [isSortedDesc, setIsSortedDesc]  = React.useState(false);
+
+  const sortByDateCreated = (isSortedDesc) => {
+    setIsSortedDesc(!isSortedDesc);
+    setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.dateCreated < b.dateCreated: a.dateCreated > b.dateCreated) ? 1 : -1));
+  }
+
+  const sortByDateCompleted = (isSortedDesc) => {
+    setIsSortedDesc(!isSortedDesc);
+    setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.dateCompleted < b.dateCompleted: a.dateCompleted > b.dateCompleted) ? 1 : -1));
+  }
+
   // Filter by status
   let filteredData = result;
   if (dropdown === 2) {
@@ -227,7 +267,7 @@ function CustomizedTables(props) {
     filteredData = result.filter(item => item.id === parseInt(textField));
   }
 
-  console.log()
+  console.log(props.parkLocation)
 
   return (
     <div>
@@ -236,7 +276,7 @@ function CustomizedTables(props) {
       <Avatar className={classes.avatar} />
       <div>
         <FormControl>
-          <InputLabel htmlfor='filter'>Filter</InputLabel>
+          <InputLabel htmlFor='filter'>Filter</InputLabel>
           <Select
             value={dropdown}
             onChange={handleFilterChange}
@@ -256,7 +296,7 @@ function CustomizedTables(props) {
     </Confirmation> */}
       <div>
         <FormControl>
-          <InputLabel htmlfor='confirmation'>Confirmation Number</InputLabel>
+          <InputLabel htmlFor='confirmation'>Confirmation Number</InputLabel>
           <Input
             id='description'
             value={textField}
@@ -272,8 +312,8 @@ function CustomizedTables(props) {
             <TableRow>
               <StyledTableCell align="right">Confirmation Number</StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Date Created</StyledTableCell>
-              <StyledTableCell align="right">Date Completed</StyledTableCell>
+              <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCreated(isSortedDesc)}>Date Created</StyledTableCell>
+              <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCompleted(isSortedDesc)}>Date Completed</StyledTableCell>
               <StyledTableCell align="right">Park</StyledTableCell>
               <StyledTableCell align="right">Request Type</StyledTableCell>
               <StyledTableCell align="right">Description</StyledTableCell>
@@ -294,11 +334,16 @@ function CustomizedTables(props) {
               parkLocation: 'request.parklocation',
               requestType: 'request.requesttype',
               problemDescription: 'request.problemdescription',
+<<<<<<< HEAD
               notes: 'request.notes',
+=======
+              requestNotes: 'request.requestNotes',
+>>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
               email: 'request.email',
             }}
           >
             {filteredData.map((e) => (
+<<<<<<< HEAD
               <StyledTableRow key={e.id} onClick={() => handleClickOpen(e.id, e.email)} value={e.id}>
                 <StyledTableCell align="right">{e.id}</StyledTableCell>
                 <StyledTableCell align="right">{e.status}</StyledTableCell>
@@ -309,6 +354,18 @@ function CustomizedTables(props) {
                 <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
                 <StyledTableCell align="right">{e.notes}</StyledTableCell>
                 <StyledTableCell align="right">{e.email}</StyledTableCell>
+=======
+              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id)} value={e.id}>
+                  <StyledTableCell align="right">{e.id}</StyledTableCell>
+                  <StyledTableCell align="right">{e.status}</StyledTableCell>
+                  <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
+                  <StyledTableCell align="right">{e.dateCompleted}</StyledTableCell>
+                  <StyledTableCell align="right">{e.parkLocation.name}</StyledTableCell>
+                  <StyledTableCell align="right">{e.requestType}</StyledTableCell>
+                  <StyledTableCell align="right">{e.problemDescription}</StyledTableCell>
+                  <StyledTableCell align="right">{e.requestNotes}</StyledTableCell>
+                  <StyledTableCell align="right">{e.email}</StyledTableCell>
+>>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
               </StyledTableRow>
 
             ))}

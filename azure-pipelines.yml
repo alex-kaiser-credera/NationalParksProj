@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 variables:
   projectFolder: 'front-end/src'
   buildOutputFolder: 'front-end/src/build'
@@ -32,3 +33,35 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
+=======
+pool:
+  vmImage: 'Ubuntu-16.04'
+steps:
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'front-end'
+
+- task: Npm@1
+  displayName: "Npm Build"
+  inputs:
+    command: 'custom'
+    workingDir: 'front-end'
+    customCommand: 'run build'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive Files'
+  inputs:
+    rootFolderOrFile: 'front-end/build'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+## Publish zip file to Azure
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build Artifact'
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
+>>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
