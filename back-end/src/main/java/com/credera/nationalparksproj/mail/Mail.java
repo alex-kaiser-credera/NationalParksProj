@@ -37,7 +37,7 @@ public class Mail {
                     InternetAddress.parse(email)
             );
             message.setSubject("National Parks Confirmation");
-            message.setText("\n\n Thank you for submitting a service request!, " +
+            message.setText("\n\n Thank you for submitting a service request, " +
                     "we will make sure to get this problem resolved as quickly as possible!");
 
             Transport.send(message);
