@@ -1,7 +1,6 @@
 {
   "name": "front-end",
   "version": "0.1.0",
-  "private": true,
   "homepage" : "ec2-3-83-136-233.compute-1.amazonaws.com", 
   "dependencies": {
     "@aws-amplify/api": "^1.0.42",
