@@ -104,6 +104,7 @@ function CustomizedTables(props) {
   }
 
   const handleStatusSubmit = (event) => {
+    event.preventDefault();
     changeStatus();
     handleClose();
     setCount(count + 1);
