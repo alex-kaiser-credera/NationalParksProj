@@ -124,6 +124,7 @@ function CustomizedTables(props) {
   var date = new Date().toLocaleDateString();
 
   const handleStatusSubmit = (event) => {
+
     if(value != ''){
       changeStatus();
     }
@@ -253,6 +254,11 @@ function CustomizedTables(props) {
     setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.dateCompleted < b.dateCompleted: a.dateCompleted > b.dateCompleted) ? 1 : -1));
   }
 
+  const sortById = (isSortedDesc) => {
+    setIsSortedDesc(!isSortedDesc);
+    setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.id < b.id: a.id > b.id) ? 1 : -1));
+  }
+
   // Filter by status
   let filteredData = result;
   if (dropdown === 2) {
@@ -312,7 +318,7 @@ function CustomizedTables(props) {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <StyledTableCell align="right">Confirmation Number</StyledTableCell>
+              <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortById(isSortedDesc)}>Confirmation Number</StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
               <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCreated(isSortedDesc)}>Date Created</StyledTableCell>
               <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCompleted(isSortedDesc)}>Date Completed</StyledTableCell>
