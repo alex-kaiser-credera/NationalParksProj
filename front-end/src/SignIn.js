@@ -52,8 +52,8 @@ const LogIn = props => {
 
   const classes = useStyles();
 
-  const { value: username, bind: bindUsername, reset: resetUsername } = useInput('');
-  const { value: password, bind: bindPassword, reset: resetPassword } = useInput('');
+  const { value: username, bind: bindUsername } = useInput('');
+  const { value: password, bind: bindPassword } = useInput('');
 
   
  

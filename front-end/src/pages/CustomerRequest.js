@@ -4,6 +4,7 @@ import { Typography, Select, FormControl, InputLabel, MenuItem, FormHelperText, 
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import axios from "axios";
+import { useInput } from '../UseInput';
 
 const useStyles = makeStyles(theme => ({
     imageSrc: {
@@ -62,6 +63,7 @@ export default function CustomerRequest() {
     const [description, setDescription] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [result, setResult] = React.useState([]);
+ 
 
 
     async function getPark(id) {
@@ -105,7 +107,7 @@ export default function CustomerRequest() {
 
     async function submitRequest() {
         console.log(`Verify Request\ndateCreated: ${date}\nparkLocation: ${park}\nrequestType: ${request}
-                \nproblemDescription: ${description}\nemail: ${email}`)
+                \nproblemDescription: ${description}\nemail: ${email}`)  
         axios({
             method: 'post',
             url: 'http://localhost:8080/status/visitor',
@@ -123,10 +125,20 @@ export default function CustomerRequest() {
         }, (error) => {
           console.log(error);
         });;
-      }
+    }
       const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (park !== '' && requestType !== '' && email !== ''){
         submitRequest();
+        alert('Thank you for your Request! A work order has been submitted.')
+        setEmail('');
+        setPark('');
+        setRequest('');
+        setDescription('');
+        } else {
+            alert('Error: Please fill all required fields')
+        }
     }
 
     getPark(5);
@@ -146,7 +158,7 @@ export default function CustomerRequest() {
         </Typography>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlFor='email'>Email</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='email'>Email*</InputLabel>
                             <Input
                                 className={classes.labels}
                                 id='description'
@@ -159,7 +171,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlFor='park'>Park</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='park'>Park*</InputLabel>
                             <Select
                                 className={classes.labels}
                                 value={park}
@@ -170,12 +182,6 @@ export default function CustomerRequest() {
                                 }}
                             >
        
-                                {result.map((e) => {
-                                    //console.log(park);
-
-                                    return (<MenuItem className={classes.dropdown}value={e.id}>{e.name}</MenuItem>)
-
-                                })}
                             
                             {result.map((e) => {
                                 return (<MenuItem className={classes.dropdown} value={e.id}>{e.name}</MenuItem>)
@@ -187,7 +193,7 @@ export default function CustomerRequest() {
                     </div>
                     <div align='center'>
                         <FormControl>
-                            <InputLabel className={classes.labels} htmlFor='request'>Request</InputLabel>
+                            <InputLabel className={classes.labels} htmlFor='request'>Request*</InputLabel>
                             <Select
                                 className={classes.labels}
                                 value={request}

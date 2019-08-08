@@ -1,54 +1,67 @@
-# Node.js React Web App to Linux on Azure
-# Build a Node.js React app and deploy it to Azure as a Linux web app.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
-trigger:
-- master
-
+<<<<<<< HEAD
 variables:
+  projectFolder: 'front-end/src'
+  buildOutputFolder: 'front-end/src/build'
 
-  # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '{{ azureRmConnection.Id }}'
 
-  # Web app name
-  webAppName: '{{ webAppName }}'
+pool:
+  name: Hosted Ubuntu 1604
+  demands: npm
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+steps:
 
-stages:
-- stage: Build
-  displayName: Build stage
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
+- script: |
+    pushd $(projectFolder) && npm install && popd
+    pushd $(projectFolder) && npm run build && popd
+    
+## Copy client files to staging directory
+- task: CopyFiles@1
+  inputs:
+    sourceFolder: '$(buildOutputFolder)'
+    contents: '**/*'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    cleanTargetFolder: true
 
-    steps:
-    - task: Npm@1
-      displayName: 'npm install'
-      inputs:
-        command: 'install'
-    - task: Npm@1
-      displayName: 'npm install react-scripts'
-      inputs:
-        command: 'custom'
-        customCommand: 'install react-scripts --save'
-    - task: Npm@1
-      displayName: 'Npm Build'
-      inputs:
-        command: 'custom'
-        customCommand: 'run build'
-    - task: ArchiveFiles@2
-      displayName: 'Archive files'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/front-end/src/build'
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/front-end-$(Build.BuildId).zip
-        replaceExistingArchive: true
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: $(Build.ArtifactStagingDirectory)
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
+    includeRootFolder: false
 
-    - upload: $(Build.ArtifactStagingDirectory)/front-end-$(Build.BuildId).zip
-      artifact: drop
+## Publish zip file to Azure
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
+=======
+pool:
+  vmImage: 'Ubuntu-16.04'
+steps:
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'front-end'
+
+- task: Npm@1
+  displayName: "Npm Build"
+  inputs:
+    command: 'custom'
+    workingDir: 'front-end'
+    customCommand: 'run build'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive Files'
+  inputs:
+    rootFolderOrFile: 'front-end/build'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+## Publish zip file to Azure
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build Artifact'
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
+>>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8

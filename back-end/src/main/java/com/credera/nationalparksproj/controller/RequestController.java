@@ -2,6 +2,7 @@ package com.credera.nationalparksproj.controller;
 
 import com.credera.nationalparksproj.dto.TextToVisitor;
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
+import com.credera.nationalparksproj.dto.UpdateText;
 import com.credera.nationalparksproj.model.Request;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.w3c.dom.Text;
 @RestController
 @RequestMapping("/status")
 public class RequestController {
+    
 
     @Autowired
     RequestService requestService;
@@ -55,7 +57,7 @@ public class RequestController {
 //
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("/{id}")
+    @PutMapping("/updateStatus/{id}")
     public String updateStatus (
             @PathVariable Integer id,
             @RequestParam(value = "status") String status){
@@ -81,8 +83,17 @@ public class RequestController {
         return new ResponseEntity(requestService.getRequestByPark(id, status), HttpStatus.OK);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/send")
     public ResponseEntity sendMessageToVisitor (@RequestBody TextToVisitor textToVisitor){
         return new ResponseEntity(requestService.sendResponseToVisitor(textToVisitor), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/updateNotes/{id}")
+    public ResponseEntity updateNotes (@PathVariable Integer id, @RequestBody UpdateText updateText){
+        Request _request = requestService.getRequestByID(id);
+        return new ResponseEntity(requestService.saveNotesToRequest(_request, updateText), HttpStatus.OK);
     }
 }

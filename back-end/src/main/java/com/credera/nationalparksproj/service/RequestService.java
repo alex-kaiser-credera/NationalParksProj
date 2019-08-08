@@ -2,6 +2,7 @@ package com.credera.nationalparksproj.service;
 
 import com.credera.nationalparksproj.dto.TextToVisitor;
 import com.credera.nationalparksproj.dto.UnconnectedRequest;
+import com.credera.nationalparksproj.dto.UpdateText;
 import com.credera.nationalparksproj.mail.Mail;
 import com.credera.nationalparksproj.model.NationalPark;
 import com.credera.nationalparksproj.model.Request;
@@ -10,6 +11,8 @@ import com.credera.nationalparksproj.repository.RequestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,14 +52,20 @@ public class RequestService {
     }
 
     public String saveStatusToRequest(Request request, String status){
-
+        Request temp = request;
         if (status.equals("Completed")) {
             Mail m = new Mail();
             m.sendComplete(request.getEmail());
 
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("M/d/yyyy");
+            LocalDate localDate = LocalDate.now();
+            System.out.println(dtf.format(localDate));
+
+            temp.setDateCompleted(dtf.format(localDate));
+
         }
 
-        Request temp = request;
+
         temp.setStatus(status);
         return requestRepo.save(temp).getStatus();
 
@@ -87,6 +96,12 @@ public class RequestService {
         Mail m = new Mail();
         m.sendEmailToVisitor(textToVisitor);
         return "Thank you!";
+    }
+
+    public String saveNotesToRequest(Request request, UpdateText updateText){
+        Request temp = request;
+        temp.setNotes(updateText.getNoteUpdate());
+        return requestRepo.save(temp).getNotes();
     }
 
 
