@@ -109,6 +109,7 @@ function CustomizedTables(props) {
     setEmailNotes('');
     setNote('');
     setVisitorEmail('');
+
   }
 
   const handleConfChange = (event) => {
@@ -130,7 +131,6 @@ function CustomizedTables(props) {
     if(emailNotes != ''){
       changeEmail()
     }
-    setCount(count + 1);
     handleClose();
   }
 

@@ -59,7 +59,7 @@ public class RequestService {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("M/d/yyyy");
             LocalDate localDate = LocalDate.now();
-            System.out.println(dtf.format(localDate));
+            System.out.println(dtf.format(localDate)); //2016/11/16
 
             temp.setDateCompleted(dtf.format(localDate));
 

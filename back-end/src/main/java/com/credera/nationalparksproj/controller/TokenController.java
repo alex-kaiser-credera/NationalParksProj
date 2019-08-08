@@ -24,17 +24,4 @@ public class TokenController {
     }
 
 
-//        @Autowired
-//        private EmployeeService employeeService;
-//
-//        @PostMapping("/token")
-//        public String getToken(@RequestParam("username") final String username, @RequestParam("password") final String password){
-//            String token= employeeService.login(username,password);
-//            if(StringUtils.isEmpty(token)){
-//                return "no token found";
-//            }
-//            return token;
-//        }
-
-
 }
