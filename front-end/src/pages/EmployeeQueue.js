@@ -289,6 +289,7 @@ function CustomizedTables(props) {
             <MenuItem value={1}>All</MenuItem>
             <MenuItem value={2}>In progress</MenuItem>
             <MenuItem value={3}>Completed</MenuItem>
+            <MenuItem value={4}>Not Started</MenuItem>
           </Select>
           <FormHelperText>Please select a filter</FormHelperText>
         </FormControl>
@@ -341,7 +342,7 @@ function CustomizedTables(props) {
             }}
           >
             {filteredData.map((e) => (
-              <StyledTableRow key={e.id} onClick={() => handleClickOpen(e.id, e.email)} value={e.id}>
+              <StyledTableRow hover key={e.id} onClick={() => handleClickOpen(e.id, e.email)} value={e.id}>
                 <StyledTableCell align="right">{e.id}</StyledTableCell>
                 <StyledTableCell align="right">{e.status}</StyledTableCell>
                 <StyledTableCell align="right">{e.dateCreated}</StyledTableCell>
