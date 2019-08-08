@@ -1,39 +1,4 @@
-<<<<<<< HEAD
-variables:
-  projectFolder: 'front-end/src'
-  buildOutputFolder: 'front-end/src/build'
 
-
-pool:
-  name: Hosted Ubuntu 1604
-  demands: npm
-
-steps:
-
-- script: |
-    pushd $(projectFolder) && npm install && popd
-    pushd $(projectFolder) && npm run build && popd
-    
-## Copy client files to staging directory
-- task: CopyFiles@1
-  inputs:
-    sourceFolder: '$(buildOutputFolder)'
-    contents: '**/*'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-    cleanTargetFolder: true
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: $(Build.ArtifactStagingDirectory)
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
-    includeRootFolder: false
-
-## Publish zip file to Azure
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/build-$(Build.BuildId).zip'
-=======
 pool:
   vmImage: 'Ubuntu-16.04'
 steps:
@@ -64,4 +29,3 @@ steps:
   displayName: 'Publish build Artifact'
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)/front-end-build-$(Build.BuildId).zip'
->>>>>>> 66ecaa9b11d92fc6ce5678660ef6aaae79e341a8
