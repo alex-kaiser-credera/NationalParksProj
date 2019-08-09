@@ -10,11 +10,9 @@ import Button from '@material-ui/core/Button';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input } from '@material-ui/core';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, FormLabel, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-import Collapse from '@material-ui/core/Collapse';
 import axios from 'axios';
 import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
-import { yellow, grey } from '@material-ui/core/colors';
 import Cookies from 'js-cookie';
 
 const API_KEY = "http://ec2-3-83-136-233.compute-1.amazonaws.com/api/"
