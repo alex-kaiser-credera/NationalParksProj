@@ -10,12 +10,12 @@ import Button from '@material-ui/core/Button';
 import { InputLabel, FormHelperText } from '@material-ui/core';
 import { Select, FormControl, MenuItem, Input } from '@material-ui/core';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, FormLabel, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-// import Collapse from '@material-ui/core/Collapse';
 import axios from 'axios';
 // import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
-// import { yellow, grey } from '@material-ui/core/colors';
 import Cookies from 'js-cookie';
+
+const API_KEY = "http://ec2-3-83-136-233.compute-1.amazonaws.com/api/"
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -59,6 +59,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CustomizedTables(props) {
+  if( Cookies.get('cookie') == null ) { 
+    alert("OH NOES U NO HAS COOKIE");
+    window.location.replace('http://localhost:3000/login');
+  }
+  // const { cookies } = props;
   const classes = useStyles();
   const parkLocation = Cookies.get('parkIdCookie') || null;
   const [result, setResult] = React.useState([]);
@@ -136,7 +141,7 @@ function CustomizedTables(props) {
   async function changeNotes() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/updateNotes/${idSelect}?status=${value}`,
+      url: `${API_KEY}status/updateNotes/${idSelect}?status=${value}`,
       data: {
         noteUpdate: note
       },
@@ -146,7 +151,7 @@ function CustomizedTables(props) {
   async function changeEmail() {
     axios({
       method: 'post',
-      url: `http://localhost:8080/status/send`,
+      url: `${API_KEY}status/send`,
       data: {
         email: visitorEmail,
         body: emailNotes
@@ -175,14 +180,14 @@ function CustomizedTables(props) {
   async function changeStatus() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/updateStatus/${idSelect}?status=${value}`,
+      url: `${API_KEY}status/updateStatus/${idSelect}?status=${value}`,
     })
   }
 
   useEffect(() => {
     async function fetchAll() {
       
-      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      const result = await axios(`${API_KEY}status/view/${parkLocation}?status=All`);
       
       console.log(result);
       // Mock response
@@ -263,6 +268,7 @@ function CustomizedTables(props) {
     // Filter down to completed status items only
     filteredData = result.filter(item => item.status === `Completed`);
   } else if (dropdown === 4) {
+    // Filter down to not started status items only
     filteredData = result.filter(item => item.status === `Not Started`);
   }
 

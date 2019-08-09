@@ -2,8 +2,6 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import { useInput } from './UseInput';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +11,7 @@ import axios from "axios";
 import { useCookies } from 'react-cookie';
 
 
+const API_KEY = "http://ec2-3-83-136-233.compute-1.amazonaws.com/api/"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -69,7 +68,7 @@ const LogIn = props => {
     console.log(`Verify Login called\nUsername: ${username}\nPassword: ${password}`)
     axios({
       method: 'post',
-      url: 'http://localhost:8080/password/',
+      url: `${API_KEY}password/`,
       data: {
         un: username,
         pw: password
@@ -82,6 +81,7 @@ const LogIn = props => {
     
         setCookie('cookie', response.data.token, ['/']);
         setCookie('parkIdCookie', response.data.parkId, ['/']);
+        // localStorage.setItem("token", "eyJzdWIiOiJNZWdhbk1vb3JlIiwicHciOiJwYXNzd29yZCJ9")
         props.callBackFromApp(parkLocation);
 
         console.log(response)
@@ -138,10 +138,7 @@ const LogIn = props => {
               value={password}
               type="password" {...bindPassword}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+           
             <Button
               onClick={(e) => handleSubmit(e)}
               type="submit"
