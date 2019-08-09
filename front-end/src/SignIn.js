@@ -13,7 +13,7 @@ import axios from "axios";
 import { useCookies } from 'react-cookie';
 
 
-
+const API_KEY = "http://ec2-3-83-136-233.compute-1.amazonaws.com/api/"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -70,7 +70,7 @@ const LogIn = props => {
     console.log(`Verify Login called\nUsername: ${username}\nPassword: ${password}`)
     axios({
       method: 'post',
-      url: 'http://localhost:8080/password/',
+      url: `${API_KEY}password/`,
       data: {
         un: username,
         pw: password
