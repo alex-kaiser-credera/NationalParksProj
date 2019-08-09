@@ -17,6 +17,9 @@ import Avatar from '@material-ui/core/Avatar';
 import { yellow, grey } from '@material-ui/core/colors';
 import Cookies from 'js-cookie';
 
+
+
+
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -62,6 +65,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CustomizedTables(props) {
+  if( Cookies.get('cookie') == null ) { 
+    alert("OH NOES U NO HAS COOKIE");
+    window.location.replace('http://localhost:3000/login');
+  }
   // const { cookies } = props;
   const classes = useStyles();
   // const [{ parkLocation }] = LogIn().park;
