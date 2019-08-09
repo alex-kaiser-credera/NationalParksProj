@@ -17,6 +17,8 @@ import Avatar from '@material-ui/core/Avatar';
 import { yellow, grey } from '@material-ui/core/colors';
 import Cookies from 'js-cookie';
 
+const API_KEY = "http://ec2-3-83-136-233.compute-1.amazonaws.com/api/"
+
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -124,6 +126,7 @@ function CustomizedTables(props) {
   var date = new Date().toLocaleDateString();
 
   const handleStatusSubmit = (event) => {
+
     if(value != ''){
       changeStatus();
     }
@@ -141,7 +144,7 @@ function CustomizedTables(props) {
   async function changeNotes() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/updateNotes/${idSelect}?status=${value}`,
+      url: `${API_KEY}status/updateNotes/${idSelect}?status=${value}`,
       data: {
         noteUpdate: note
       },
@@ -151,7 +154,7 @@ function CustomizedTables(props) {
   async function changeEmail() {
     axios({
       method: 'post',
-      url: `http://localhost:8080/status/send`,
+      url: `${API_KEY}status/send`,
       data: {
         email: visitorEmail,
         body: emailNotes
@@ -180,14 +183,14 @@ function CustomizedTables(props) {
   async function changeStatus() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/updateStatus/${idSelect}?status=${value}`,
+      url: `${API_KEY}status/updateStatus/${idSelect}?status=${value}`,
     })
   }
 
   useEffect(() => {
     async function fetchAll() {
       
-      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      const result = await axios(`${API_KEY}status/view/${parkLocation}?status=All`);
       
       console.log(result);
       // Mock response
@@ -253,6 +256,11 @@ function CustomizedTables(props) {
     setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.dateCompleted < b.dateCompleted: a.dateCompleted > b.dateCompleted) ? 1 : -1));
   }
 
+  const sortById = (isSortedDesc) => {
+    setIsSortedDesc(!isSortedDesc);
+    setResult(result.slice(0).sort((a, b) => (isSortedDesc ? a.id < b.id: a.id > b.id) ? 1 : -1));
+  }
+
   // Filter by status
   let filteredData = result;
   if (dropdown === 2) {
@@ -297,7 +305,7 @@ function CustomizedTables(props) {
           <FormHelperText>Please select a filter</FormHelperText>
         </FormControl>
       </div>
-
+ 
       {/* <Confirmation>
     </Confirmation> */}
       <div>
@@ -316,7 +324,7 @@ function CustomizedTables(props) {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <StyledTableCell align="right">Confirmation Number</StyledTableCell>
+              <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortById(isSortedDesc)}>Confirmation Number</StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
               <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCreated(isSortedDesc)}>Date Created</StyledTableCell>
               <StyledTableCell isSortedDesc={false} align="right" onClick={() => sortByDateCompleted(isSortedDesc)}>Date Completed</StyledTableCell>

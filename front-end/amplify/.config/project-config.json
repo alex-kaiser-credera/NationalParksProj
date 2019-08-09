@@ -1,0 +1,17 @@
+{
+    "projectName": "NationalParksProj",
+    "version": "2.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "/Users/alex.kaiser/NationalParksProj/front-end/src",
+            "DistributionDir": "/Users/alex.kaiser/NationalParksProj/front-end/build",
+            "BuildCommand": "npm run build",
+            "StartCommand": "npm start"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}
