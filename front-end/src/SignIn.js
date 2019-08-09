@@ -140,10 +140,7 @@ const LogIn = props => {
               value={password}
               type="password" {...bindPassword}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+           
             <Button
               onClick={(e) => handleSubmit(e)}
               type="submit"
