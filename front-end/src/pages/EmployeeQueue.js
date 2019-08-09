@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 function CustomizedTables(props) {
   if( Cookies.get('cookie') == null ) { 
     alert("OH NOES U NO HAS COOKIE");
-    window.location.replace('http://localhost:3000/login');
+    window.location.replace(`${API_KEY}login`);
   }
   // const { cookies } = props;
   const classes = useStyles();
