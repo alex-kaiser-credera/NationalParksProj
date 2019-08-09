@@ -15,6 +15,8 @@ import LogIn from "../SignIn";
 import Avatar from '@material-ui/core/Avatar';
 import Cookies from 'js-cookie';
 
+const API_KEY = "http://ec2-3-83-136-233.compute-1.amazonaws.com/api/"
+
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -140,7 +142,7 @@ function CustomizedTables(props) {
   async function changeNotes() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/updateNotes/${idSelect}?status=${value}`,
+      url: `${API_KEY}status/updateNotes/${idSelect}?status=${value}`,
       data: {
         noteUpdate: note
       },
@@ -150,7 +152,7 @@ function CustomizedTables(props) {
   async function changeEmail() {
     axios({
       method: 'post',
-      url: `http://localhost:8080/status/send`,
+      url: `${API_KEY}status/send`,
       data: {
         email: visitorEmail,
         body: emailNotes
@@ -179,14 +181,14 @@ function CustomizedTables(props) {
   async function changeStatus() {
     axios({
       method: 'put',
-      url: `http://localhost:8080/status/updateStatus/${idSelect}?status=${value}`,
+      url: `${API_KEY}status/updateStatus/${idSelect}?status=${value}`,
     })
   }
 
   useEffect(() => {
     async function fetchAll() {
       
-      const result = await axios(`http://localhost:8080/status/view/${parkLocation}?status=All`);
+      const result = await axios(`${API_KEY}status/view/${parkLocation}?status=All`);
       
       console.log(result);
       // Mock response
