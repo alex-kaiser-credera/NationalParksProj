@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     width: '100%'
   },
-
+ 
   image: {
     border: '4px solid black',
     textAlign: 'center',

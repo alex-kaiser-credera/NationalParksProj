@@ -13,7 +13,7 @@ const initialRequest = {
   problemDesc: 'Clean bathroom at end of trail',
   email: 'megan.moore@credera.com'
 };
-
+ 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'filter':
