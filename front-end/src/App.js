@@ -15,7 +15,6 @@ const App = () => {
   
   const callBackFromApp = (id) => {
     setParkLocation(id)
-  
     
   }
 

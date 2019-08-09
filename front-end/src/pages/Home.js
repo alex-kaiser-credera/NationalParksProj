@@ -6,7 +6,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
-import { sizing } from '@material-ui/system';
 import Avatar from '@material-ui/core/Avatar';
 
 
@@ -112,6 +111,7 @@ export default function ButtonBases() {
                           <Typography
                             className={classes.imageTitle}
                           >
+                            
                             {value.title}
                           </Typography>
                         </span>
