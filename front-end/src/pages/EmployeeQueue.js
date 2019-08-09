@@ -56,27 +56,21 @@ const useStyles = makeStyles(theme => ({
     marginRight: 780,
     marginTop: 5
   },
-// tableRow: onHover {
-//   backgroundColor: }
-
 }));
 
 function CustomizedTables(props) {
-  // const { cookies } = props;
   const classes = useStyles();
-  // const [{ parkLocation }] = LogIn().park;
   const parkLocation = Cookies.get('parkIdCookie') || null;
-  //const parkLocation = 43;
   const [result, setResult] = React.useState([]);
   const [request, setRequest] = React.useState([]);
   const [dropdown, setDropdown] = React.useState('');
   const [textField, setTextField] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
+  // const [checked, setChecked] = React.useState(false);
   const [value, setValue] = React.useState();
   const [idSelect, setIdSelect] = React.useState('');
   const [count, setCount] = React.useState(0);
-  const [filter, setFilter] = React.useState('All');
+  // const [filter, setFilter] = React.useState('All');
   const [note, setNote] = React.useState('');
   const [emailNotes, setEmailNotes] = React.useState('');
   const [visitorEmail, setVisitorEmail] = React.useState('');
@@ -93,9 +87,9 @@ function CustomizedTables(props) {
     setEmailNotes(event.target.value);
   }
 
-  function handleHover() {
-    setChecked(prev => !prev);
-  }
+  // function handleHover() {
+  //   setChecked(prev => !prev);
+  // }
 
   const handleClickOpen = (id, email) => {
     console.log(id);
@@ -121,17 +115,17 @@ function CustomizedTables(props) {
     setDropdown(event.target.value);
   }
 
-  var date = new Date().toLocaleDateString();
+  // var date = new Date().toLocaleDateString();
 
   const handleStatusSubmit = (event) => {
 
-    if(value != ''){
+    if(value !== ''){
       changeStatus();
     }
-    if(note != ''){
+    if(note !== ''){
       changeNotes();
     }
-    if(emailNotes != ''){
+    if(emailNotes !== ''){
       changeEmail()
     }
 
@@ -238,9 +232,9 @@ function CustomizedTables(props) {
     fetchAll();
   }, [count, dropdown]);
 
-  const selectRequest = (event) => {
-    setRequest(event.target.value);
-  }
+  // const selectRequest = (event) => {
+  //   setRequest(event.target.value);
+  // }
 
   const [isSortedDesc, setIsSortedDesc]  = React.useState(false);
 
