@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../App';
+import Login from '../SignIn';
 
-it("App renders without crashing", () => {
+it("Login page renders without crashing", () => {
     const root = document.createElement("root");
-    ReactDOM.render(<App />, root);
+    ReactDOM.render(<Login />, root); 
     ReactDOM.unmountComponentAtNode(root);
-    
 });
