@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/path",
+            "lambdaFunction": "nationalparkspipe",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "parksdata",
+    "apiName": "parksdata",
+    "functionArns": [
+        {
+            "lambdaFunction": "nationalparkspipe"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "nationalparksproj-rct-20190808114237-authRole",
+        "unAuthRoleName": "nationalparksproj-rct-20190808114237-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "nationalparkspipe",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
