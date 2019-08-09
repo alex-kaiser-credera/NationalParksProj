@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import axios from "axios";
 import { useInput } from '../UseInput';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
     imageSrc: {
@@ -65,16 +66,17 @@ export default function CustomerRequest() {
     const [result, setResult] = React.useState([]);
  
 
-
-    async function getPark(id) {
-        await axios.get(`http://localhost:8080/getAllParks/`)
-            .then(response => {
-                setResult(response.data.map(ele => {
-                    return (ele)
-                    }))
-            }
-        );
-    }
+    useEffect(() => {
+        async function getPark(id) {
+            await axios.get(`http://localhost:8080/getAllParks/`)
+                .then(response => {
+                    setResult(response.data.map(ele => {
+                        return (ele)
+                        }))
+                }
+            );
+        } getPark(); 
+    }, );
 
     const handleParkChange = (event) => {
         setPark(event.target.value);
@@ -141,8 +143,6 @@ export default function CustomerRequest() {
         }
     }
 
-    
-    getPark(5);
     return (
         <div>
             <Container id="signIn-form" component="main" >
