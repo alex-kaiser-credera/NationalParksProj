@@ -83,6 +83,7 @@ const LogIn = props => {
     
         setCookie('cookie', response.data.token, ['/']);
         setCookie('parkIdCookie', response.data.parkId, ['/']);
+        // localStorage.setItem("token", "eyJzdWIiOiJNZWdhbk1vb3JlIiwicHciOiJwYXNzd29yZCJ9")
         props.callBackFromApp(parkLocation);
 
         console.log(response)
